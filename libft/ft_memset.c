@@ -1,8 +1,14 @@
-void	*ft_memset(void *s, int c, unsigned int n)
+#include <stddef.h>
+
+void	*ft_memset(void *s, int c, size_t n)
 {
-	unsigned int	count;
+	size_t		count;
 
 	count = 0;
-	while (count++ < n)
-		*s++ = c;
+	while (count < n)
+	{
+		*((unsigned char *)s + count) = (unsigned char)c;
+		count++;
+	}
+	return (s);
 }

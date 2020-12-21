@@ -1,8 +1,10 @@
-void			*ft_memset(void *s, int c, unsigned int n);
-void			ft_bzero(void *s, unsigned int n);
-//void			*ft_memcpy(void *dest, const void *src, unsigned int n);
-//void			*ft_memccpy(void *dest, const void *src, int c, unsigned int n);
-//void			*ft_memmove(void *dest, const void *src, unsigned int n);
+#include <stddef.h>
+
+void			*ft_memset(void *s, int c, size_t n);
+void			ft_bzero(void *s, size_t n);
+void			*ft_memcpy(void *dest, const void *src, size_t n); //추가 확인 필요
+//void			*ft_memccpy(void *dest, const void *src, int c, size_t n); 추가 확인 필요
+//void			*ft_memmove(void *dest, const void *src, size_t n);
 void			*ft_memchr(const void *s, int c, unsigned int n);
 //ft_memcmp
 unsigned int	ft_strlen(const char *s);

@@ -1,8 +1,13 @@
-void	ft_bzero(void *s, unsigned int n)
+#include <stddef.h>
+
+void	ft_bzero(void *s, size_t n)
 {
-	unsigned int	count;
+	size_t		count;
 
 	count = 0;
-	while (count++ < n)
-		*s++ = 0;
+	while (count < n)
+	{
+		*((unsigned char *)s + count) = 0;
+		count++;
+	}
 }
