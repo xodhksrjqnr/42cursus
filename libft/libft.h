@@ -8,7 +8,7 @@ void			*ft_memcpy(void *dest, const void *src, size_t n); //추가 확인 필요
 void			*ft_memchr(const void *s, int c, unsigned int n);
 //ft_memcmp
 size_t			ft_strlen(const char *s);
-unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int size);
+//size_t			ft_strlcpy(char *dest, const char *src, size_t size);
 //ft_strlcat
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
