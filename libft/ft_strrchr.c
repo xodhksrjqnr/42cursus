@@ -9,5 +9,7 @@ char	*ft_strrchr(const char *s, int c)
 			location = (char *)s;
 		s++;
 	}
+	if (c == 0)
+		return ((char *)s);
 	return (location);
 }

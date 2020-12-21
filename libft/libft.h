@@ -7,12 +7,12 @@ void			*ft_memcpy(void *dest, const void *src, size_t n); //추가 확인 필요
 //void			*ft_memmove(void *dest, const void *src, size_t n);
 void			*ft_memchr(const void *s, int c, unsigned int n);
 //ft_memcmp
-unsigned int	ft_strlen(const char *s);
+size_t			ft_strlen(const char *s);
 unsigned int	ft_strlcpy(char *dest, const char *src, unsigned int size);
 //ft_strlcat
 char			*ft_strchr(const char *s, int c);
 char			*ft_strrchr(const char *s, int c);
-char			*ft_strnstr(const char *big, const char *little, unsigned int len);
+//char			*ft_strnstr(const char *big, const char *little, unsigned int len);
 //int				ft_strncmp(const char *s1, const char *s2, unsigned int n);
 int				ft_atoi(const char *s);
 int				ft_isalpha(int c);
