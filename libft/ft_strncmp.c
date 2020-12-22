@@ -1,18 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_strncmp.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/23 02:02:51 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/23 02:02:56 by taewakim         ###   ########.fr       */
+/*   Created: 2020/12/23 02:05:37 by taewakim          #+#    #+#             */
+/*   Updated: 2020/12/23 02:05:42 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_isdigit(int c)
+#include <stddef.h>
+
+int		ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	if (c >= '0' && c <= '9')
-		return (c);
-	return (0);
+	unsigned int	count;
+
+	if (n == 0)
+		return (0);
+	count = 0;
+	while (*s1 && count++ < n)
+	{
+		if (*s1 != *s2)
+			return (*s1 - *s2);
+		s1++;
+		s2++;
+	}
+	if (count == n)
+	{
+		s1--;
+		s2--;
+	}
+	return (*s1 - *s2);
 }

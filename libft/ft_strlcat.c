@@ -1,34 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_substr.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/23 02:06:08 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/23 02:07:27 by taewakim         ###   ########.fr       */
+/*   Created: 2020/12/23 02:05:04 by taewakim          #+#    #+#             */
+/*   Updated: 2020/12/23 02:05:09 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include <stddef.h>
 
-char	*ft_substr(char const *s, unsigned int start, unsigned int len)
+size_t		ft_strlcat(char *dest, const char *src, size_t size)
 {
-	char			*result;
-	char			*tmp;
+	unsigned int	dest_count;
+	unsigned int	src_count;
 	unsigned int	count;
 
-	if (!(result = (char *)malloc(sizeof(char) * len + 1)))
+	dest_count = 0;
+	src_count = 0;
+	while (*dest++)
+		dest_count++;
+	if (size == 0 || size > dest_count)
 		return (0);
+	while (*(src + src_count))
+		src_count++;
+	if (dest_count > size)
+		return (src_count + size);
 	count = 0;
-	while (count < start)
-	{
-		count++;
-		s++;
-	}
-	tmp = result;
-	while (count++ < len)
-		*tmp++ = *s++;
-	*tmp = 0;
-	return (result);
+	while (count++ + dest_count + 1 < size && *src)
+		*dest++ = *src++;
+	*src = 0;
+	return (src_count + dest_count);
 }

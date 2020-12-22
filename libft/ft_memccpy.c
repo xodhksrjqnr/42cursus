@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_memccpy.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/23 02:03:34 by taewakim          #+#    #+#             */
+/*   Updated: 2020/12/23 02:03:40 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stddef.h>
 
 void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
@@ -15,4 +27,3 @@ void	*ft_memccpy(void *dest, const void *src, int c, size_t n)
 	}
 	return (0);
 }
-//내장 memccpy의 경우 결과가 다르게 나옴 ex) c 문자가 src에 존재하지 않을 때
