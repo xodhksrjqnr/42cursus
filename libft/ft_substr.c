@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:06:08 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/23 02:07:27 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/23 14:05:39 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,11 @@ char	*ft_substr(char const *s, unsigned int start, unsigned int len)
 		s++;
 	}
 	tmp = result;
-	while (count++ < len)
+	while (count < len)
+	{
 		*tmp++ = *s++;
+		count++;
+	}
 	*tmp = 0;
 	return (result);
 }

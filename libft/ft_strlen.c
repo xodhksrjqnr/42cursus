@@ -6,9 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:05:26 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/23 02:05:30 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/23 13:54:05 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stddef.h>
 
 size_t		ft_strlen(const char *s)
 {
