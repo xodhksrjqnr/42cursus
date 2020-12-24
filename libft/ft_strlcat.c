@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:05:04 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/24 17:40:55 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/24 23:47:42 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ size_t		ft_strlcat(char *dest, const char *src, size_t size)
 	size_t		src_count;
 	size_t		result;
 
+	if (size == 0)
+		return (0);
 	dest_count = 0;
 	while (*dest)
 	{

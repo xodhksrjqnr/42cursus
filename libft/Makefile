@@ -21,7 +21,7 @@ clean:
 	$(RM) $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) libft.h.gch
 
 re: fclean all
 
