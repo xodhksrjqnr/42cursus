@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:03:57 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/23 13:49:30 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/24 17:04:47 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n)
 	unsigned char	*tmp1;
 	unsigned char	*tmp2;
 	size_t			count;
-	int				result;
 
 	tmp1 = (unsigned char *)s1;
 	tmp2 = (unsigned char *)s2;
-	if (n == 0)//|| (*tmp1 == 0 && *tmp2 == 0))
+	if (n == 0)
 		return (0);
 	count = 0;
 	while (count++ < n)

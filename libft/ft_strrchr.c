@@ -6,9 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:05:57 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/23 16:05:27 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/24 15:25:59 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include <stddef.h>
 
 char	*ft_strrchr(const char *s, int c)
 {
