@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:03:57 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/24 21:47:41 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/24 22:23:34 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ int		ft_memcmp(const void *s1, const void *s2, size_t n)
 	while (count++ < n)
 	{
 		if (*tmp1 != *tmp2)
-			break ;
+			return ((int)(*tmp1 - *tmp2));
 		tmp1++;
 		tmp2++;
 	}
-	return ((int)(*tmp1 - *tmp2));
+	return (0);
 }
