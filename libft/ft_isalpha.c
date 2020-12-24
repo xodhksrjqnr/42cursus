@@ -6,11 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:02:29 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/23 02:02:34 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/24 17:52:18 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		isalpha(int c)
+int		ft_isalpha(int c)
 {
 	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
 		return (c);

@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:04:08 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/24 17:03:24 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/24 17:47:50 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 {
 	size_t		count;
 
-	if (!dest || !src)
+	if (!dest && !src)
 		return (0);
 	count = 0;
 	while (count < n)
