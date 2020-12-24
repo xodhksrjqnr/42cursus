@@ -13,7 +13,7 @@
 int		ft_atoi(const char *s)
 {
 	long long		total;
-	int				flag;
+	int			flag;
 
 	while (*s == ' ' || *s == '\t')
 		s++;
