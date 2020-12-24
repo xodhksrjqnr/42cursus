@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:05:47 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/24 21:40:54 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/25 02:40:31 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t len)
 
 	if (*s2 == 0)
 		return ((char *)s1);
-	else if (*s1 == 0 || len == 0)
-		return (0);
 	count = 0;
 	while (*s1 && count < len)
 	{

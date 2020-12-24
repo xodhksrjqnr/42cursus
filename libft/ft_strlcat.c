@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:05:04 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/24 23:47:42 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/25 01:28:02 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ size_t		ft_strlcat(char *dest, const char *src, size_t size)
 		*dest++ = *src++;
 		src_count++;
 	}
-	*dest = 0;
-	result = (dest_count > size) ? size : dest_count;
+	if (size > dest_count)
+		*dest = 0;
+	while (*src++)
+		src_count++;
+	result = (dest_count >= size) ? size : dest_count;
 	result += src_count;
 	return (result);
 }

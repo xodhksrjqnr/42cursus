@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:05:37 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/25 01:11:43 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/25 02:17:55 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ int		ft_strncmp(const char *s1, const char *s2, size_t n)
 	tmp1 = (unsigned char *)s1;
 	tmp2 = (unsigned char *)s2;
 	count = 0;
-	while (*(tmp1 + count) && *(tmp2 + count) && count < n
-			&& *(tmp1 + count) == *(tmp2 + count))
+	while ((*(tmp1 + count) || *(tmp2 + count)) && count < n)
+	{
+		if (*(tmp1 + count) != *(tmp2 + count))
+			return (*(tmp1 + count) - *(tmp2 + count));
 		count++;
-	return (*(tmp1 + count) - *(tmp2 + count));
+	}
+	return (0);
 }
