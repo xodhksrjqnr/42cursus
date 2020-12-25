@@ -1,26 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/23 02:04:28 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/25 20:22:15 by taewakim         ###   ########.fr       */
+/*   Created: 2020/12/23 02:05:04 by taewakim          #+#    #+#             */
+/*   Updated: 2020/12/25 17:10:50 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-void	*ft_memset(void *s, int c, size_t n)
+size_t		ft_strlcat(char *dest, const char *src, size_t size)
 {
-	size_t		count;
+	size_t		dest_count;
+	size_t		src_count;
+	size_t		result;
 
-	count = 0;
-	while (count < n)
+	dest_count = 0;
+	while (*dest)
 	{
-		*((unsigned char *)s + count) = (unsigned char)c;
-		count++;
+		dest++;
+		dest_count++;
 	}
-	return (s);
+	src_count = 0;
+	while (src_count + dest_count + 1 < size && *src)
+	{
+		*dest++ = *src++;
+		src_count++;
+	}
+	*dest = 0;
+	while (*src++)
+		src_count++;
+	result = (dest_count >= size) ? size : dest_count;
+	result += src_count;
+	return (result);
 }

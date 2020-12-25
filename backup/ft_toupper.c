@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/23 02:04:28 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/25 20:22:15 by taewakim         ###   ########.fr       */
+/*   Created: 2020/12/23 02:08:00 by taewakim          #+#    #+#             */
+/*   Updated: 2020/12/23 02:08:05 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
-
-void	*ft_memset(void *s, int c, size_t n)
+int		ft_toupper(int c)
 {
-	size_t		count;
-
-	count = 0;
-	while (count < n)
-	{
-		*((unsigned char *)s + count) = (unsigned char)c;
-		count++;
-	}
-	return (s);
+	if (c >= 'a' && c <= 'z')
+		return (c - 32);
+	return (c);
 }

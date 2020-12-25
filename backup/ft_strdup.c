@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/23 02:04:28 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/25 20:22:15 by taewakim         ###   ########.fr       */
+/*   Created: 2020/12/23 02:04:53 by taewakim          #+#    #+#             */
+/*   Updated: 2020/12/23 02:04:58 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <stdlib.h>
 
-void	*ft_memset(void *s, int c, size_t n)
+char	*ft_strdup(const char *s)
 {
-	size_t		count;
+	char	*result;
+	char	*tmp;
+	int		size;
 
-	count = 0;
-	while (count < n)
-	{
-		*((unsigned char *)s + count) = (unsigned char)c;
-		count++;
-	}
-	return (s);
+	size = 0;
+	while (*(s + size))
+		size++;
+	if (!(result = (char *)malloc(sizeof(char) * size + 1)))
+		return (0);
+	tmp = result;
+	while (*s)
+		*tmp++ = *s++;
+	*tmp = 0;
+	return (result);
 }

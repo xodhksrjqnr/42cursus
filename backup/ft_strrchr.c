@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_strrchr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/23 02:04:28 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/25 20:22:15 by taewakim         ###   ########.fr       */
+/*   Created: 2020/12/23 02:05:57 by taewakim          #+#    #+#             */
+/*   Updated: 2020/12/24 15:25:59 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stddef.h>
 
-void	*ft_memset(void *s, int c, size_t n)
+char	*ft_strrchr(const char *s, int c)
 {
-	size_t		count;
+	char	*location;
 
-	count = 0;
-	while (count < n)
+	location = NULL;
+	while (*s)
 	{
-		*((unsigned char *)s + count) = (unsigned char)c;
-		count++;
+		if (*s == c)
+			location = (char *)s;
+		s++;
 	}
-	return (s);
+	if (c == 0)
+		return ((char *)s);
+	return (location);
 }

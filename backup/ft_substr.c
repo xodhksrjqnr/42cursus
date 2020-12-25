@@ -1,26 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/23 02:04:28 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/25 20:22:15 by taewakim         ###   ########.fr       */
+/*   Created: 2020/12/23 02:06:08 by taewakim          #+#    #+#             */
+/*   Updated: 2020/12/23 14:05:39 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <stdlib.h>
 
-void	*ft_memset(void *s, int c, size_t n)
+char	*ft_substr(char const *s, unsigned int start, unsigned int len)
 {
-	size_t		count;
+	char			*result;
+	char			*tmp;
+	unsigned int	count;
 
+	if (!(result = (char *)malloc(sizeof(char) * len + 1)))
+		return (0);
 	count = 0;
-	while (count < n)
+	while (count < start)
 	{
-		*((unsigned char *)s + count) = (unsigned char)c;
+		count++;
+		s++;
+	}
+	tmp = result;
+	while (count < len)
+	{
+		*tmp++ = *s++;
 		count++;
 	}
-	return (s);
+	*tmp = 0;
+	return (result);
 }

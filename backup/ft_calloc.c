@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/23 02:04:28 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/25 20:22:15 by taewakim         ###   ########.fr       */
+/*   Created: 2020/12/23 02:02:00 by taewakim          #+#    #+#             */
+/*   Updated: 2020/12/24 20:11:10 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include <stdlib.h>
 
-void	*ft_memset(void *s, int c, size_t n)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
-	size_t		count;
+	void	*result;
+	void	*tmp;
+	size_t	count;
 
+	if (!(result = malloc(nmemb * size)))
+		return (0);
 	count = 0;
-	while (count < n)
+	tmp = result;
+	while (count < nmemb * size)
 	{
-		*((unsigned char *)s + count) = (unsigned char)c;
+		*((unsigned char *)tmp + count) = 0;
 		count++;
 	}
-	return (s);
+	return (result);
 }
