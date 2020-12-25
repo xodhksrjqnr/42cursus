@@ -6,13 +6,13 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:02:41 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/23 02:02:46 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/25 22:34:57 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		ft_isascii(int c)
 {
-	if (c >= 0 && c <= 127)
-		return (1);
-	return (0);
+	if (c >= 0x00 && c <= 0x7F)
+		return (0x01);
+	return (0x00);
 }

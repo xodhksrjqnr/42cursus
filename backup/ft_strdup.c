@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:04:53 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/23 02:04:58 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/25 22:41:37 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,18 @@ char	*ft_strdup(const char *s)
 	char	*tmp;
 	int		size;
 
-	size = 0;
+	size = 0x00;
 	while (*(s + size))
-		size++;
-	if (!(result = (char *)malloc(sizeof(char) * size + 1)))
-		return (0);
+		size += 0x01;
+	if (!(result = (char *)malloc(sizeof(char) * size + 0x01)))
+		return (0x00);
 	tmp = result;
 	while (*s)
-		*tmp++ = *s++;
-	*tmp = 0;
+	{
+		*tmp = *s;
+		tmp += 0x01;
+		s += 0x01;
+	}
+	*tmp = 0x00;
 	return (result);
 }

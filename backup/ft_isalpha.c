@@ -6,13 +6,13 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:02:29 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/24 17:55:34 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/25 22:33:06 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		ft_isalpha(int c)
 {
-	if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
+	if ((c >= 0x61 && c <= 0x7A) || (c >= 0x41 && c <= 0x5A))
 		return (c);
-	return (0);
+	return (0x00);
 }

@@ -6,13 +6,13 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:03:02 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/24 17:51:00 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/25 22:31:05 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		ft_isprint(int c)
 {
-	if (c >= 32 && c <= 126)
-		return (1);
-	return (0);
+	if (c >= 0x20 && c <= 0x7e)
+		return (0x01);
+	return (0x00);
 }

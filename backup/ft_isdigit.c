@@ -6,13 +6,13 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:02:51 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/23 02:02:56 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/25 22:29:24 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int		ft_isdigit(int c)
 {
-	if (c >= '0' && c <= '9')
+	if (c >= 0x30 && c <= 0x39)
 		return (c);
-	return (0);
+	return (0x00);
 }
