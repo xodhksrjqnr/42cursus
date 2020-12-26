@@ -24,15 +24,17 @@ static void		make_result(char **result, char *s, int c)
 
 	count = 0;
 	start = s;
-	while (*(result + count))
+	while (*s)
 	{
-		if (*s == c || *s == 0)
+		if (*s == c)
 		{
 			*(result + count++) = new_arr(start, s);
 			start = s + 1;
 		}
 		s++;
 	}
+	*(result + count++) = new_arr(start, s);
+	*(result + count) = 0;
 }
 
 char			**ft_split(char const *s, char c)
@@ -52,7 +54,6 @@ char			**ft_split(char const *s, char c)
 			len++;
 	if (!(result = (char **)malloc(len + 1 * sizeof(char *))))
 		return (0);
-	result[len] = 0;
 	make_result(result, convert_s, c);
 	free(convert_s);
 	return (result);
