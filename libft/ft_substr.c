@@ -13,6 +13,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		len = 0;
 	if (!(result = (char *)malloc(len + 1 * sizeof(char))))
 		return (0);
-	ft_strlcpy(result, s + start, len + 1);
+	result[len] = 0;
+	ft_memcpy(result, s + start, len);
 	return (result);
 }
