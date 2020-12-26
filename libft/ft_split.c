@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 05:12:38 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/27 05:12:45 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/27 05:27:54 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int		next_location(char const *s, char c)
 	int		len;
 
 	len = 0;
-	while (*(s + len) != c)
+	while (*(s + len) != c && *(s + len))
 		len++;
 	while (*(s + len) == c)
 		len++;
@@ -66,7 +66,7 @@ char			**ft_split(char const *s, char c)
 	char	**result;
 	int		len;
 	int		count;
-	
+
 	if (!s)
 		return (0);
 	while (*s == c)

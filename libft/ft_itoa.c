@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 05:12:26 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/27 05:12:33 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/27 05:17:23 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int		num_len(int n)
 }
 
 char			*ft_itoa(int n)
-{	
+{
 	char	*result;
 	int		len;
 	int		flag;
