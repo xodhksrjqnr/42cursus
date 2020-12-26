@@ -1,4 +1,3 @@
-#include "libft.h"
 #include <stdlib.h>
 
 static char		*new_arr(char const *s, char c)
@@ -55,21 +54,20 @@ char			**ft_split(char const *s, char c)
 	char	**result;
 	int		len;
 	int		count;
-	int		location;
-
+	
 	if (!s)
 		return (0);
 	while (*s == c)
 		s++;
 	len = check_len(s, c);
-	if (!(result = (char **)malloc(len + 1 * sizeof(char *))))
+	if (!(result = (char **)malloc((len + 1) * sizeof(char *))))
 		return (0);
 	count = 0;
-	location = 0;
 	while (count < len)
 	{
-		*(result + count++) = new_arr(s + location, c);
-		location = next_location(s + location, c);
+		if (!(*(result + count++) = new_arr(s, c)))
+			return (0);
+		s += next_location(s, c);
 	}
 	*(result + count) = 0;
 	return (result);
