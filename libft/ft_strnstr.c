@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:05:47 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/25 19:33:48 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/26 14:23:40 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		check(const char *s1, const char *s2, size_t len)
 {
 	size_t		tmp;
-	
+
 	tmp = 0;
 	while (*(s1 + tmp) && *(s2 + tmp))
 		tmp++;
