@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:16:38 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/27 16:31:13 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/27 19:56:47 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,17 @@
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
-	t_list		*pre;
+	t_list		*cur;
 
 	if (!lst || !new)
 		return ;
-	pre = 0;
-	while (*lst)
-	{
-		pre = *lst;
-		*lst = (*lst)->next;
-	}
-	if (!pre)
+	if (!*lst)
 		*lst = new;
 	else
-		pre->next = new;
+	{
+		cur = *lst;
+		while (cur->next)
+			cur = cur->next;
+		cur->next = new;
+	}
 }
