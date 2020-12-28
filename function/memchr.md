@@ -3,11 +3,10 @@
 void *memchr(const void *s, int c, size_t n)
 ```
 
-memchr 함수는 dest에 src의 특정 문자까지 복사하는 기능이다.<br/>
+memchr 함수는 s에서 특정 문자를 찾는 기능이다.<br/>
 입력받는 매개변수는 아래와 같다.<br/>
 
 ##### 1. dest : 복사될 메모리의 시작 주소
-##### 2. src  : 복사할 메모리의 시작 주소
 ##### 2. c    : 복사를 멈출 src의 문자
 ##### 3. n    : 복사할 바이트 수
 
