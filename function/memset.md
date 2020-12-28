@@ -27,7 +27,7 @@ memset은 메모리를 1byte씩 읽고 초기화 과정을 진행하며 이 과�
 그렇다면 unsigned char와 char의 차이점에 대해 알아보자. 간단하게 설명하면 메모리를 읽는 방식의 차이로 char는 부호를 고려하고 unsigned char는 부호를 고려하지 않는다는 점이다. 아래 사진은 좀 더 가시적으로 설명하고 있다.<br/>
 <p align="center">
   <img src = "https://user-images.githubusercontent.com/48250370/103212492-3e834880-494e-11eb-8f03-836c4b3e3489.png" width="600">
-</p><br/>
+</p>
 
 이미지참조 : https://www.geeksforgeeks.org/unsigned-char-in-c-with-examples/<br/>
 
