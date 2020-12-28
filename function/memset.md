@@ -1,4 +1,4 @@
-# memset (구현 시간 5m)
+# memset
 ```c
 void *memset(void *s, int c, size_t n)
 ```
