@@ -1,9 +1,9 @@
-# memccpy
+# memchr
 ```c
-void *memccpy(void *s, const void *src, int c, size_t n)
+void *memchr(const void *s, int c, size_t n)
 ```
 
-memccpy 함수는 dest에 src의 특정 문자까지 복사하는 기능이다.<br/>
+memchr 함수는 dest에 src의 특정 문자까지 복사하는 기능이다.<br/>
 입력받는 매개변수는 아래와 같다.<br/>
 
 ##### 1. dest : 복사될 메모리의 시작 주소
