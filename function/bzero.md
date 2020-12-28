@@ -1,6 +1,6 @@
 # bzero
 ```c
-void *bzero(void *s, size_t n)
+void bzero(void *s, size_t n)
 ```
 
 bzero 함수는 메모리를 0으로 초기화하는 기능이다. 즉, memset(s, 0, n)과 동일하다.<br/>
