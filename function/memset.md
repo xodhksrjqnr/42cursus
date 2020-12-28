@@ -28,6 +28,9 @@ memset은 메모리를 1byte씩 읽고 초기화 과정을 진행하며 이 과�
 <p align="center">
   <img src = "https://user-images.githubusercontent.com/48250370/103212492-3e834880-494e-11eb-8f03-836c4b3e3489.png" width="600">
 </p><br/>
+
+이미지참조 : https://www.geeksforgeeks.org/unsigned-char-in-c-with-examples/<br/>
+
 사진에서 알 수 있듯이 char (signed char)의 경우 가장 앞 비트를 부호 비트로 사용하게 되어 결과적으로 -128 ~ 127의 범위를 갖게 된다. 반면, unsigned char의 경우 0~255의 범위를 갖게 된다.
 
 ## 반환값
