@@ -6,12 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 05:12:26 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/27 05:51:15 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 07:21:05 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 static int		num_len(int n)
 {

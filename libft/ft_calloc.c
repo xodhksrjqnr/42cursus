@@ -6,26 +6,20 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:02:00 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/26 14:57:59 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 07:38:13 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 void	*ft_calloc(size_t nmemb, size_t size)
 {
 	void	*result;
-	void	*tmp;
 	size_t	count;
 
-	if (!(result = malloc(nmemb * size)))
+	count = nmemb * size;
+	if (!(result = malloc(count)))
 		return (0);
-	count = 0;
-	tmp = result;
-	while (count < nmemb * size)
-	{
-		*((unsigned char *)tmp + count) = 0;
-		count++;
-	}
+	ft_memset(result, 0, count);
 	return (result);
 }

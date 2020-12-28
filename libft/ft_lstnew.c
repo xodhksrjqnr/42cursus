@@ -6,12 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:17:42 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/27 16:17:46 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 07:26:05 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 t_list		*ft_lstnew(void *content)
 {

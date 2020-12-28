@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 16:17:32 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/27 16:17:37 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 07:36:28 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,7 @@
 
 t_list		*ft_lstlast(t_list *lst)
 {
-	t_list		*pre;
-
-	pre = 0;
-	while (lst)
-	{
-		pre = lst;
+	while (lst->next)
 		lst = lst->next;
-	}
-	return (pre);
+	return (lst);
 }
