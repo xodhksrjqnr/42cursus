@@ -63,3 +63,12 @@ compile error<br/>
 
 memset 함수는 char 형 배열을 초기화하는 경우는 큰 상관은 없지만 int 형의 배열을 초기화하는 경우는 제약이 따른다.<br/>
 
+위와 같은 이유는 int형이 4byte 크기를 가진다는 점에서 발생한다. 위에서 언급했듯이 memset 함수는 unsigned char 형으로 1byte씩 읽고 쓰는 작업을 수행한다. 하지만 int형이 들어온 경우 n (초기화할 바이트 수)의 크기에 따라 값이 달라지게 된다.<br/>
+
+좀 더 알기쉽게 아래 사진을 참고하자.
+
+<p align="center">
+  <img src = "https://user-images.githubusercontent.com/48250370/103215363-7a221080-4956-11eb-9b18-1d55a0217956.png" width="700">
+</p>
+
+int 형은 4byte의 크기를 가지기 때문에 memset이 사진과 같이 들어온 경우 int의 3byte까지만 초기화가 진행되고 int의 값은 65793으로 변하게 된다. c 가 0인 경우는 0x00으로 초기화되어 문제가 발생하지 않는다.<br/>
