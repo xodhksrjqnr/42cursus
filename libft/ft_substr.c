@@ -6,12 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 05:21:32 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/29 10:23:52 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 11:36:00 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "stdlib.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -26,6 +25,6 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	if (!(result = (char *)malloc(len + 1)))
 		return (0);
 	result[len] = 0;
-	ft_memcpy(result, s + start, len);
+	ft_strlcpy(result, s + start, len + 1);
 	return (result);
 }

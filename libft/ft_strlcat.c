@@ -6,11 +6,10 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:05:04 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/29 00:50:27 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 11:55:29 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
 #include "libft.h"
 
 size_t		ft_strlcat(char *dest, const char *src, size_t size)
