@@ -40,7 +40,7 @@ dest : aaaaabbb
 dest : NULL or src : NULL | size : -
 segmentation fault
 ```
-## 주의사항
+## 주의사항 ()
 strlcat 또한 널값 자리를 보장하는 함수이다. 이에 따라 입력받은 size에서 미리 널값의 자리를 생각하고 코드를 구현해야 한다.<br/>
 
 앞서도 많이 언급했듯이 dest 문자열의 마지막에 null이 없는 경우가 들어올 수 있다. 이 경우 dest의 길이를 while문과 주소 연산(dest++)등을 이용해 구할 경우 abort error가 발생할 위험이 있다.
