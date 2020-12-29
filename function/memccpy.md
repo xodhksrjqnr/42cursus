@@ -48,7 +48,7 @@ dest : - | src : - | c : - | n : 0
 #### dest나 src에 NULL 이 오는 경우
 ```
 dest : NULL or src : NULL | c : - | n : !0
-segmentation falut
+segmentation fault
 ```
 ## 주의사항
 memccpy 역시 메모리 연산으로 1byte씩 읽고 쓰는 과정을 진행한다. 따라서 형변환을 기억해야 한다.<br/>
