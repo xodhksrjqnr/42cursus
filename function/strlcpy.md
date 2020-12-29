@@ -49,4 +49,4 @@ dest : !NULL or src : !NULL | size : 0
 3
 ```
 ## 주의사항
-strlcpy의 경우 null의 자리를 보장한다는 특징이 있다. 이전에 구현했던 memcpy와 기능이 유사하지만 차이점은 명확하다. memcpy의 경우 입력받은 n만큼 계속 복사를 <br/>
+strlcpy의 경우 null의 자리를 보장한다는 특징이 있다. 이전에 구현했던 memcpy와 기능이 유사하지만 차이점은 명확하다. memcpy의 경우 입력받은 n만큼 계속 복사를 진행하지만 strlcpy의 경우 src가 null이 나오는 경우와 size 만큼 반복문이 실행되면 종료되게 된다. 즉, memcpy보다 복사하는 제한조건이 더 많은 셈이다.<br/>
