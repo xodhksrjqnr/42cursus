@@ -6,12 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 05:12:15 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/29 10:18:25 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 10:48:27 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdlib.h>
 
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
