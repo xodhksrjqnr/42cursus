@@ -52,5 +52,5 @@ memcpy의 경우 예외처리에 신경써야한다. 입력값에 따른 결과�
 memcpy는 중복된 문자열에서는 의도한 바와는 다른 결과가 출력된다. 중복된 문자열이란 일정 범위의 메모리를 dest와 src가 가리키고 있는 경우를 말한다. 아래 사진을 통해 좀 더 이해해보자.<br/>
 
 <p align="center">
-  <img src = "https://user-images.githubusercontent.com/48250370/103249931-dc116300-49b4-11eb-9988-5fe43e77e98f.png" width="500">
+  <img src = "https://user-images.githubusercontent.com/48250370/103249969-0bc06b00-49b5-11eb-81e2-f8a23143d8a5.png" width="500">
 </p>
