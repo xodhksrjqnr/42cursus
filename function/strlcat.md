@@ -123,6 +123,6 @@ size_t		ft_strlcat(char *dest, const char *src, size_t size)
 }
 ```
 
-#####참고 자료
+##### 참고 자료
 https://stackoverflow.com/questions/45937212/c-zsh-abort-error<br/>
 https://modoocode.com/33
