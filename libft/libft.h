@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/24 17:03:29 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/29 07:24:57 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 09:52:04 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stddef.h>
 # include <stdlib.h>
+# include <unistd.h>
 
 typedef struct		s_list
 {

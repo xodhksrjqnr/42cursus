@@ -6,11 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:04:19 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/29 01:36:02 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 09:18:07 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 void	*ft_memmove(void *dest, const void *src, size_t n)
 {

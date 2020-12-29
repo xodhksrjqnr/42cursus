@@ -6,11 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 06:23:57 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/27 06:24:02 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 09:24:43 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
+#include "libft.h"
 
 void	print(int n, int fd)
 {

@@ -6,11 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:03:46 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/23 02:03:52 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 08:32:58 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 void	*ft_memchr(const void *s, int c, size_t n)
 {

@@ -6,17 +6,17 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:05:57 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/26 16:35:26 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 10:14:32 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 char	*ft_strrchr(const char *s, int c)
 {
 	char	*location;
 
-	location = NULL;
+	location = 0;
 	while (*s)
 	{
 		if (*s == c)

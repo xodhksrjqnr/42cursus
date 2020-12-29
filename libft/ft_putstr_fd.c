@@ -6,19 +6,15 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 06:24:06 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/28 22:50:14 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/29 09:27:17 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "libft.h"
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	size_t	size;
-
 	if (!s)
 		return ;
-	size = ft_strlen(s);
-	write(fd, s, size);
+	write(fd, s, ft_strlen(s));
 }
