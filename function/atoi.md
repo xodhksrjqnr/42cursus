@@ -30,7 +30,7 @@ s : " -+10", "-  + 10", "+++-10"
 #### s가 NULL인 경우
 ```
 s : NULL
-segmentation falut
+segmentation fault
 ```
 #### 정수형의 범위를 넘어서는 숫자를 출력하려는 경우 (long long 형 최대, 최소)
 ```
