@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 05:12:38 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/30 21:53:52 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/30 23:56:52 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int		check_len(char const *s, char c)
 		len++;
 		while (*s != c && *s)
 			s++;
-		while (*s == c)
+		while (*s == c && *s)
 			s++;
 	}
 	return (len);
@@ -62,7 +62,7 @@ char			**ft_split(char const *s, char c)
 			return (free_clear(result, count));
 		ft_strlcpy(*(result + count), start, s - start + 1);
 		count++;
-		while (*s == c)
+		while (*s == c && *s)
 			s++;
 	}
 	*(result + count) = 0;

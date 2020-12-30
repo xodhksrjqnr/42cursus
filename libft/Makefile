@@ -25,7 +25,7 @@ all:$(NAME)
 
 $(NAME):$(OBJ)
 
-$(OBJ):$(SRC) libft.h
+$(OBJ):$(SRC)
 	$(CC) $(CFLAGS) -c $(SRC)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
@@ -33,7 +33,7 @@ $(OBJ):$(SRC) libft.h
 clean:
 	$(RM) $(OBJ) $(BOBJ)
 
-bonus:$(BONUS) libft.h
+bonus:$(BONUS)
 	$(CC) $(CFLAGS) -c $(SRC) $(BONUS)
 	ar rc $(NAME) $(OBJ) $(BOBJ)
 	ranlib $(NAME)
