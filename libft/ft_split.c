@@ -6,44 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 05:12:38 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/29 01:36:21 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/30 18:29:48 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-
-static char		*new_arr(char const *s, char c)
-{
-	char	*result;
-	int		len;
-	int		count;
-
-	len = 0;
-	while (*(s + len) != c && *(s + len))
-		len++;
-	if (!(result = (char *)malloc(len + 1)))
-		return (0);
-	result[len] = 0;
-	count = 0;
-	while (count < len)
-	{
-		*(result + count) = *(s + count);
-		count++;
-	}
-	return (result);
-}
-
-static int		next_location(char const *s, char c)
-{
-	int		len;
-
-	len = 0;
-	while (*(s + len) != c && *(s + len))
-		len++;
-	while (*(s + len) == c)
-		len++;
-	return (len);
-}
+#include "libft.h"
 
 static int		check_len(char const *s, char c)
 {
@@ -61,25 +28,42 @@ static int		check_len(char const *s, char c)
 	return (len);
 }
 
+static char		**free_clear(char **target, int count)
+{
+	while (--count > 0)
+	{
+		ft_bzero(*(target + count), sizeof(*(target + count)));
+		free(*(target + count));
+	}
+	free(target);
+	target = 0;
+	return (0);
+}
+
 char			**ft_split(char const *s, char c)
 {
 	char	**result;
-	int		len;
+	char	*start;
 	int		count;
 
 	if (!s)
 		return (0);
 	while (*s == c)
 		s++;
-	len = check_len(s, c);
-	if (!(result = (char **)malloc((len + 1) * sizeof(char *))))
+	if (!(result = (char **)malloc((check_len(s, c) + 1) * sizeof(char *))))
 		return (0);
 	count = 0;
-	while (count < len)
+	while (*s)
 	{
-		if (!(*(result + count++) = new_arr(s, c)))
-			return (0);
-		s += next_location(s, c);
+		start = (char *)s;
+		while (*s != c && *s)
+			s++;
+		if (!(*(result + count) = (char *)malloc(s - start + 1)))
+			return (free_clear(result, count));
+		ft_strlcpy(*(result + count), start, s - start + 1);
+		count++;
+		while (*s == c)
+			s++;
 	}
 	*(result + count) = 0;
 	return (result);

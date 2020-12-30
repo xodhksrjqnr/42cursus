@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 05:12:26 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/29 20:36:53 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/30 15:25:29 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ char			*ft_itoa(int n)
 	if (!(result = (char *)malloc(len + 1)))
 		return (0);
 	result[len--] = 0;
-	result[len--] = (n < 0) ? ((n % 10) * -1) + 48 
-		: n % 10 + 48;
+	result[len--] = (n < 0) ? ((n % 10) * -1) + 48 : n % 10 + 48;
 	n /= 10;
 	n *= flag;
 	while (len >= 0)

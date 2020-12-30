@@ -6,35 +6,24 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:05:47 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/29 11:44:10 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/30 17:33:42 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-int		check(const char *s1, const char *s2, size_t len)
-{
-	size_t		tmp;
-
-	tmp = 0;
-	while (*(s1 + tmp) && *(s2 + tmp))
-		tmp++;
-	if (*(s1 + tmp) == 0 && *(s2 + tmp) != 0)
-		return (0);
-	if (tmp > len)
-		return (0);
-	return (tmp);
-}
 
 char	*ft_strnstr(const char *s1, const char *s2, size_t len)
 {
 	size_t		s2_len;
 	size_t		count;
 
-	if (*s2 == 0)
+	if (!*s2)
 		return ((char *)s1);
-	if (!(s2_len = check(s1, s2, len)) || len == 0)
+	if (!len)
 		return (0);
+	s2_len = ft_strlen(s2);
+	if (s1 && s2 && (s1 == s2) && len >= s2_len)
+		return ((char *)s1);
 	count = 0;
 	while (*s1 && count + s2_len <= len)
 	{
