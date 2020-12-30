@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 05:12:26 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/30 15:25:29 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/30 21:48:47 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,28 @@ static int		num_len(int n)
 
 char			*ft_itoa(int n)
 {
-	char	*result;
-	int		len;
-	int		flag;
+	char			*result;
+	int				len;
+	int				flag;
+	unsigned int	num;
 
-	flag = (n < 0) ? -1 : 1;
 	len = num_len(n);
 	if (!(result = (char *)malloc(len + 1)))
 		return (0);
 	result[len--] = 0;
-	result[len--] = (n < 0) ? ((n % 10) * -1) + 48 : n % 10 + 48;
-	n /= 10;
-	n *= flag;
+	flag = 0;
+	if (n < 0)
+	{
+		n *= -1;
+		flag = 1;
+	}
+	num = n;
 	while (len >= 0)
 	{
-		result[len--] = n % 10 + 48;
-		n /= 10;
+		result[len--] = num % 10 + 48;
+		num /= 10;
 	}
-	if (flag == -1)
+	if (flag == 1)
 		result[0] = '-';
 	return (result);
 }

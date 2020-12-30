@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 05:12:38 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/30 18:29:48 by taewakim         ###   ########.fr       */
+/*   Updated: 2020/12/30 21:46:03 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char			**ft_split(char const *s, char c)
 
 	if (!s)
 		return (0);
-	while (*s == c)
+	while (*s == c && *s)
 		s++;
 	if (!(result = (char **)malloc((check_len(s, c) + 1) * sizeof(char *))))
 		return (0);
