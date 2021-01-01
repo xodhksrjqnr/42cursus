@@ -1,1 +1,1 @@
-go to "xodhksrjqnr.github.io"
+go to "https://xodhksrjqnr.github.io/"
