@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 12:15:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/02 15:14:38 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/02 16:41:12 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ char	*ft_strchr(const char *s)
 	while (*s)
 	{
 		if (*s == '\n')
-			return (s);
+			return ((char *)s);
 		s++;
 	}
-	return (s);
+	return ((char *)s);
 }
 
 char	*ft_strdup(const char *s, size_t len)
@@ -44,7 +44,7 @@ char	*ft_strdup(const char *s, size_t len)
 		return (0);
 	result[len] = 0;
 	count = 0;
-	while (*s)
+	while (count < len)
 		*(result + count++) = *s++;
 	return (result);
 }

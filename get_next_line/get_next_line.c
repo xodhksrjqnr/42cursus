@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 12:14:43 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/02 15:18:33 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/02 16:56:58 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,23 @@ int				get_next_line(int fd, char **line)
 	static char		*save;
 	size_t			len;
 
-	if (fd <= 0 || !line || result = (char *)malloc(1))
+	if (fd <= 0 || !line || !(result = (char *)malloc(1)))
 		return (-1);
 	*result = 0;
 	while (read(fd, buff, BUFFER_SIZE))
 	{
-		len = ft_strchr(buff) - buff + 1;
+		len = ft_strchr(buff) - buff;
 		add = ft_strdup(buff, len);
 		if (save)
+		{
 			add = add_string(save, add);
+			save = 0;
+		}
 		result = add_string(result, add);
 		if (len != BUFFER_SIZE)
 		{
 			*line = result;
-			save = ft_strdup(buff + len, BUFFER_SIZE - len);
+			save = ft_strdup(buff + len + 1, BUFFER_SIZE - len);
 			return (1);
 		}
 	}
