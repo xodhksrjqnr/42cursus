@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 12:14:43 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/02 16:56:58 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/03 03:58:26 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ int				get_next_line(int fd, char **line)
 	static char		*save;
 	size_t			len;
 
-	if (fd <= 0 || !line || !(result = (char *)malloc(1)))
+	if (fd < 0 || !line || !(result = (char *)malloc(1))
+			|| BUFFER_SIZE <= 0)
 		return (-1);
 	*result = 0;
-	while (read(fd, buff, BUFFER_SIZE))
+	buff[BUFFER_SIZE] = 0;
+	while (read(fd, buff, BUFFER_SIZE) > 0)
 	{
 		len = ft_strchr(buff) - buff;
 		add = ft_strdup(buff, len);
@@ -43,10 +45,11 @@ int				get_next_line(int fd, char **line)
 			save = 0;
 		}
 		result = add_string(result, add);
-		if (len != BUFFER_SIZE)
+		if (len != BUFFER_SIZE || buff[BUFFER_SIZE - 1] == '\n')
 		{
 			*line = result;
-			save = ft_strdup(buff + len + 1, BUFFER_SIZE - len);
+			if (len != BUFFER_SIZE)
+				save = ft_strdup(buff + len + 1, BUFFER_SIZE - len);
 			return (1);
 		}
 	}
