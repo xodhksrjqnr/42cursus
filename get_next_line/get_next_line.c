@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 12:14:43 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/03 03:58:26 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/03 18:05:10 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,34 +22,48 @@ static char		*add_string(char *s1, char *s2)
 	return (result);
 }
 
+static int		check_save(char **save, char **line)
+{
+	int		len;
+	char	*tmp;
+
+	tmp = ft_strchr(*save);
+	if (*tmp)
+	{
+		len = tmp - *save;
+		*line = ft_strdup(*save, len);
+		tmp = ft_strdup(*save + len + 1, ft_strlen(*save) - len - 1);
+		free(*save);
+		*save = tmp;
+		return (1);
+	}
+	return (0);
+}
+
 int				get_next_line(int fd, char **line)
 {
 	char			buff[BUFFER_SIZE + 1];
-	char			*result;
-	char			*add;
 	static char		*save;
-	size_t			len;
+	int				len;
+	int				size;
 
-	if (fd < 0 || !line || !(result = (char *)malloc(1))
-			|| BUFFER_SIZE <= 0)
+	if (fd < 0 || !line || BUFFER_SIZE <= 0 || !(*line = ft_strdup("", 0)))
 		return (-1);
-	*result = 0;
+	if (save)
+	{
+		if (check_save(&save, line))
+			return (1);
+		*line = add_string(*line, save);
+		save = 0;
+	}
 	buff[BUFFER_SIZE] = 0;
-	while (read(fd, buff, BUFFER_SIZE) > 0)
+	while ((size = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
 		len = ft_strchr(buff) - buff;
-		add = ft_strdup(buff, len);
-		if (save)
+		*line = add_string(*line, ft_strdup(buff, len));
+		if (buff[len] == '\n')
 		{
-			add = add_string(save, add);
-			save = 0;
-		}
-		result = add_string(result, add);
-		if (len != BUFFER_SIZE || buff[BUFFER_SIZE - 1] == '\n')
-		{
-			*line = result;
-			if (len != BUFFER_SIZE)
-				save = ft_strdup(buff + len + 1, BUFFER_SIZE - len);
+			save = ft_strdup(buff + len + 1, size - len);
 			return (1);
 		}
 	}
