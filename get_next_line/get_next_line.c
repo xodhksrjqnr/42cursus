@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 12:14:43 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/03 18:05:10 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/03 19:51:49 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int				get_next_line(int fd, char **line)
 		*line = add_string(*line, ft_strdup(buff, len));
 		if (buff[len] == '\n')
 		{
-			save = ft_strdup(buff + len + 1, size - len);
+			save = ft_strdup(buff + len + 1, size - len - 1);
 			return (1);
 		}
 	}
-	return (0);
+	return (size);
 }

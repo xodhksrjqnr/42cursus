@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 12:15:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/03 18:03:18 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/03 18:07:19 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*ft_strdup(const char *s, size_t len)
 {
 	char	*result;
 	size_t	count;
-	
+
 	if (!s)
 		return (0);
 	if (!(result = (char *)malloc(len + 1)))
