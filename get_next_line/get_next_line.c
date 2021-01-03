@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 12:14:43 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/03 19:51:49 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/03 20:04:54 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static int		check_save(char **save, char **line)
 	int		len;
 	char	*tmp;
 
-	tmp = ft_strchr(*save);
+	tmp = ft_strchr(*save, ft_strlen(*save));
 	if (*tmp)
 	{
 		len = tmp - *save;
@@ -59,7 +59,7 @@ int				get_next_line(int fd, char **line)
 	buff[BUFFER_SIZE] = 0;
 	while ((size = read(fd, buff, BUFFER_SIZE)) > 0)
 	{
-		len = ft_strchr(buff) - buff;
+		len = ft_strchr(buff, size) - buff;
 		*line = add_string(*line, ft_strdup(buff, len));
 		if (buff[len] == '\n')
 		{
