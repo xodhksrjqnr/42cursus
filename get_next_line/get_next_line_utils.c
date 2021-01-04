@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 12:15:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/03 20:07:41 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/04 22:24:42 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*ft_strchr(const char *s, size_t len)
 	while (count < len)
 	{
 		if (*(s + count) == '\n')
-			return ((char *)(s + count));
+			break ;
 		count++;
 	}
 	return ((char *)(s + count));
