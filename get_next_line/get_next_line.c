@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 13:33:40 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/07 13:33:47 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/07 21:34:48 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,34 @@ static int			find_fd(int fd, t_fdlist **fdl, t_fdlist **cur)
 static void			remove_curfd(int fd, t_fdlist **fdl)
 {
 	t_fdlist	*pre;
+	t_fdlist	*tmp;
 
 	pre = 0;
-	while ((*fdl)->fd != fd)
+	tmp = *fdl;
+	while (tmp->fd != fd)
 	{
-		pre = *fdl;
-		*fdl = (*fdl)->next;
+		pre = tmp;
+		tmp = tmp->next;
 	}
 	if (pre)
-		free(pre->next);
+	{
+		pre->next = tmp->next;
+		if (tmp->save)
+			free(tmp->save);
+		free(tmp);
+	}
+	else
+	{
+		tmp = (*fdl)->next;
+		if ((*fdl)->save)
+			free((*fdl)->save);
+		free(*fdl);
+		*fdl = tmp;
+	}
 }
 
-static int			set_result(char **line, t_fdlist *cur, int size)
+static int			set_result(char **line, t_fdlist *cur, int size,
+		t_fdlist **fdl)
 {
 	char	*div;
 	char	*tmp;
@@ -69,6 +85,7 @@ static int			set_result(char **line, t_fdlist *cur, int size)
 	{
 		cur->save = 0;
 		free(tmp);
+		remove_curfd(cur->fd, fdl);
 		return (0);
 	}
 	if (!(cur->save = ft_strdup(div + 1, ft_strlen(div + 1))))
@@ -103,5 +120,5 @@ int					get_next_line(int fd, char **line)
 	free(buff);
 	if (size == -1)
 		remove_curfd(cur->fd, &fdlist);
-	return (set_result(line, cur, size));
+	return (set_result(line, cur, size, &fdlist));
 }
