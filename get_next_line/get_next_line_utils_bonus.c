@@ -6,11 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 12:15:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/06 17:16:52 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/07 13:24:00 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 size_t		ft_strlen(const char *s)
 {
@@ -78,8 +78,7 @@ t_fdlist	*ft_newfd(int fd)
 
 	if (!(new = malloc(sizeof(t_fdlist))))
 		return (0);
-	if (!(new->save = ft_strdup("", 0)))
-		return (0);
+	new->save = 0;
 	new->fd = fd;
 	new->next = 0;
 	return (new);
