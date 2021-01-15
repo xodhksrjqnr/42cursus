@@ -1,5 +1,4 @@
 #include "ft_printf.h"
-#include <stdio.h>
 
 int		check_flags(const char *s, int *flags)
 {
@@ -36,17 +35,15 @@ int		check_num(const char *s, int *num)
 	return (count);
 }
 
-void	make_format(char type, int *flags, int num, int *count)
+int		make_format(char type, int *flags, int num, int *count, va_list ap)
 {
-	printf("\ntype : %c, '-' : %d, '0' : %d, '.' : %d, '*' : %d, num : %d\n",
-			type, flags[0], flags[1], flags[2], flags[3], num);
-	count = 0;
-	/*
 	if (type == 'c')
-	else if (type == 's')
-	else if (type == 'p')
-	else if (type == 'd' || type == 'i')
-	else if (type == 'u')
-	else if (type == 'x')
-	else if (type == 'X')*/
+		return (print_c(flags, num, count, ap));
+	return (1);
+	//else if (type == 's')
+	//else if (type == 'p')
+	//else if (type == 'd' || type == 'i')
+	//else if (type == 'u')
+	//else if (type == 'x')
+	//else if (type == 'X')
 }

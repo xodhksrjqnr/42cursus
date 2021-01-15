@@ -7,7 +7,7 @@ static int	error_check(const char *s)
 	return (1);
 }
 
-static int	print_format(const char *s, int *count)
+static int	print_format(const char *s, int *count, va_list ap)
 {
 	int			len;
 	int			flags[4];
@@ -27,7 +27,8 @@ static int	print_format(const char *s, int *count)
 		s += check_flags(s, flags);
 		s += check_num(s, &num);
 		type = *s;
-		make_format(type, flags, num, count);
+		if (!make_format(type, flags, num, count, ap))
+			return (-1);
 	}
 	return (s - save);
 }
@@ -38,16 +39,17 @@ int			ft_printf(const char *format, ...)
 	int			count;
 	int			len;
 
-	va_start(ap, format);
 	if (!(error_check(format)))
 		return (-1);
+	va_start(ap, format);
 	count = 0;
 	len = 0;
 	while (*format)
 	{
 		if (*format == '%')
 		{
-			len = print_format(++format, &count);
+			if ((len = print_format(++format, &count, ap)) == -1)
+				return (-1);
 			format += len;
 		}
 		else
@@ -57,11 +59,13 @@ int			ft_printf(const char *format, ...)
 		}
 		format++;
 	}
+	va_end(ap);
 	return (count);
 }
 
 int			main(void)
 {
-	ft_printf("%-*.*d.end\n");
+	ft_printf("%-*c.end\n", 'a');
+	printf("%-*c.end\n", 10, 'a');
 	return (0);
 }
