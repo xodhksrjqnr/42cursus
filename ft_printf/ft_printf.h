@@ -2,6 +2,7 @@
 # define FT_PRINTF_H
 
 # include <stdarg.h>
+# include <unistd.h>
 
 typedef struct		s_list
 {
@@ -9,8 +10,9 @@ typedef struct		s_list
 	char			left;
 	char			zero;
 	char			dot;
-	char			wild;
+	char			star;
 	int				width;
+	char			*next;
 }					t_list;
 t_list				*newformat(void);
 

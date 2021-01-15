@@ -1,34 +1,42 @@
 #include "ft_printf.h"
 #include "./Libft/libft.h"
 
-t_list	*make_list(char *start, char *end)
+static int		error_check(const char *s, int len)
 {
-	t_list	*result;
-
-	result = newformat();
-	
+	write(1, "error_check\n", 12);
+	return (1);
 }
 
-int		ft_printf(const char *format, ...)
+static int		make_list(const char *format, t_list **result)
 {
-	char	*head;
-	char	*tail;
-	char	*div;
-	int		count;
+	t_list		*add;
+	int			len;
 
-	if (!(div = ft_strchr(format, '%')))
+	while (*format)
 	{
-		head = format;
-		while (*format)
-			write(1, format++, 1);
-		return (format - head);
+		if (*format == '%')
+		{
+			format++;
+			len = error_check(format);
+			if (!(add = make_node(format, len)))
+			{
+				ft_lstclear(result);
+				return (0);
+			}
+			ft_lstadd_back(result, add);
+			format += len - 1;
+		}
+		format++;
 	}
-	if (!(head = (char *)malloc(div - format + 1)))
+	return (1);
+}
+
+int				ft_printf(const char *format, ...)
+{
+	t_list		*list;
+	va_list		ap;
+
+	va_start(ap, format);
+	if (!make_list(format, &list))
 		return (-1);
-	count = 0;
-	while (format != div)
-		*(head + count++) = *format++;
-	*(head + count) = 0;
-	while ((div = ft_strchr(++format, '%')))
-		format = make_list(format, div);
 }
