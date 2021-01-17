@@ -21,7 +21,7 @@ static int		check_flags(const char *s, t_list *new, int div)
 	save = s;
 	if (*s == '-' && !div)
 	{
-		new->miner = '1';
+		new->minus = '1';
 		s++;
 	}
 	if (*s == '.' && div)
