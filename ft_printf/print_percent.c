@@ -1,12 +1,12 @@
 #include "ft_print.h"
 
-void	print_percent(t_flags cur, int *count, char *tmp)
+int		print_percent(t_flags cur, int *count, char *tmp)
 {
 	if (!*tmp)
 	{
 		write(1, "%", 1);
 		*count += 1;
-		return ;
+		return (1);
 	}
 	if (cur.minus)
 		tmp[0] = '%';
@@ -17,4 +17,5 @@ void	print_percent(t_flags cur, int *count, char *tmp)
 		write(1, tmp, 1);
 		*count += 1;
 	}
+	return (1);
 }

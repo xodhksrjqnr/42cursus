@@ -20,25 +20,24 @@ int				check_combi(t_flags *cur)
 int				print_form(t_flags cur, va_list ap, int *count)
 {
 	char	*tmp;
+	int		result;
 
 	if (!(tmp = malloc(cur.first + 1)))
 		return (0);
 	tmp[cur.first] = 0;
 	ft_memset(tmp, ' ', cur.first);
 	if (cur.type == '%')
-		print_percent(cur, count, tmp);
+		result = print_percent(cur, count, tmp);
 	else if (cur.type == 'c')
-		print_c(cur, va_arg(ap, int), count, tmp);
+		result = print_c(cur, va_arg(ap, int), count, tmp);
 	else if (cur.type == 's')
-		print_s(cur, va_arg(ap, char *), count, tmp);
+		result = print_s(cur, va_arg(ap, char *), count, tmp);
 	else if (cur.type == 'p')
-		print_p(cur, va_arg(ap, char *), count, tmp);
-	else if (cur.type == 'd' || cur.type == 'i')
-		print_num(cur, va_arg(ap, int), count, tmp);
-	else if (cur.type == 'u')
-		print_u(cur, va_arg(ap, int), count, tmp);
+		result = print_p(cur, va_arg(ap, char *), count, tmp);
+	else if (cur.type == 'd' || cur.type == 'i' || cur.type == 'u')
+		result = print_num(cur, va_arg(ap, int), count, tmp);
 	else if (cur.type == 'x' || cur.type == 'X')
-		print_x(cur, va_arg(ap, int), count, tmp);
+		result = print_x(cur, va_arg(ap, int), count, tmp);
 	free(tmp);
-	return (1);
+	return (result);
 }

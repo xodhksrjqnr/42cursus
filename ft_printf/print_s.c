@@ -12,7 +12,7 @@ static void		check_dot(t_flags cur, char *s)
 	}
 }
 
-void	print_s(t_flags cur, char *s, int *count, char *tmp)
+int		print_s(t_flags cur, char *s, int *count, char *tmp)
 {
 	int		len;
 	char	*save;
@@ -22,22 +22,16 @@ void	print_s(t_flags cur, char *s, int *count, char *tmp)
 	if (len >= cur.first)
 	{
 		while (*s)
-		{
 			write(1, s++, 1);
-			*count += 1;
-		}
-		break ;
+		*count += len;
+		return (1);
 	}
 	save = tmp;
-	if (cur.minus)
-		while (*s)
-			*tmp++ = *s++;
-	else
-		while (*s)
-			*(tmp++ + cur.first - len) = *s++;
+	tmp = (cur.minus) ? tmp : tmp + cur.first - len;
+	while (*s)
+		*tmp++ = *s++;
 	while (*save)
-	{
 		write(1, save++, 1);
-		*count += 1;
-	}
+	*count += cur.first;
+	return (1);
 }
