@@ -34,10 +34,9 @@ int				print_form(t_flags cur, va_list ap, int *count)
 		result = print_s(cur, va_arg(ap, char *), count, tmp);
 	else if (cur.type == 'p')
 		result = print_p(cur, va_arg(ap, char *), count, tmp);
-	else if (cur.type == 'd' || cur.type == 'i' || cur.type == 'u')
+	else if (cur.type == 'd' || cur.type == 'i' || cur.type == 'u' ||
+			cur.type == 'x' || cur.type == 'X')
 		result = print_num(cur, va_arg(ap, int), count, tmp);
-	else if (cur.type == 'x' || cur.type == 'X')
-		result = print_x(cur, va_arg(ap, int), count, tmp);
 	free(tmp);
 	return (result);
 }

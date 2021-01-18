@@ -21,6 +21,5 @@ int				print_c(t_flags cur, char c, int *count, char *tmp);
 int				print_s(t_flags cur, char *s, int *count, char *tmp);
 int				print_p(t_flags cur, char *p, int *count, char *tmp);
 int				print_num(t_flags cur, int n, int *count, char *tmp);
-int				print_x(t_flags cur, int x, int *count, char *tmp);
 
 #endif
