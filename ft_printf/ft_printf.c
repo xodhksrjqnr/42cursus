@@ -23,24 +23,28 @@ static t_list	*parse(const char *s)
 static int		print_format(t_list *list, va_list ap)
 {
 	int		count;
+	char	*tmp;
 
 	if (list->type == '%')
 	{
 		write(1, "%", 1);
 		return (1);
 	}
-	if (!(!list->star && list->first == -1))
+	if (!(!list->star && !list->first))
 		list->first = !list->star ? list->first : va_arg(ap, int);
-	if (list->type == 'c')
-		count = print_c(list, ap);
-	else if (list->type == 's')
-		count = print_s(list, ap);
+	if (!(tmp = malloc(list->first + 1)))
+		return (0);
+	tmp[list->first] = 0;
+	ft_memset(tmp, ' ', list->first - 1);
+	if (list->type == 'c' || list->type == 's')
+		count = print_str(list, ap, tmp);
 	else if (list->type == 'p')
-		count = print_p(list, ap);
+		count = print_adr(list, ap, tmp);
 	else if (list->type == 'x' || list->type == 'X')
-		count = print_x(list, ap);
+		count = print_hex(list, ap, tmp);
 	else if (list->type == 'd' || list->type == 'i')
-		count = print_d(list, ap);
+		count = print_num(list, ap, tmp);
+	free(tmp);
 	return (count);
 }
 

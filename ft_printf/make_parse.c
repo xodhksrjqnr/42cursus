@@ -7,9 +7,7 @@ static t_list	*newlist(void)
 
 	if (!(new = malloc(t_list)))
 		return (0);
-	ft_memset(new, 0, 9);
-	new->first = -1;
-	new->second = -1;
+	ft_memset(new, 0, 17);
 	new->next = 0;
 	return (new);
 }

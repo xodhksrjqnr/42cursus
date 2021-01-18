@@ -22,10 +22,8 @@ typedef struct	s_list
 }				t_list;
 t_list			*make_parse(const char *s);
 int				err_check(const char *s);
-int				print_c(t_list *list, va_list ap);
-int				print_s(t_list *list, va_list ap);
-int				print_p(t_list *list, va_list ap);
-int				print_x(t_list *list, va_list ap);
-int				print_d(t_list *list, va_list ap);
+int				print_str(t_list *list, va_list ap, char *tmp);
+int				print_hex(t_list *list, va_list ap, char *tmp);
+int				print_num(t_list *list, va_list ap, char *tmp);
 
 #endif
