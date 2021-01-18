@@ -1,0 +1,88 @@
+#include "ft_printf.h"
+
+static t_flags	init_node(void)
+{
+	t_flags		tmp;
+
+	ft_memset(tmp, 0, 8);
+	tmp.second = -1;
+	return (tmp);
+}
+
+static int	check_num(const char *s, va_list ap, t_flags *cur, int div)
+{
+	char	*save;
+
+	cur->dot = 1;
+	save = (char *)s;
+	if (*s == '*')
+	{
+		if (!div)
+			cur->first = va_arg(ap, int);
+		else
+			cur->second = va_arg(ap, int);
+		s++;
+	}
+	else if (*s >= '0' && *s <= '9')
+	{
+		if (!div)
+			cur->first = ft_atoi(s);
+		else
+			cur->second = ft_atio(s);
+		while (*s >= '0' && *s <= '9')
+			s++;
+	}
+	return (s - save);
+}
+
+static int	parse(const char *s, va_list ap, int *count)
+{
+	t_flags		cur;
+	char		*save;
+
+	save = (char *)s;
+	cur = init_node();
+	while (*s == '-')
+		s++;
+	if (*(s - 1) == '-')
+		cur.minus = 1;
+	while (*s == '0')
+		s++;
+	if (*(s - 1) == '0')
+		cur.zero = 1;
+	s += check_num(s, ap, &cur, 0);
+	if (*s == '.')
+		s += check_num(++s, ap, &cur, 1);
+	cur.type = *s;
+	if (!(check_combi(&cur)))
+		return (0);
+	if (!print_form(cur, ap, count))
+		return (0);
+	return (s - save + 1);
+}
+
+int		ft_printf(const char *s, ...)
+{
+	va_list		ap;
+	int			count;
+	int			move;
+
+	count = 0;
+	va_start(ap, s);
+	while (*s)
+	{
+		if (*s == '%')
+		{
+			if (!(move = parse(++s, ap, &count)))
+				return (-1);
+			s += move;
+		}
+		else
+		{
+			write(1, s++, 1);
+			count++;
+		}
+	}
+	va_end(ap);
+	return (count);
+}

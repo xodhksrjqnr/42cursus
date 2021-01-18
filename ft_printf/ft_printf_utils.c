@@ -1,0 +1,44 @@
+#include "ft_printf.h"
+
+int				check_combi(t_flags *cur)
+{
+	if (!(cur->type == 'c' || cur->type 's' || cur->type == 'p' ||
+			cur->type == 'd' || cur->type == 'i' || cur->type == 'u' ||
+			cur->type == 'x' || cur->type == 'X' || cur->type = '%'))
+		return (0);
+	if (!(cur->type == 'c' || cur->type == 'p'))
+		if (cur->second == -1 && cur->dot == 1)
+			cur->second = 0;
+	if (cur->type == 'c' || cur->type == 'p')
+		if (cur->zero || cur->second != -1)
+			return (0);
+	if (cur->type == 's' && cur->zero)
+		return (0);
+	return (1);
+}
+
+int				print_form(t_flags cur, va_list ap, int *count)
+{
+	char	*tmp;
+
+	if (!(tmp = malloc(cur.first + 1)))
+		return (0);
+	tmp[cur.first] = 0;
+	ft_memset(tmp, ' ', cur.first);
+	if (cur.type == '%')
+		print_percent(cur, count, tmp);
+	else if (cur.type == 'c')
+		print_c(cur, va_arg(ap, int), count, tmp);
+	else if (cur.type == 's')
+		print_s(cur, va_arg(ap, char *), count, tmp);
+	else if (cur.type == 'p')
+		print_p(cur, va_arg(ap, char *), count, tmp);
+	else if (cur.type == 'd' || cur.type == 'i')
+		print_num(cur, va_arg(ap, int), count, tmp);
+	else if (cur.type == 'u')
+		print_u(cur, va_arg(ap, int), count, tmp);
+	else if (cur.type == 'x' || cur.type == 'X')
+		print_x(cur, va_arg(ap, int), count, tmp);
+	free(tmp);
+	return (1);
+}
