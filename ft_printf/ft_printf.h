@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:57 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 15:58:01 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:40:46 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include "./libft/libft.h"
 
 typedef struct	s_flags
 {
