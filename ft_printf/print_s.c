@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_s.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/19 15:33:01 by taewakim          #+#    #+#             */
+/*   Updated: 2021/01/19 16:00:06 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static void		check_dot(t_flags cur, char *s)
@@ -12,7 +24,7 @@ static void		check_dot(t_flags cur, char *s)
 	}
 }
 
-int		print_s(t_flags cur, char *s, int *count, char *tmp)
+int				print_s(t_flags cur, char *s, int *count, char *tmp)
 {
 	int		len;
 	char	*save;

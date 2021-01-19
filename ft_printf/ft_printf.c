@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/19 15:33:50 by taewakim          #+#    #+#             */
+/*   Updated: 2021/01/19 16:05:46 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static t_flags	init_node(void)
@@ -9,7 +21,7 @@ static t_flags	init_node(void)
 	return (tmp);
 }
 
-static int	check_num(const char *s, va_list ap, t_flags *cur, int div)
+static int		check_num(const char *s, va_list ap, t_flags *cur, int div)
 {
 	char	*save;
 
@@ -28,14 +40,14 @@ static int	check_num(const char *s, va_list ap, t_flags *cur, int div)
 		if (!div)
 			cur->first = ft_atoi(s);
 		else
-			cur->second = ft_atio(s);
+			cur->second = ft_atoi(s);
 		while (*s >= '0' && *s <= '9')
 			s++;
 	}
 	return (s - save);
 }
 
-static int	parse(const char *s, va_list ap, int *count)
+static int		parse(const char *s, va_list ap, int *count)
 {
 	t_flags		cur;
 	char		*save;
@@ -61,7 +73,7 @@ static int	parse(const char *s, va_list ap, int *count)
 	return (s - save + 1);
 }
 
-int		ft_printf(const char *s, ...)
+int				ft_printf(const char *s, ...)
 {
 	va_list		ap;
 	int			count;
@@ -74,7 +86,10 @@ int		ft_printf(const char *s, ...)
 		if (*s == '%')
 		{
 			if (!(move = parse(++s, ap, &count)))
+			{
+				va_end(ap);
 				return (-1);
+			}
 			s += move;
 		}
 		else

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_num.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/19 15:33:10 by taewakim          #+#    #+#             */
+/*   Updated: 2021/01/19 15:58:45 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 static char		*check_dot(t_flags cur, char *n)
@@ -38,7 +50,7 @@ static char		*convert_hex(unsigned int num, char type)
 	save = tmp;
 	while ((result = stand & num))
 	{
-		result =  result >> ((7 - count++) * 4);
+		result = result >> ((7 - count++) * 4);
 		*tmp++ = "0123456789abcdef"[result] -
 			(type == 'x' && result >= 10) ? 0 : 32;
 		stand = stand >> 4;
@@ -46,7 +58,7 @@ static char		*convert_hex(unsigned int num, char type)
 	return (save);
 }
 
-static int		print_result(t_flags cur, char *num , int *count, char *tmp)
+static int		print_result(t_flags cur, char *num, int *count, char *tmp)
 {
 	char	*save;
 	char	*save2;

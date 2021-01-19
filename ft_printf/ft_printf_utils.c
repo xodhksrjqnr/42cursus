@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_utils.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/01/19 15:33:40 by taewakim          #+#    #+#             */
+/*   Updated: 2021/01/19 15:33:45 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 int				check_combi(t_flags *cur)
@@ -9,8 +21,11 @@ int				check_combi(t_flags *cur)
 	if (!(cur->type == 'c' || cur->type == 'p'))
 		if (cur->second == -1 && cur->dot == 1)
 			cur->second = 0;
-	if (cur->type == 'c' || cur->type == 'p')
+	if (cur->type == 'c')
 		if (cur->zero || cur->second != -1)
+			return (0);
+	if (cur->type == 'p')
+		if (cur->zero || cur->second != -1 || cur->dot == 1)
 			return (0);
 	if (cur->type == 's' && cur->zero)
 		return (0);
