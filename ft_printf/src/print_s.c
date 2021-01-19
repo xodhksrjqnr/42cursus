@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:01 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 20:52:11 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 22:54:59 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,19 +41,19 @@ int				print_s(t_flags cur, char *s, int *count, char *tmp)
 	len = ft_strlen(str);
 	if (len >= cur.first)
 	{
-		while (*str)
-			write(1, str++, 1);
+		ft_putstr(str);
 		*count += len;
-		free(str - len);
+		free(str);
 		return (1);
 	}
+	if (cur.zero)
+		ft_memset(tmp, '0', cur.first);
 	save = tmp;
 	tmp = (cur.minus) ? tmp : tmp + cur.first - len;
 	while (*str)
 		*tmp++ = *str++;
 	free(str - len);
-	while (*save)
-		write(1, save++, 1);
+	ft_putstr(save);
 	*count += cur.first;
 	return (1);
 }

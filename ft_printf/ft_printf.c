@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:50 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 19:46:01 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 22:46:07 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ static int		parse(const char *s, va_list ap, int *count)
 
 	save = (char *)s;
 	cur = init_node();
-	while (*s == '-')
+	while (*s == '-' || *s == '0')
+	{
+		if (*s == '-')
+			cur.minus = 1;
+		else
+			cur.zero = 1;
 		s++;
-	if (*(s - 1) == '-')
-		cur.minus = 1;
-	while (*s == '0')
-		s++;
-	if (*(s - 1) == '0')
-		cur.zero = 1;
+	}
 	s += check_num(s, ap, &cur, 0);
 	if (*s == '.')
 	{

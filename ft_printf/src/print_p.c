@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:31 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 16:49:56 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/20 00:43:15 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,13 @@ int				print_p(t_flags cur, char *p, int *count, char *tmp)
 {
 	char	*adr;
 	char	*save;
-	char	*save2;
 
 	if (!(adr = convert_adr((unsigned long long)p)))
 		return (0);
-	save2 = adr;
 	if (cur.first <= 14)
 	{
-		while (*adr)
-			write(1, adr, 1);
-		free(save2);
+		ft_putstr(adr);
+		free(adr);
 		*count += 14;
 		return (1);
 	}
@@ -57,9 +54,8 @@ int				print_p(t_flags cur, char *p, int *count, char *tmp)
 		tmp += cur.first - 15;
 	while (*adr)
 		*tmp++ = *adr++;
-	free(save2);
-	while (*save)
-		write(1, save++, 1);
+	free(adr - 14);
+	ft_putstr(save);
 	*count += cur.first;
 	return (1);
 }

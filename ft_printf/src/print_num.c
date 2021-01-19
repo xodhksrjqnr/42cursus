@@ -6,11 +6,12 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 19:32:15 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/20 00:52:14 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
+#include <stdio.h>
 
 static char		*check_dot(t_flags cur, char *n)
 {
@@ -18,12 +19,19 @@ static char		*check_dot(t_flags cur, char *n)
 	int		len;
 
 	len = ft_strlen(n);
+	if (n[0] == '-' && cur.dot != 2)
+		len -= 1;
 	if (cur.dot && (cur.second > len))
 	{
 		if (!(tmp = malloc(cur.second - len + 1)))
 			return (0);
 		tmp[cur.second - len] = 0;
-		ft_memset(tmp, '0', cur.second - len - 1);
+		ft_memset(tmp, '0', cur.second - len);
+		if (n[0] == '-')
+		{
+			n[0] = '0';
+			tmp[0] = '-';
+		}
 		return (ft_strjoin(tmp, n));
 	}
 	return (n);
@@ -52,7 +60,7 @@ static char		*convert_hex(unsigned int num, char type)
 	{
 		result = result >> ((7 - count++) * 4);
 		*tmp++ = "0123456789abcdef"[result] -
-			((type == 'x' && result >= 10) ? 0 : 32);
+			((type == 'X' && result >= 10) ? 32 : 0);
 		stand = stand >> 4;
 	}
 	return (save);
@@ -61,41 +69,47 @@ static char		*convert_hex(unsigned int num, char type)
 static int		print_result(t_flags cur, char *num, int *count, char *tmp)
 {
 	char	*save;
-	char	*save2;
 	int		len;
 
 	len = ft_strlen(num);
 	if (len >= cur.first)
 	{
-		save = num;
-		while (*num)
-			write(1, num++, 1);
-		free(save);
+		ft_putstr(num);
 		*count += len;
+		free(num);
 		return (1);
 	}
 	save = tmp;
 	tmp = (cur.minus) ? tmp : tmp + cur.first - len;
-	save2 = num;
+	if (cur.zero && tmp != save)
+		ft_memset(save, '0', cur.first - len);
 	while (*num)
 		*tmp++ = *num++;
-	while (*save)
-		write(1, save, 1);
+	free(num - len);
+	ft_putstr(save);
 	*count += cur.first;
-	free(save2);
 	return (1);
 }
 
 int				print_num(t_flags cur, int n, int *count, char *tmp)
 {
-	char			*num;
+	char	*num;
+	int		flag;		
 
-	if (cur.type == 'd' || cur.type == 'i')
-		num = ft_itoa(n);
-	else if (cur.type == 'u')
-		num = ft_itoa((unsigned int)n);
+	if (cur.type == 'd' || cur.type == 'i' || cur.type == 'u')
+	{
+		flag = 0;
+		flag = (cur.type == 'u') ? 1 : 0;
+		num = (!cur.second && !n) ? ft_strdup("") : ft_itoa(n, flag);
+		if (!num)
+			return (0);
+	}
 	else
-		num = convert_hex((unsigned int)n, cur.type);
+	{
+		num = n ? convert_hex((unsigned int)n, cur.type) : ft_strdup("0");
+		if (!num)
+			return (0);
+	}
 	if (!num)
 		return (0);
 	if (!(num = check_dot(cur, num)))

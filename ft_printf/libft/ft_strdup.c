@@ -6,13 +6,13 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:04:53 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/30 18:55:49 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 18:34:06 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strdup(const char *s)
+char	*ft_strdup(char *s)
 {
 	char	*result;
 	char	*tmp;

@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:32:52 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 16:49:26 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/20 00:45:16 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		print_c(t_flags cur, char c, int *count, char *tmp)
 {
-	if (!*tmp)
+	if (cur.first <= 1)
 	{
 		write(1, &c, 1);
 		*count += 1;
@@ -26,7 +26,7 @@ int		print_c(t_flags cur, char c, int *count, char *tmp)
 		tmp[cur.first - 1] = c;
 	while (*tmp)
 	{
-		write(1, tmp, 1);
+		write(1, tmp++, 1);
 		*count += 1;
 	}
 	return (1);
