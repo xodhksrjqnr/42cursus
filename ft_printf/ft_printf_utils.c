@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:40 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 16:48:51 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 20:03:27 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,12 @@ int				check_combi(t_flags *cur)
 			cur->type == 'x' || cur->type == 'X' || cur->type == '%'))
 		return (0);
 	if (!(cur->type == 'c' || cur->type == 'p'))
+	{
 		if (cur->second == -1 && cur->dot == 1)
 			cur->second = 0;
+		if (cur->minus && cur->zero)
+			cur->zero = 0;
+	}
 	if (cur->type == 'c')
 		if (cur->zero || cur->second != -1)
 			return (0);
@@ -37,6 +41,7 @@ int				print_form(t_flags cur, va_list ap, int *count)
 	char	*tmp;
 	int		result;
 
+	result = 0;
 	if (!(tmp = malloc(cur.first + 1)))
 		return (0);
 	tmp[cur.first] = 0;

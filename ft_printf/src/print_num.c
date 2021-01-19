@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 16:53:30 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 19:32:15 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static char		*convert_hex(unsigned int num, char type)
 	{
 		result = result >> ((7 - count++) * 4);
 		*tmp++ = "0123456789abcdef"[result] -
-			(type == 'x' && result >= 10) ? 0 : 32;
+			((type == 'x' && result >= 10) ? 0 : 32);
 		stand = stand >> 4;
 	}
 	return (save);

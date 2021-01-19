@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:50 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 16:57:33 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 19:46:01 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int		check_num(const char *s, va_list ap, t_flags *cur, int div)
 {
 	char	*save;
 
-	cur->dot = 1;
+	if (div == 1)
+		cur->dot = 1;
 	save = (char *)s;
 	if (*s == '*')
 	{
