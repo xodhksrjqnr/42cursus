@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:57 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 16:40:46 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:48:00 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_PRINTF_H
 
 # include <unistd.h>
+# include <stdarg.h>
 # include <stdlib.h>
 # include "./libft/libft.h"
 

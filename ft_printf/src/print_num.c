@@ -6,11 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 15:58:45 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:53:30 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static char		*check_dot(t_flags cur, char *n)
 {
@@ -62,6 +62,7 @@ static int		print_result(t_flags cur, char *num, int *count, char *tmp)
 {
 	char	*save;
 	char	*save2;
+	int		len;
 
 	len = ft_strlen(num);
 	if (len >= cur.first)
@@ -88,7 +89,6 @@ static int		print_result(t_flags cur, char *num, int *count, char *tmp)
 int				print_num(t_flags cur, int n, int *count, char *tmp)
 {
 	char			*num;
-	int				len;
 
 	if (cur.type == 'd' || cur.type == 'i')
 		num = ft_itoa(n);

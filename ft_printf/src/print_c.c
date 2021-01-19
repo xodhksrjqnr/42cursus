@@ -6,11 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:32:52 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 15:32:58 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:49:26 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 int		print_c(t_flags cur, char c, int *count, char *tmp)
 {

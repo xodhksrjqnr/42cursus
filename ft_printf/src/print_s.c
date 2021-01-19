@@ -6,11 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:01 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 16:00:06 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:49:36 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static void		check_dot(t_flags cur, char *s)
 {

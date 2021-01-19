@@ -6,11 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:31 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 15:59:56 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/19 16:49:56 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../ft_printf.h"
 
 static char		*convert_adr(unsigned long long p)
 {
