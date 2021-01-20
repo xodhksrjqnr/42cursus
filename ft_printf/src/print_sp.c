@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:01 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/20 17:51:23 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/21 02:28:43 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ static char		*check_dot(t_flags cur, char *s)
 {
 	int		count;
 
+	if (!s)
+		return (0);
 	count = 0;
 	if (cur.dot)
 	{
@@ -63,6 +65,8 @@ static int		print_result(t_flags cur, char *str, int *count, char *tmp)
 	int		len;
 	char	*save;
 
+	if (!str)
+		return (0);
 	len = ft_strlen(str);
 	if (len >= cur.first)
 	{
@@ -71,8 +75,6 @@ static int		print_result(t_flags cur, char *str, int *count, char *tmp)
 		*count += len;
 		return (1);
 	}
-	if (cur.zero && cur.type == 's')
-		ft_memset(tmp, '0', cur.first);
 	save = tmp;
 	tmp = (cur.minus) ? tmp : tmp + cur.first - len;
 	while (*str)
@@ -91,9 +93,10 @@ int				print_sp(t_flags cur, char *s, int *count, char *tmp)
 
 	if (cur.type == 's')
 	{
-		if (!(str = (!s) ? ft_strdup("(null)") : ft_strdup(s)))
-			return (0);
+		str = (!s) ? ft_strdup("(null)") : ft_strdup(s);
 		str = check_dot(cur, str);
+		if (cur.zero && str && s)
+			ft_memset(tmp, '0', cur.first);
 		return (print_result(cur, str, count, tmp));
 	}
 	str = convert_adr((unsigned long long)s);
@@ -107,7 +110,6 @@ int				print_sp(t_flags cur, char *s, int *count, char *tmp)
 	if (str[0] != '0' && cur.dot)
 		cur.dot = 0;
 	str = check_dot(cur, str);
-	if (!(str = ft_strjoin(ft_strdup("0x"), str)))
-		return (0);
+	str = ft_strjoin(ft_strdup("0x"), str);
 	return (print_result(cur, str, count, tmp));
 }

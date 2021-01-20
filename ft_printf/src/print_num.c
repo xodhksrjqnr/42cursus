@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/20 18:42:55 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/21 01:51:57 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,23 +17,23 @@ static char		*check_dot(t_flags cur, char *n)
 	char	*tmp;
 	int		len;
 
-	if (!n)
-		return (0);
-	len = ft_strlen(n);
-	if (n[0] == '-' && cur.dot != 2)
-		len -= 1;
-	if (cur.dot && (cur.second > len))
+	if (*n == '0' && cur.dot && !cur.second)
+		*n = 0;
+	if (cur.dot && ((len = ft_strlen(n)) <= cur.second))
 	{
+		if (n[0] == '-')
+			len--;
 		if (!(tmp = malloc(cur.second - len + 1)))
 			return (0);
 		tmp[cur.second - len] = 0;
 		ft_memset(tmp, '0', cur.second - len);
-		if (n[0] == '-')
+		if (!(n = ft_strjoin(tmp, n)))
+			return (0);
+		if ((tmp = ft_strchr(n, '-')))
 		{
-			n[0] = '0';
-			tmp[0] = '-';
+			*tmp = '0';
+			n[0] = '-';
 		}
-		return (ft_strjoin(tmp, n));
 	}
 	return (n);
 }
@@ -82,11 +82,14 @@ static int		print_result(t_flags cur, char *num, int *count, char *tmp)
 	}
 	save = tmp;
 	tmp = (cur.minus) ? tmp : tmp + cur.first - len;
-	if (cur.zero && tmp != save)
-		ft_memset(save, '0', cur.first - len);
 	while (*num)
 		*tmp++ = *num++;
 	free(num - len);
+	if ((tmp = ft_strchr(save, '-')) && save[0] == '0')
+	{
+		*tmp = '0';
+		save[0] = '-';
+	}
 	ft_putstr(save);
 	*count += cur.first;
 	return (1);
@@ -101,7 +104,7 @@ int				print_num(t_flags cur, int n, int *count, char *tmp)
 	{
 		flag = 0;
 		flag = (cur.type == 'u') ? 1 : 0;
-		num = (!cur.flag && !n) ? ft_strdup("") : ft_itoa(n, flag);
+		num = ft_itoa(n, flag);
 	}
 	else
 	{
@@ -112,5 +115,7 @@ int				print_num(t_flags cur, int n, int *count, char *tmp)
 	}
 	if (!(num = check_dot(cur, num)))
 		return (0);
+	if (cur.zero && !cur.dot)
+		ft_memset(tmp, '0', cur.first);
 	return (print_result(cur, num, count, tmp));
 }
