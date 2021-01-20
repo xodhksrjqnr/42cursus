@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:40 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/20 00:38:07 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/20 13:48:59 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,12 @@ static void		combi_set(t_flags *cur)
 		cur->zero = 0;
 	if (cur->zero && cur->dot)
 		cur->zero = 0;
-	if (cur->type == 'd' || cur->type == 'i')
+	if ((cur->type == 'd' || cur->type == 'i') && (cur->zero && !cur->dot))
 	{
-		if (cur->zero && !cur->dot)
-		{
-			cur->zero = 0;
-			cur->dot = 2;
-			cur->second = cur->first;
-			cur->first = 0;
-		}
+		cur->zero = 0;
+		cur->dot = 2;
+		cur->second = cur->first;
+		cur->first = 0;
 	}
 }
 
@@ -56,10 +53,8 @@ int				print_form(t_flags cur, va_list ap, int *count)
 		result = print_percent(cur, count, tmp);
 	else if (cur.type == 'c')
 		result = print_c(cur, va_arg(ap, int), count, tmp);
-	else if (cur.type == 's')
-		result = print_s(cur, va_arg(ap, char *), count, tmp);
-	else if (cur.type == 'p')
-		result = print_p(cur, va_arg(ap, char *), count, tmp);
+	else if (cur.type == 's' || cur.type == 'p')
+		result = print_sp(cur, va_arg(ap, char *), count, tmp);
 	else if (cur.type == 'd' || cur.type == 'i' || cur.type == 'u' ||
 			cur.type == 'x' || cur.type == 'X')
 		result = print_num(cur, va_arg(ap, int), count, tmp);

@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:57 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 16:48:00 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/20 13:41:36 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int				check_combi(t_flags *cur);
 int				print_form(t_flags cur, va_list ap, int *count);
 int				print_percent(t_flags cur, int *count, char *tmp);
 int				print_c(t_flags cur, char c, int *count, char *tmp);
-int				print_s(t_flags cur, char *s, int *count, char *tmp);
-int				print_p(t_flags cur, char *p, int *count, char *tmp);
+int				print_sp(t_flags cur, char *s, int *count, char *tmp);
 int				print_num(t_flags cur, int n, int *count, char *tmp);
 
 #endif

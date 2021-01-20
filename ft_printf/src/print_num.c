@@ -6,12 +6,11 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/20 00:52:14 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/20 13:07:51 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../ft_printf.h"
-#include <stdio.h>
 
 static char		*check_dot(t_flags cur, char *n)
 {
@@ -56,9 +55,9 @@ static char		*convert_hex(unsigned int num, char type)
 		return (0);
 	tmp[8 - count] = 0;
 	save = tmp;
-	while ((result = stand & num))
+	while (8 - count)
 	{
-		result = result >> ((7 - count++) * 4);
+		result = (stand & num) >> ((7 - count++) * 4);
 		*tmp++ = "0123456789abcdef"[result] -
 			((type == 'X' && result >= 10) ? 32 : 0);
 		stand = stand >> 4;
@@ -106,7 +105,10 @@ int				print_num(t_flags cur, int n, int *count, char *tmp)
 	}
 	else
 	{
-		num = n ? convert_hex((unsigned int)n, cur.type) : ft_strdup("0");
+		if (!n && cur.dot)
+			num = ft_strdup("");
+		else
+			num = n ? convert_hex((unsigned int)n, cur.type) : ft_strdup("0");
 		if (!num)
 			return (0);
 	}
