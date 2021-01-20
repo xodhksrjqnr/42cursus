@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:40 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/20 15:11:21 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/20 18:27:16 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,11 @@
 
 static void		combi_set(t_flags *cur)
 {
-	if (cur->second == -1 && cur->dot == 1)
-		cur->second = 0;
+	if (cur->first < 0)
+	{
+		cur->first *= -1;
+		cur->minus = 1;
+	}
 	if (cur->minus && cur->zero)
 		cur->zero = 0;
 	if (cur->zero && cur->dot)
@@ -27,9 +30,6 @@ static void		combi_set(t_flags *cur)
 		cur->second = cur->first;
 		cur->first = 0;
 	}
-	if (cur->type == 'p')
-		if (cur->dot && cur->second < 2)
-			cur->second = 2;
 }
 
 int				check_combi(t_flags *cur)

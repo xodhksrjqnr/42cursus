@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:50 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/20 12:45:10 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/20 18:25:57 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,32 +20,33 @@ static t_flags	init_node(void)
 	tmp.minus = 0;
 	tmp.zero = 0;
 	tmp.dot = 0;
+	tmp.flag = 0;
 	tmp.first = 0;
-	tmp.second = -1;
+	tmp.second = 0;
 	return (tmp);
 }
 
 static int		check_num(const char *s, va_list ap, t_flags *cur, int div)
 {
 	char	*save;
+	int		*tmp;
 
 	if (div == 1)
 		cur->dot = 1;
 	save = (char *)s;
+	tmp = (!div) ? &(cur->first) : &(cur->second);
 	if (*s == '*')
 	{
-		if (!div)
-			cur->first = va_arg(ap, int);
-		else
-			cur->second = va_arg(ap, int);
+		*tmp = va_arg(ap, int);
+		if (div)
+			cur->flag = 1;
 		s++;
 	}
 	else if (*s >= '0' && *s <= '9')
 	{
-		if (!div)
-			cur->first = ft_atoi(s);
-		else
-			cur->second = ft_atoi(s);
+		*tmp = ft_atoi(s);
+		if (div)
+			cur->flag = 1;
 		while (*s >= '0' && *s <= '9')
 			s++;
 	}

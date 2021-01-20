@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/20 13:53:53 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/20 18:42:55 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static char		*check_dot(t_flags cur, char *n)
 	char	*tmp;
 	int		len;
 
+	if (!n)
+		return (0);
 	len = ft_strlen(n);
 	if (n[0] == '-' && cur.dot != 2)
 		len -= 1;
@@ -99,9 +101,7 @@ int				print_num(t_flags cur, int n, int *count, char *tmp)
 	{
 		flag = 0;
 		flag = (cur.type == 'u') ? 1 : 0;
-		num = (!cur.second && !n) ? ft_strdup("") : ft_itoa(n, flag);
-		if (!num)
-			return (0);
+		num = (!cur.flag && !n) ? ft_strdup("") : ft_itoa(n, flag);
 	}
 	else
 	{
@@ -109,11 +109,7 @@ int				print_num(t_flags cur, int n, int *count, char *tmp)
 			num = ft_strdup("");
 		else
 			num = n ? convert_hex((unsigned int)n, cur.type) : ft_strdup("0");
-		if (!num)
-			return (0);
 	}
-	if (!num)
-		return (0);
 	if (!(num = check_dot(cur, num)))
 		return (0);
 	return (print_result(cur, num, count, tmp));

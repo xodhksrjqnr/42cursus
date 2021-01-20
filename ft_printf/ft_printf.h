@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:57 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/20 13:41:36 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/20 18:06:57 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct	s_flags
 	char		minus;
 	char		zero;
 	char		dot;
+	char		flag;
 	int			first;
 	int			second;
 }				t_flags;
