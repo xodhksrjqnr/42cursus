@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/20 13:07:51 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/20 13:53:53 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ static int		print_result(t_flags cur, char *num, int *count, char *tmp)
 int				print_num(t_flags cur, int n, int *count, char *tmp)
 {
 	char	*num;
-	int		flag;		
+	int		flag;
 
 	if (cur.type == 'd' || cur.type == 'i' || cur.type == 'u')
 	{
