@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:50 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/21 02:56:15 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/21 14:24:19 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ int				ft_printf(const char *s, ...)
 		{
 			if (!(move = parse(++s, ap, &count)))
 			{
-				write(1, s++, 1);
-				count++;
+				va_end(ap);
+				return (-1);
 			}
 			s += move;
 		}
