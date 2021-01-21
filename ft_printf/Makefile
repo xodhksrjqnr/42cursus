@@ -6,8 +6,7 @@ srcs = libft/*.c \
 	   ft_printf_utils.c \
 	   src/print_percent.c \
 	   src/print_c.c \
-	   src/print_s.c \
-	   src/print_p.c \
+	   src/print_sp.c \
 	   src/print_num.c
 
 all:$(NAME)
