@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:01 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/21 02:28:43 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/21 16:02:48 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,11 @@ static char		*convert_adr(unsigned long long p)
 static char		*check_dot(t_flags cur, char *s)
 {
 	int		count;
+	int		len;
 
-	if (!s)
-		return (0);
 	count = 0;
-	if (cur.dot)
+	len = ft_strlen(s);
+	if (cur.dot && (cur.second <= len) && len)
 	{
 		count += cur.second;
 		while (*(s + count))
