@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:04:53 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 18:34:06 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/21 14:11:45 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ char	*ft_strdup(char *s)
 {
 	char	*result;
 	char	*tmp;
+	size_t	len;
 
-	if (!(result = (char *)malloc((ft_strlen(s) + 1))))
+	len = ft_strlen(s);
+	if (!(result = (char *)malloc(len + 1)))
 		return (0);
+	ft_memset(result, 0, len + 1);
 	tmp = result;
 	while (*s)
 		*tmp++ = *s++;
-	*tmp = 0;
 	return (result);
 }

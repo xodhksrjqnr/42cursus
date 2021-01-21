@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/27 05:23:06 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/19 16:20:17 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/21 13:59:49 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,5 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (0);
 	ft_memcpy(result, s1, len1);
 	ft_memcpy(result + len1, s2, len2);
-	free(s1);
-	free(s2);
 	return (result);
 }
