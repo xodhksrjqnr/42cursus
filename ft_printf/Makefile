@@ -32,5 +32,4 @@ fclean:
 	$(RM) $(NAME)
 	make fclean -C $(LIBFT)
 
-re:
-	fclean all
+re:fclean all
