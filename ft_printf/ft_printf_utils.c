@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/19 15:33:40 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/21 02:06:14 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/01/24 22:09:16 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 
 int		check_combi(t_flags *cur)
 {
+	int		num;
+
+	num = 2147483646;
 	if (!(cur->type == 'c' || cur->type == 's' || cur->type == 'p' ||
 			cur->type == 'd' || cur->type == 'i' || cur->type == 'u' ||
 			cur->type == 'x' || cur->type == 'X' || cur->type == '%'))
+		return (0);
+	if (cur->first > num || cur->first < (num * -1) ||
+			cur->second > num || cur->first < (num * -1))
 		return (0);
 	if (cur->first < 0)
 	{
