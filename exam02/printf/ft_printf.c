@@ -25,19 +25,26 @@ static int x_printf(int first, int second, unsigned int num)
 {
 	int		len;
 	int		zero;
+	int		total;
 
 	len = check_leng_x(num, 1);
 	zero = 0;
+	total = len;
 	if (len < second)
+	{
 		zero = second - len;
+		total = second;
+	}
 	if (first > len + zero)
 	{
+		total = first;
 		while (first-- != len + zero)
 			write(1, " ", 1);
 	}
 	while (zero-- > 0)
 		write(1, "0", 1);
 	print_num_x(num);
+	return (total);
 }
 
 static void	print_num(int num)
@@ -60,46 +67,62 @@ static int	check_leng_d(int num, int count)
 	return (count);
 }
 
-static void d_printf(int first, int second, int num)
+static int d_printf(int first, int second, int num)
 {
 	int		len;
 	int		zero;
+	int		total;
 
 	len = check_leng_d(num, 1);
 	zero = 0;
+	total = len;
 	if (len < second)
+	{
 		zero = second - len;
+		total = second;
+	}
 	if (first > len + zero)
 	{
+		total = first;
 		if (num < 0)
 			first--;
 		while (first-- != len + zero)
 			write(1, " ", 1);
 	}
+	else if (first < len + zero && num < 0)
+		total += 1;
 	if (num < 0)
 		write(1, "-", 1);
 	while (zero-- > 0)
 		write(1, "0", 1);
 	print_num(num);
+	return (total);
 }
 
 static int s_printf(int first, int second, char *str)
 {
 	char	*tmp;
 	int		len;
+	int		total;
 
 	len = 0;
 	while (*(str + len))
 		len++;
+	total = len;
 	if (len > second && second != -1)
+	{
+		total = second;
 		len = second;
+	}
 	if (first > len)
 	{
+		total = first;
 		while (first-- != len)
 			write(1, " ", 1);
 	}
 	while (len-- > 0)
 		write(1, str++, 1);
+	return (total);
 }
 
 static void	check_num(char **s, int *second)
@@ -122,7 +145,7 @@ static void	check_num(char **s, int *second)
 	}
 }
 
-static int	parse(char *s, va_list ap)
+static int	parse(char *s, va_list ap, int *total)
 {
 	int		first;
 	int 	second;
@@ -141,11 +164,11 @@ static int	parse(char *s, va_list ap)
 	if (!(*s == 's' || *s == 'd' || *s == 'x'))
 		return (0);
 	if (*s == 's')
-		s_printf(first, second, va_arg(ap, char *));
+		*total += s_printf(first, second, va_arg(ap, char *));
 	else if (*s == 'd')
-		d_printf(first, second, va_arg(ap, int));
+		*total += d_printf(first, second, va_arg(ap, int));
 	else if (*s == 'x')
-		x_printf(first, second, va_arg(ap, int));
+		*total += x_printf(first, second, va_arg(ap, int));
 	return (s - start + 1);
 }
 
@@ -153,15 +176,18 @@ int	ft_printf(const char *s, ...)
 {
 	va_list	ap;
 	int		count;
+	int		total;
 
+	total = 0;
 	va_start(ap, s);
 	while (*s)
 	{
-		count = 0;
+		total += 1;
 		if (*s == '%')
 		{
 			++s;
-			count = parse((char *)s, ap);
+			total -= 1;
+			count = parse((char *)s, ap, &total);
 			if (!count)
 			{
 				va_end(ap);
@@ -173,52 +199,89 @@ int	ft_printf(const char *s, ...)
 			write(1, s++, 1);
 	}
 	va_end(ap);
-	return (0);
+	return (total);
 }
 
 int	main(void)
 {
 	int	num;
 
-	ft_printf("10.0s |%10.0s|\n", "Hello");
-	ft_printf("10.s  |%10.s|\n", "Hello");
-	ft_printf("10s   |%10s|\n", "Hello");
-	ft_printf("10.4s |%10.4s|\n", "HEllo");
-	ft_printf("10.7s |%10.7s|\n", "HEllo");
-	ft_printf(".7s   |%.7s|\n", "HEllo");
-	ft_printf(".3s   |%.3s|\n", "HEllo");
+	num = ft_printf("10.0s |%10.0s|\n", "Hello");
+	printf("%d\n", num);
+	num = ft_printf("10.s  |%10.s|\n", "Hello");
+	printf("%d\n", num);
+	num = ft_printf("10s   |%10s|\n", "Hello");
+	printf("%d\n", num);
+	num = ft_printf("10.4s |%10.4s|\n", "HEllo");
+	printf("%d\n", num);
+	num = ft_printf("10.7s |%10.7s|\n", "HEllo");
+	printf("%d\n", num);
+	num = ft_printf(".7s   |%.7s|\n", "HEllo");
+	printf("%d\n", num);
+	num = ft_printf(".3s   |%.3s|\n", "HEllo");
+	printf("%d\n", num);
 
-	ft_printf("d    |%d|\n", 1234);
-	ft_printf("3d   |%3d|\n", 1234);
-	ft_printf("7d   |%7d|\n", 1234);
-	ft_printf(".d   |%.d|\n", 1234);
-	ft_printf(".3d  |%.3d|\n", 1234);
-	ft_printf(".6d  |%.6d|\n", 1234);
-	ft_printf(".6d  |%.6d|\n", -1234);
-	ft_printf("3.3d |%3.3d|\n", 1234);
-	ft_printf("3.3d |%3.3d|\n", -1234);
-	ft_printf("6.3d |%6.3d|\n", 1234);
-	ft_printf("6.3d |%6.3d|\n", -1234);
-	ft_printf("3.7d |%3.7d|\n", 1234);
-	ft_printf("3.7d |%3.7d|\n", -1234);
-	ft_printf("9.7d |%9.7d|\n", 1234);
-	ft_printf("9.7d |%9.7d|\n", -1234);
+	num = ft_printf("d    |%d|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("3d   |%3d|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("7d   |%7d|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf(".d   |%.d|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf(".3d  |%.3d|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf(".6d  |%.6d|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf(".6d  |%.6d|\n", -1234);
+	printf("%d\n", num);
+	num = ft_printf("3.3d |%3.3d|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("3.3d |%3.3d|\n", -1234);
+	printf("%d\n", num);
+	num = ft_printf("6.3d |%6.3d|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("6.3d |%6.3d|\n", -1234);
+	printf("%d\n", num);
+	num = ft_printf("3.7d |%3.7d|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("3.7d |%3.7d|\n", -1234);
+	printf("%d\n", num);
+	num = ft_printf("9.7d |%9.7d|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("9.7d |%9.7d|\n", -1234);
+	printf("%d\n", num);
 
-	ft_printf("x    |%x|\n", 1234);
-	ft_printf("3x   |%3x|\n", 1234);
-	ft_printf("7x   |%7x|\n", 1234);
-	ft_printf(".x   |%.x|\n", 1234);
-	ft_printf(".3x  |%.3x|\n", 1234);
-	ft_printf(".6x  |%.6x|\n", 1234);
-	ft_printf(".6x  |%.6x|\n", -1234);
-	ft_printf("3.3x |%3.3x|\n", 1234);
-	ft_printf("3.3x |%3.3x|\n", -1234);
-	ft_printf("6.3x |%6.3x|\n", 1234);
-	ft_printf("6.3x |%6.3x|\n", -1234);
-	ft_printf("3.7x |%3.7x|\n", 1234);
-	ft_printf("3.7x |%3.7x|\n", -1234);
-	ft_printf("9.7x |%9.7x|\n", 1234);
-	ft_printf("9.7x |%9.7x|\n", -1234);
+	num = ft_printf("x    |%x|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("3x   |%3x|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("7x   |%7x|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf(".x   |%.x|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf(".3x  |%.3x|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf(".6x  |%.6x|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf(".6x  |%.6x|\n", -1234);
+	printf("%d\n", num);
+	num = ft_printf("3.3x |%3.3x|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("3.3x |%3.3x|\n", -1234);
+	printf("%d\n", num);
+	num = ft_printf("6.3x |%6.3x|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("6.3x |%6.3x|\n", -1234);
+	printf("%d\n", num);
+	num = ft_printf("3.7x |%3.7x|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("3.7x |%3.7x|\n", -1234);
+	printf("%d\n", num);
+	num = ft_printf("9.7x |%9.7x|\n", 1234);
+	printf("%d\n", num);
+	num = ft_printf("9.7x |%9.7x|\n", -1234);
+	printf("%d\n", num);
 
 	return (0);
 }

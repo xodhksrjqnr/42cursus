@@ -44,11 +44,7 @@ int	get_next_line(char **line)
 		if (!data)
 			return (-1);
 	}
-	if (result == -1)
-		return (-1);
-	*line = data;
-	if (result == 1)
-		return (1);
-	else
-		return (0);
+	if (result != -1)
+		*line = data;
+	return (result);
 }
