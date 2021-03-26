@@ -1,16 +1,16 @@
 #include "libvec.h"
 
-t_vec	*init_vec(double x, double y, double z, char state)
+t_vec	*init_vec(void)
 {
 	t_vec	*v;
 
 	v = (t_vec *)malloc(sizeof(t_vec));
 	if (!v)
 		return (0);
-	v->x = x;
-	v->y = y;
-	v->z = z;
-	v->state = state;
+	v->x = 0;
+	v->y = 0;
+	v->z = 0;
+	v->state = 0;
 	return (v);
 }
 
