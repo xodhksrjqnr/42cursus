@@ -24,8 +24,8 @@ void	list_free(t_list *list)
 	free(list->R);
 	free(list->A);
 	free_c(list->c);
-	free(list->l);
-	free(list->sp);
+	free_l(list->l);
+	free_sp(list->sp);
 	free_pl(list->pl);
 	free_sq(list->sq);
 	free_cy(list->cy);

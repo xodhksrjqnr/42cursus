@@ -20,3 +20,38 @@ t_tr	*init_tr(void)
 	tr->next = 0;
 	return (tr);
 }
+
+static t_tr	*find_tr_end(t_tr **tr)
+{
+	t_tr	*save;
+
+	save = *tr;
+	if (!*tr)
+	{
+		*tr = init_tr();
+		return (*tr);
+	}
+	while (save->next)
+		save = save->next;
+	save->next = init_tr();
+	return (save->next);
+}
+
+int	parse_tr(char *line, t_tr *tr)
+{
+	t_tr	*cur;
+
+	cur = find_tr_end(&tr);
+	if (!cur)
+		return (0);
+	line++;
+	if (!cal_loca(&line, &(cur->x1), &(cur->y1), &(cur->z1)))
+		return (0);
+	if (!cal_loca(&line, &(cur->x2), &(cur->y2), &(cur->z2)))
+		return (0);
+	if (!cal_loca(&line, &(cur->x3), &(cur->y3), &(cur->z3)))
+		return (0);
+	if (!cal_color(&line, &(cur->color)))
+		return (0);
+	return (0);
+}
