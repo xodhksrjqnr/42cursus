@@ -55,7 +55,7 @@ int	parse_pl(char *line, t_pl *pl)
 		return (0);
 	if (!(cur->v->z >= -1 && cur->v->z <= 1))
 		return (0);
-	if (!cal_color(&lien, &(cur->color)))
+	if (!cal_color(&line, &(cur->color)))
 		return (0);
 	return (1);
 }

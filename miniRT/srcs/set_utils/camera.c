@@ -58,8 +58,7 @@ int	parse_c(char *line, t_c *c)
 	cur->v->state = 1;
 	while (*line == ' ')
 		line++;
-	if (!list_atoi(&line, &(cur->fov)))
-		return (0);
+	list_atoi_f(&line, &(cur->fov));
 	if (!(cur->fov >= 0 && cur->fov <= 180))
 		return (0);
 	return (1);

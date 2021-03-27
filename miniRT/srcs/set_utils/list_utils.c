@@ -25,15 +25,16 @@ int	cal_color(char **line, unsigned int *color)
 		tmp = 0;
 		if (!list_atoi(line, &tmp))
 			return (0);
-		if (**line != ',' || !(tmp >= 0 && tmp <= 255))
+		if (**line != ',' && !(tmp >= 0 && tmp <= 255))
 			return (0);
 		(*line)++;
-		*color += tmp;
 		*color = *color << 8;
+		*color += tmp;
+		printf("%08X\n", tmp);
 	}
 	tmp = 0;
 	list_atoi(line, &tmp);
-	if (**line != ' ')
+	if (**line != ' ' && !(tmp >= 0 && tmp <= 255))
 		return (0);
 	(*line)++;
 	*color += tmp;
@@ -44,8 +45,10 @@ void	list_atoi_f(char **line, float *num)
 {
 	char	flag;
 	float	tmp;
+	int	count;
 
 	flag = 0;
+	tmp = 0;
 	if (**line == '-')
 		flag = 1;
 	while (**line >= '0' && **line <= '9')
@@ -56,11 +59,12 @@ void	list_atoi_f(char **line, float *num)
 	if (**line == '.')
 	{
 		(*line)++;
-		tmp = 0;
+		count = 10;
 		while (**line >= '0' && **line <= '9')
 		{
-			tmp = tmp / 10 + **line - 48;
+			tmp = tmp + ((float)(**line - 48) / count);
 			(*line)++;
+			count *= 10;
 		}
 	}
 	*num += tmp;

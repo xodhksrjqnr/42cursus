@@ -1,6 +1,7 @@
 #ifndef SET_UTILS_H
 # define SET_UTILS_H
 
+# include <stdio.h>
 # include <fcntl.h>
 # include "list.h"
 # include "get_next_line.h"
@@ -19,7 +20,7 @@ typedef struct	s_list
 }	t_list;
 
 t_list	*init_list(void);
-void	check_object(char *line, t_list *list);
+int	check_object(char *line, t_list *list);
 void	list_free(t_list *list);
 
 #endif

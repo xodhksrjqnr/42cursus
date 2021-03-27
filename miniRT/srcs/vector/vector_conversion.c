@@ -2,9 +2,9 @@
 
 void	rotation_trans(t_vec *v, char axle)
 {
-	double	tmp;
-	double	s_value;
-	double	c_value;
+	float	tmp;
+	float	s_value;
+	float	c_value;
 
 	tmp = 0;
 	s_value = sin(rotation_value);
@@ -29,7 +29,7 @@ void	rotation_trans(t_vec *v, char axle)
 	}
 }
 
-void	scaling_trans(t_vec *v, double x, double y, double z)
+void	scaling_trans(t_vec *v, float x, float y, float z)
 {
 	v->x *= x;
 	v->y *= y;

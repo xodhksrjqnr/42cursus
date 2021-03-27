@@ -8,7 +8,7 @@ static int	set_object_data(t_list *list)
 
 	if (!list)
 		return (0);
-	fd = open("../scenes/test.rt", O_RDONLY);
+	fd = open("./scenes/test.rt", O_RDONLY);
 	result = get_next_line(fd, &line);
 	if (!result)
 		result = -1;
@@ -30,7 +30,7 @@ static int	set_object_data(t_list *list)
 
 static void	test_print(t_list *list)
 {
-	printf("R x:%f, y:%f\n", list->R->x, list->R->y);
+	printf("R x:%d, y:%d\n", list->R->x, list->R->y);
 	printf("A range:%f, color:%08x\n", list->A->range, list->A->color);
 	if (!list->c)
 	{
@@ -60,7 +60,7 @@ static void	test_print(t_list *list)
 	{
 		while (list->pl)
 		{
-			printf("pl x:%f, y:%f, z:%f, vx:%f, vy:%f, vz:%f size:%f, color:%08x\n", list->pl->x, list->pl->y, list->pl->z, list->pl->v->x, list->pl->v->y, list->pl->v->z, list->pl->size, list->pl->color);
+			printf("pl x:%f, y:%f, z:%f, vx:%f, vy:%f, vz:%f, color:%08x\n", list->pl->x, list->pl->y, list->pl->z, list->pl->v->x, list->pl->v->y, list->pl->v->z, list->pl->color);
 			list->pl = list->pl->next;
 		}
 	}
@@ -68,7 +68,7 @@ static void	test_print(t_list *list)
 	{
 		while (list->sq)
 		{
-			printf("sq x:%f, y:%f, z:%f, vx:%f, vy:%f, vz:%f, size:%f, color:%08x\n", list->sp->x, list->sp->y, list->sp->z, list->sp->v->x, list->sp->v->y, list->sp->v->z, list->sp->size, list->sp->color);
+			printf("sq x:%f, y:%f, z:%f, vx:%f, vy:%f, vz:%f, size:%f, color:%08x\n", list->sq->x, list->sq->y, list->sq->z, list->sq->v->x, list->sq->v->y, list->sq->v->z, list->sq->length, list->sq->color);
 			list->sq = list->sq->next;
 		}
 	}
@@ -97,7 +97,7 @@ static void	test_print(t_list *list)
 int	main(void)
 {
 	void	*mlx;
-	void	*image;
+	//void	*image;
 	t_list	*list;
 
 	mlx = mlx_init();

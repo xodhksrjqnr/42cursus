@@ -1,6 +1,6 @@
 #include "list.h"
 
-static t_r	*init_r(void)
+t_r	*init_r(void)
 {
 	t_r	*R;
 
@@ -22,13 +22,13 @@ int	parse_R(char *line, t_r **R)
 	line++;
 	while (*line == ' ')
 		line++;
-	list_atoi(&line, &(*R->x));
-	if (*line != ' ')
-		return (0);
+	while (*line >= '0' && *line <= '9')
+		(*R)->x = (*R)->x * 10 + *line++ - 48;
 	while (*line == ' ')
 		line++;
-	list_atoi(&line, &(*R->y));
-	if (*line != ' ')
+	while (*line >= '0' && *line <= '9')
+		(*R)->y = (*R)->y * 10 + *line++ - 48;
+	if (*line)
 		return (0);
 	return (1);
 }

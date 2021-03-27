@@ -15,6 +15,7 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# define BUFFER_SIZE 10
 
 typedef struct		s_fdlist
 {

@@ -4,7 +4,7 @@ HEAD = includes
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -I $(HEAD)
+FLAGS = -Wall -Wextra -Werror -I$(HEAD)
 
 RM = rm -rf
 
@@ -25,12 +25,14 @@ SRCS = srcs/miniRT.c \
        srcs/vector/vector_basic.c \
        srcs/vector/vector_conversion.c
 
-OBJS = $(SRCS : .c=.o)
+OBJS = $(SRCS:.c=.o)
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	    $(CC) $(FLAGS) $(OBJS) ./srcs/libmlx.dylib
+
+$(OBJS) : $(SRCS)
+	    $(CC) $(FLAGS) $(SRCS) libmlx.dylib
 
 clean : $(RM) $(OBJS)
 

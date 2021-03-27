@@ -1,6 +1,6 @@
 #include "list.h"
 
-static t_a	*init_a(void)
+t_a	*init_a(void)
 {
 	t_a	*A;
 
@@ -22,10 +22,10 @@ int	parse_A(char *line, t_a **A)
 	line++;
 	while (*line == ' ')
 		line++;
-	list_atoi_f(&line, &(*A->range));
-	if (*line != ' ' || !(*A->range >= 0 && *A->range <= 1.0))
+	list_atoi_f(&line, &((*A)->range));
+	if (!((*A)->range >= 0 && (*A)->range <= 1))
 		return (0);
-	if (!cal_color(&line, &(*A->color)))
+	if (!cal_color(&line, &((*A)->color)))
 		return (0);
 	return (1);
 }

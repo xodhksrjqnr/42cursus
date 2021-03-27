@@ -18,7 +18,7 @@ t_list	*init_list()
 	list->tr = 0;
 	return (list);
 }
-
+/*
 void	list_free(t_list *list)
 {
 	free(list->R);
@@ -32,7 +32,7 @@ void	list_free(t_list *list)
 	free_tr(list->tr);
 	free(list);
 }
-
+*/
 static int	parse_basic(char *line, t_list *list)
 {
 	int	result;
@@ -71,7 +71,7 @@ static int	parse_figure(char *line, t_list *list)
 	return (result);
 }
 
-void	check_object(char *line, t_list *list)
+int	check_object(char *line, t_list *list)
 {
 	char	*save;
 	int	result;
@@ -85,9 +85,10 @@ void	check_object(char *line, t_list *list)
 	else if (*line == 's' || *line == 'p' || *line == 'c' || *line == 't')
 		result = parse_figure(line, list);
 	free(save);
+	printf("result:%d\n", result);
 	if (!result)
 	{
-		list_free(list);
+		//list_free(list);
 		return (0);
 	}
 	return (1);

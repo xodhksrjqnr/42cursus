@@ -16,7 +16,7 @@ t_sq	*init_sq(void)
 	sq->x = 0;
 	sq->y = 0;
 	sq->z = 0;
-	sq->side = 0;
+	sq->length = 0;
 	sq->color = 0;
 	sq->next = 0;
 	return (0);
@@ -48,7 +48,7 @@ int	parse_sq(char *line, t_sq *sq)
 	line++;
 	if (!cal_loca(&line, &(cur->x), &(cur->y), &(cur->z)))
 		return (0);
-	if (!cal_loca(&lien, &(cur->v->x), &(cur->v->y), &(cur->v->z)))
+	if (!cal_loca(&line, &(cur->v->x), &(cur->v->y), &(cur->v->z)))
 		return (0);
 	if (!(cur->v->x >= -1 && cur->v->x <= 1))
 		return (0);
@@ -58,8 +58,8 @@ int	parse_sq(char *line, t_sq *sq)
 		return (0);
 	while (*line == ' ')
 		line++;
-	list_atoi_f(&line, &(cur->side));
-	if (cur->side < 0)
+	list_atoi_f(&line, &(cur->length));
+	if (cur->length < 0)
 		return (0);
 	if (!cal_color(&line, &(cur->color)))
 		return (0);
