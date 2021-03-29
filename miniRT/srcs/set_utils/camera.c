@@ -37,11 +37,11 @@ static t_c	*find_c_end(t_c **c)
 	return (save->next);
 }
 
-int	parse_c(char *line, t_c *c)
+int	parse_c(char *line, t_c **c)
 {
 	t_c	*cur;
 
-	cur = find_c_end(&c);
+	cur = find_c_end(c);
 	if (!cur)
 		return (0);
 	line++;

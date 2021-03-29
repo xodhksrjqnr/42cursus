@@ -1,21 +1,21 @@
 #include "list.h"
 
-int	list_atoi(char **line, unsigned int *num)
+int	list_atoi(char **line, int *num)
 {
 	if (**line == '-')
 		return (0);
 	while (**line >= '0' && **line <= '9')
 	{
-		*num += *num * 10 + **line - 48;
+		*num = *num * 10 + **line - 48;
 		(*line)++;
 	}
 	return (1);
 }
 
-int	cal_color(char **line, unsigned int *color)
+int	cal_color(char **line, long long *color)
 {
-	unsigned int	tmp;
-	int		count;
+	int	tmp;
+	int	count;
 
 	while (**line == ' ')
 		(*line)++;
@@ -30,13 +30,13 @@ int	cal_color(char **line, unsigned int *color)
 		(*line)++;
 		*color = *color << 8;
 		*color += tmp;
-		printf("%08X\n", tmp);
 	}
 	tmp = 0;
 	list_atoi(line, &tmp);
 	if (**line != ' ' && !(tmp >= 0 && tmp <= 255))
 		return (0);
 	(*line)++;
+	*color = *color << 8;
 	*color += tmp;
 	return (1);
 }
@@ -50,7 +50,10 @@ void	list_atoi_f(char **line, float *num)
 	flag = 0;
 	tmp = 0;
 	if (**line == '-')
+	{
 		flag = 1;
+		(*line)++;
+	}
 	while (**line >= '0' && **line <= '9')
 	{
 		*num = *num * 10 + **line - 48;

@@ -19,7 +19,7 @@ t_sq	*init_sq(void)
 	sq->length = 0;
 	sq->color = 0;
 	sq->next = 0;
-	return (0);
+	return (sq);
 }
 
 static t_sq	*find_sq_end(t_sq **sq)
@@ -38,14 +38,14 @@ static t_sq	*find_sq_end(t_sq **sq)
 	return (save->next);
 }
 
-int	parse_sq(char *line, t_sq *sq)
+int	parse_sq(char *line, t_sq **sq)
 {
 	t_sq	*cur;
 
-	cur = find_sq_end(&sq);
+	cur = find_sq_end(sq);
 	if (!cur)
 		return (0);
-	line++;
+	line += 2;
 	if (!cal_loca(&line, &(cur->x), &(cur->y), &(cur->z)))
 		return (0);
 	if (!cal_loca(&line, &(cur->v->x), &(cur->v->y), &(cur->v->z)))

@@ -39,14 +39,14 @@ static t_cy	*find_cy_end(t_cy **cy)
 	return (save->next);
 }
 
-int	parse_cy(char *line, t_cy *cy)
+int	parse_cy(char *line, t_cy **cy)
 {
 	t_cy	*cur;
 
-	cur = find_cy_end(&cy);
+	cur = find_cy_end(cy);
 	if (!cur)
 		return (0);
-	line++;
+	line += 2;
 	if (!cal_loca(&line, &(cur->x), &(cur->y), &(cur->z)))
 		return (0);
 	if (!cal_loca(&line, &(cur->v->x), &(cur->v->y), &(cur->v->z)))
@@ -67,5 +67,5 @@ int	parse_cy(char *line, t_cy *cy)
 		return (0);
 	if (!cal_color(&line, &(cur->color)))
 		return (0);
-	return (0);
+	return (1);
 }

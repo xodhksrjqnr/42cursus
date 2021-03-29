@@ -37,14 +37,14 @@ static t_pl	*find_pl_end(t_pl **pl)
 	return (save->next);
 }
 
-int	parse_pl(char *line, t_pl *pl)
+int	parse_pl(char *line, t_pl **pl)
 {
 	t_pl	*cur;
 
-	cur = find_pl_end(&pl);
+	cur = find_pl_end(pl);
 	if (!cur)
 		return (0);
-	line++;
+	line += 2;
 	if (!cal_loca(&line, &(cur->x), &(cur->y), &(cur->z)))
 		return (0);
 	if (!cal_loca(&line, &(cur->v->x), &(cur->v->y), &(cur->v->z)))

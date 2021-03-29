@@ -37,14 +37,14 @@ static t_tr	*find_tr_end(t_tr **tr)
 	return (save->next);
 }
 
-int	parse_tr(char *line, t_tr *tr)
+int	parse_tr(char *line, t_tr **tr)
 {
 	t_tr	*cur;
 
-	cur = find_tr_end(&tr);
+	cur = find_tr_end(tr);
 	if (!cur)
 		return (0);
-	line++;
+	line += 2;
 	if (!cal_loca(&line, &(cur->x1), &(cur->y1), &(cur->z1)))
 		return (0);
 	if (!cal_loca(&line, &(cur->x2), &(cur->y2), &(cur->z2)))
@@ -53,5 +53,5 @@ int	parse_tr(char *line, t_tr *tr)
 		return (0);
 	if (!cal_color(&line, &(cur->color)))
 		return (0);
-	return (0);
+	return (1);
 }

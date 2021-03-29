@@ -32,13 +32,14 @@ static t_sp	*find_sp_end(t_sp **sp)
 	return (save->next);
 }
 
-int	parse_sp(char *line, t_sp *sp)
+int	parse_sp(char *line, t_sp **sp)
 {
 	t_sp	*cur;
 
-	cur = find_sp_end(&sp);
+	cur = find_sp_end(sp);
 	if (!cur)
 		return (0);
+	line += 2;
 	if (!cal_loca(&line, &(cur->x), &(cur->y), &(cur->z)))
 		return (0);
 	while (*line == ' ')

@@ -45,9 +45,9 @@ static int	parse_basic(char *line, t_list *list)
 	else if (*line == 'A')
 		result = parse_A(line, &(list->A));
 	else if (*line == 'c')
-		result = parse_c(line, list->c);
+		result = parse_c(line, &(list->c));
 	else if (*line == 'l')
-		result = parse_l(line, list->l);
+		result = parse_l(line, &(list->l));
 	return (result);
 }
 
@@ -59,15 +59,15 @@ static int	parse_figure(char *line, t_list *list)
 	if (*(line + 2) != ' ')
 		return (result);
 	if (*line == 's' && *(line + 1) == 'p')
-		result = parse_sp(line, list->sp);
+		result = parse_sp(line, &(list->sp));
 	else if (*line == 'p' && *(line + 1) == 'l')
-		result = parse_pl(line, list->pl);
+		result = parse_pl(line, &(list->pl));
 	else if (*line == 's' && *(line + 1) == 'q')
-		result = parse_sq(line, list->sq);
+		result = parse_sq(line, &(list->sq));
 	else if (*line == 'c' && *(line + 1) == 'y')
-		result = parse_cy(line, list->cy);
+		result = parse_cy(line, &(list->cy));
 	else if (*line == 't' && *(line + 1) == 'r')
-		result = parse_tr(line, list->tr);
+		result = parse_tr(line, &(list->tr));
 	return (result);
 }
 
@@ -78,14 +78,15 @@ int	check_object(char *line, t_list *list)
 
 	save = line;
 	result = 0;
+	if (!*line)
+		return (1);
 	while (*line == ' ')
 		line++;
-	if (*line == 'R' || *line == 'A' || *line == 'o' || *line == 'l')
+	if (*line == 'R' || *line == 'A' || (*line == 'c' && *(line + 1) == ' ') || *line == 'l')
 		result = parse_basic(line, list);
 	else if (*line == 's' || *line == 'p' || *line == 'c' || *line == 't')
 		result = parse_figure(line, list);
 	free(save);
-	printf("result:%d\n", result);
 	if (!result)
 	{
 		//list_free(list);
