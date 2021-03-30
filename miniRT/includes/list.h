@@ -5,8 +5,8 @@
 # include "libvec.h"
 
 //utils
-int	list_atoi(char **line, int *num);
-int	cal_color(char **line, long long *color);
+int	list_atoi(char **line, unsigned int *num);
+int	cal_color(char **line, unsigned int *color);
 void	list_atoi_f(char **line, float *num);
 int	cal_loca(char **line, float *x, float *y, float *z);
 
@@ -24,7 +24,7 @@ int	parse_R(char *line, t_r **R);
 typedef struct	s_a
 {
 	float		range;
-	long long	color;
+	unsigned int	color;
 }	t_a;
 
 t_a	*init_a(void);
@@ -52,7 +52,7 @@ typedef struct	s_l
 	float		y;
 	float		z;
 	float		range;
-	long long	color;
+	unsigned int	color;
 	void		*next;
 }	t_l;
 
@@ -67,7 +67,7 @@ typedef struct	s_sp
 	float		y;
 	float		z;
 	float		r;
-	long long	color;
+	unsigned int	color;
 	void		*next;
 }	t_sp;
 
@@ -82,7 +82,7 @@ typedef struct	s_pl
 	float		y;
 	float		z;
 	t_vec		*v;
-	long long	color;
+	unsigned int	color;
 	void		*next;
 }	t_pl;
 
@@ -98,7 +98,7 @@ typedef struct	s_sq
 	float		z;
 	float		length;
 	t_vec		*v;
-	long long	color;
+	unsigned int	color;
 	void		*next;
 }	t_sq;
 
@@ -115,7 +115,7 @@ typedef struct	s_cy
 	t_vec		*v;
 	float		r;
 	float		h;
-	long long	color;
+	unsigned int	color;
 	void		*next;
 }	t_cy;
 
@@ -135,7 +135,7 @@ typedef struct	s_tr
 	float		x3;
 	float		y3;
 	float		z3;
-	long long	color;
+	unsigned int	color;
 	void		*next;
 }	t_tr;
 

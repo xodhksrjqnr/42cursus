@@ -1,6 +1,6 @@
 #include "list.h"
 
-int	list_atoi(char **line, int *num)
+int	list_atoi(char **line, unsigned int *num)
 {
 	if (**line == '-')
 		return (0);
@@ -12,10 +12,10 @@ int	list_atoi(char **line, int *num)
 	return (1);
 }
 
-int	cal_color(char **line, long long *color)
+int	cal_color(char **line, unsigned int *color)
 {
-	int	tmp;
-	int	count;
+	unsigned int	tmp;
+	int		count;
 
 	while (**line == ' ')
 		(*line)++;

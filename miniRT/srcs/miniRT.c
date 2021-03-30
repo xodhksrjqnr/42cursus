@@ -31,7 +31,7 @@ static int	set_object_data(t_list *list, char *filename)
 static void	test_print(t_list *list)
 {
 	printf("R x:%d, y:%d\n", list->R->x, list->R->y);
-	printf("A range:%.2f, color:%08llX\n", list->A->range, list->A->color);
+	printf("A range:%.2f, color:%08X\n", list->A->range, list->A->color);
 	if (list->c)
 	{
 		while (list->c)
@@ -44,7 +44,7 @@ static void	test_print(t_list *list)
 	{
 		while (list->l)
 		{
-			printf("l x:%.2f, y:%.2f, z:%.2f, range:%.2f, color:%08llX\n", list->l->x, list->l->y, list->l->z, list->l->range, list->l->color);
+			printf("l x:%.2f, y:%.2f, z:%.2f, range:%.2f, color:%08X\n", list->l->x, list->l->y, list->l->z, list->l->range, list->l->color);
 			list->l = list->l->next;
 		}
 	}
@@ -52,7 +52,7 @@ static void	test_print(t_list *list)
 	{
 		while (list->sp)
 		{
-			printf("sp x:%.2f, y:%.2f, z:%.2f, r:%.2f, color:%08llX\n", list->sp->x, list->sp->y, list->sp->z, list->sp->r, list->sp->color);
+			printf("sp x:%.2f, y:%.2f, z:%.2f, r:%.2f, color:%08X\n", list->sp->x, list->sp->y, list->sp->z, list->sp->r, list->sp->color);
 			list->sp = list->sp->next;
 		}
 	}
@@ -60,7 +60,7 @@ static void	test_print(t_list *list)
 	{
 		while (list->pl)
 		{
-			printf("pl x:%.2f, y:%.2f, z:%.2f, vx:%.2f, vy:%.2f, vz:%.2f, color:%08llX\n", list->pl->x, list->pl->y, list->pl->z, list->pl->v->x, list->pl->v->y, list->pl->v->z, list->pl->color);
+			printf("pl x:%.2f, y:%.2f, z:%.2f, vx:%.2f, vy:%.2f, vz:%.2f, color:%08X\n", list->pl->x, list->pl->y, list->pl->z, list->pl->v->x, list->pl->v->y, list->pl->v->z, list->pl->color);
 			list->pl = list->pl->next;
 		}
 	}
@@ -68,7 +68,7 @@ static void	test_print(t_list *list)
 	{
 		while (list->sq)
 		{
-			printf("sq x:%.2f, y:%.2f, z:%.2f, vx:%.2f, vy:%.2f, vz:%.2f, size:%.2f, color:%08llX\n", list->sq->x, list->sq->y, list->sq->z, list->sq->v->x, list->sq->v->y, list->sq->v->z, list->sq->length, list->sq->color);
+			printf("sq x:%.2f, y:%.2f, z:%.2f, vx:%.2f, vy:%.2f, vz:%.2f, size:%.2f, color:%08X\n", list->sq->x, list->sq->y, list->sq->z, list->sq->v->x, list->sq->v->y, list->sq->v->z, list->sq->length, list->sq->color);
 			list->sq = list->sq->next;
 		}
 	}
@@ -76,7 +76,7 @@ static void	test_print(t_list *list)
 	{
 		while (list->cy)
 		{
-			printf("cy x:%.2f, y:%.2f, z:%.2f, vx:%.2f, vy:%.2f, vz:%.2f, r:%.2f, h:%.2f, color:%08llX\n", list->cy->x, list->cy->y, list->cy->z, list->cy->v->x, list->cy->v->y, list->cy->v->z, list->cy->r, list->cy->h, list->cy->color);
+			printf("cy x:%.2f, y:%.2f, z:%.2f, vx:%.2f, vy:%.2f, vz:%.2f, r:%.2f, h:%.2f, color:%08X\n", list->cy->x, list->cy->y, list->cy->z, list->cy->v->x, list->cy->v->y, list->cy->v->z, list->cy->r, list->cy->h, list->cy->color);
 			list->cy = list->cy->next;
 		}
 	}
@@ -84,7 +84,7 @@ static void	test_print(t_list *list)
 	{
 		while (list->tr)
 		{
-			printf("tr x1:%.2f, y1:%.2f, z1:%.2f, x2:%.2f, y2:%.2f, z2:%.2f, x3:%.2f, y3:%.2f, z3:%.2f, color:%08llX\n", list->tr->x1, list->tr->y1, list->tr->z1, list->tr->x2, list->tr->y2, list->tr->z2, list->tr->x3, list->tr->y3, list->tr->z3, list->tr->color);
+			printf("tr x1:%.2f, y1:%.2f, z1:%.2f, x2:%.2f, y2:%.2f, z2:%.2f, x3:%.2f, y3:%.2f, z3:%.2f, color:%08X\n", list->tr->x1, list->tr->y1, list->tr->z1, list->tr->x2, list->tr->y2, list->tr->z2, list->tr->x3, list->tr->y3, list->tr->z3, list->tr->color);
 			list->tr = list->tr->next;
 		}
 	}
