@@ -1,6 +1,6 @@
 #include "list.h"
 
-t_a	*init_a(void)
+static t_a	*init_a(void)
 {
 	t_a	*A;
 

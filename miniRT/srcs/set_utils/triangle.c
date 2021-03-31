@@ -1,10 +1,10 @@
 #include "list.h"
 
-t_tr	*init_tr(void)
+static t_tr	*init_tr(void)
 {
 	t_tr	*tr;
 
-	tr = malloc(sizeof(tr));
+	tr = malloc(sizeof(t_tr));
 	if (!tr)
 		return (0);
 	tr->x1 = 0;
@@ -19,6 +19,18 @@ t_tr	*init_tr(void)
 	tr->color = 0;
 	tr->next = 0;
 	return (tr);
+}
+
+void	free_tr(t_tr *tr)
+{
+	t_tr	*save;
+
+	while (tr)
+	{
+		save = tr->next;
+		free(tr);
+		tr = save;
+	}
 }
 
 static t_tr	*find_tr_end(t_tr **tr)

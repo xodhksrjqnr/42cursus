@@ -1,10 +1,10 @@
 #include "list.h"
 
-t_cy	*init_cy(void)
+static t_cy	*init_cy(void)
 {
 	t_cy	*cy;
 
-	cy = malloc(sizeof(cy));
+	cy = malloc(sizeof(t_cy));
 	if (!cy)
 		return (0);
 	cy->v = init_vec();
@@ -21,6 +21,19 @@ t_cy	*init_cy(void)
 	cy->color = 0;
 	cy->next = 0;
 	return (cy);
+}
+
+void	free_cy(t_cy *cy)
+{
+	t_cy	*save;
+
+	while (cy)
+	{
+		save = cy->next;
+		free(cy->v);
+		free(cy);
+		cy = save;
+	}
 }
 
 static t_cy	*find_cy_end(t_cy **cy)

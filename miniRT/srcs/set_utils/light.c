@@ -1,10 +1,10 @@
 #include "list.h"
 
-t_l	*init_l(void)
+static t_l	*init_l(void)
 {
 	t_l	*l;
 
-	l = malloc(sizeof(l));
+	l = malloc(sizeof(t_l));
 	if (!l)
 		return (0);
 	l->x = 0;
@@ -14,6 +14,18 @@ t_l	*init_l(void)
 	l->color = 0;
 	l->next = 0;
 	return (l);
+}
+
+void	free_l(t_l *l)
+{
+	t_l	*save;
+
+	while (l)
+	{
+		save = l->next;
+		free(l);
+		l = save;
+	}
 }
 
 static t_l	*find_l_end(t_l **l)

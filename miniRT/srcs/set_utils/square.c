@@ -1,10 +1,10 @@
 #include "list.h"
 
-t_sq	*init_sq(void)
+static t_sq	*init_sq(void)
 {
 	t_sq	*sq;
 
-	sq = malloc(sizeof(sq));
+	sq = malloc(sizeof(t_sq));
 	if (!sq)
 		return (0);
 	sq->v = init_vec();
@@ -20,6 +20,19 @@ t_sq	*init_sq(void)
 	sq->color = 0;
 	sq->next = 0;
 	return (sq);
+}
+
+void	free_sq(t_sq *sq)
+{
+	t_sq	*save;
+
+	while (sq)
+	{
+		save = sq->next;
+		free(sq->v);
+		free(sq);
+		sq = save;
+	}
 }
 
 static t_sq	*find_sq_end(t_sq **sq)

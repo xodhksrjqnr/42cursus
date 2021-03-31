@@ -1,10 +1,10 @@
 #include "list.h"
 
-t_c	*init_c(void)
+static t_c	*init_c(void)
 {
 	t_c	*c;
 
-	c = malloc(sizeof(c));
+	c = malloc(sizeof(t_c));
 	if (!c)
 		return (0);
 	c->v = init_vec();
@@ -19,6 +19,19 @@ t_c	*init_c(void)
 	c->fov = 0;
 	c->next = 0;
 	return (c);
+}
+
+void	free_c(t_c *c)
+{
+	t_c	*save;
+
+	while (c)
+	{
+		save = c->next;
+		free(c->v);
+		free(c);
+		c = save;
+	}
 }
 
 static t_c	*find_c_end(t_c **c)

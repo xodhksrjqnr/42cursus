@@ -18,21 +18,30 @@ t_list	*init_list()
 	list->tr = 0;
 	return (list);
 }
-/*
+
 void	list_free(t_list *list)
 {
-	free(list->R);
-	free(list->A);
-	free_c(list->c);
-	free_l(list->l);
-	free_sp(list->sp);
-	free_pl(list->pl);
-	free_sq(list->sq);
-	free_cy(list->cy);
-	free_tr(list->tr);
+	if (list->R)
+		free(list->R);
+	if (list->A)
+		free(list->A);
+	if (list->c)
+		free_c(list->c);
+	if (list->l)
+		free_l(list->l);
+	if (list->sp)
+		free_sp(list->sp);
+	if (list->pl)
+		free_pl(list->pl);
+	if (list->sq)
+		free_sq(list->sq);
+	if (list->cy)
+		free_cy(list->cy);
+	if (list->tr)
+		free_tr(list->tr);
 	free(list);
 }
-*/
+
 static int	parse_basic(char *line, t_list *list)
 {
 	int	result;
@@ -79,18 +88,13 @@ int	check_object(char *line, t_list *list)
 	save = line;
 	result = 0;
 	if (!*line)
-		return (1);
-	while (*line == ' ')
-		line++;
-	if (*line == 'R' || *line == 'A' || (*line == 'c' && *(line + 1) == ' ') || *line == 'l')
+		result = 1;
+	else if (*line == 'R' || *line == 'A' || (*line == 'c' && *(line + 1) == ' ') || *line == 'l')
 		result = parse_basic(line, list);
 	else if (*line == 's' || *line == 'p' || *line == 'c' || *line == 't')
 		result = parse_figure(line, list);
 	free(save);
 	if (!result)
-	{
-		//list_free(list);
-		return (0);
-	}
-	return (1);
+		list_free(list);
+	return (result);
 }

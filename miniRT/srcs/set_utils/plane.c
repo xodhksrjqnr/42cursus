@@ -1,10 +1,10 @@
 #include "list.h"
 
-t_pl	*init_pl(void)
+static t_pl	*init_pl(void)
 {
 	t_pl	*pl;
 
-	pl = malloc(sizeof(pl));
+	pl = malloc(sizeof(t_pl));
 	if (!pl)
 		return (0);
 	pl->v = init_vec();
@@ -19,6 +19,19 @@ t_pl	*init_pl(void)
 	pl->color = 0;
 	pl->next = 0;
 	return (pl);
+}
+
+void	free_pl(t_pl *pl)
+{
+	t_pl	*save;
+
+	while (pl)
+	{
+		save = pl->next;
+		free(pl->v);
+		free(pl);
+		pl = save;
+	}
 }
 
 static t_pl	*find_pl_end(t_pl **pl)

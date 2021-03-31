@@ -1,10 +1,10 @@
 #include "list.h"
 
-t_sp	*init_sp(void)
+static t_sp	*init_sp(void)
 {
 	t_sp	*sp;
 
-	sp = malloc(sizeof(sp));
+	sp = malloc(sizeof(t_sp));
 	if (!sp)
 		return (0);
 	sp->x = 0;
@@ -14,6 +14,18 @@ t_sp	*init_sp(void)
 	sp->color = 0;
 	sp->next = 0;
 	return (sp);
+}
+
+void	free_sp(t_sp *sp)
+{
+	t_sp	*save;
+
+	while (sp)
+	{
+		save = sp->next;
+		free(sp);
+		sp = save;
+	}
 }
 
 static t_sp	*find_sp_end(t_sp **sp)

@@ -1,6 +1,6 @@
 #include "list.h"
 
-t_r	*init_r(void)
+static t_r	*init_r(void)
 {
 	t_r	*R;
 
