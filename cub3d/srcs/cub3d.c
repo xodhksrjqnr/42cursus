@@ -18,10 +18,8 @@ static t_cub3d  *setting_program(void)
       *(tmp + 1) = sizeY;
     cub3d->window = mlx_new_window(cub3d->mlx, *tmp, *(tmp + 1), "cub3d");
     set_image(cub3d);
-    cub3d->img = malloc(sizeof(t_img));
-    cub3d->img->image = mlx_new_image(cub3d->mlx, *tmp, *(tmp + 1));
-    cub3d->img->adr = mlx_get_data_addr(cub3d->img->image, &(cub3d->img->bpp), &(cub3d->img->leng), &(cub3d->img->endian));
-    cub3d->img->ratio = 1;
+    cub3d->image = mlx_new_image(cub3d->mlx, *tmp, *(tmp + 1));
+    cub3d->adr = mlx_get_data_addr(cub3d->image, &(cub3d->bpp), &(cub3d->leng), &(cub3d->endian));
     cub3d->player = set_player(cub3d->data->location, cub3d->data->direction);
     return (cub3d);
 }

@@ -7,22 +7,16 @@
 
 # include <stdio.h>
 
-typedef struct s_img
-{
-    void    *image;
-    char    *adr;
-    int     bpp;
-    int     leng;
-    int     endian;
-    double  ratio;
-}   t_img;
-
 typedef struct s_cub3d
 {
     void    **texture;
     void    *mlx;
     void    *window;
-    t_img       *img;
+    void    *image;
+    char    *adr;
+    int     bpp;
+    int     leng;
+    int     endian;
     t_player    *player;
     t_parse     *data;
 }   t_cub3d;
@@ -36,6 +30,17 @@ typedef struct  s_dda
     double  perpWallDist;
 }   t_dda;
 
+typedef struct s_texture
+{
+    void    *image;
+    char    *adr;
+    int     bpp;
+    int     leng;
+    int     endian;
+    double  ratio;
+}   t_texture;
+
+
 int    ray_casting(char **worldMap, t_cub3d *cub3d);
 
 //key
@@ -44,11 +49,10 @@ int    key_release(int keycode, t_cub3d *cub3d);
 int    active_apply(t_cub3d *cub3d);
 
 //map
-unsigned int    set_color(char **worldMap, int x, int y, int side);
 void            draw_point(int height, int screen_height, int *point);
 
 //texture
 void    set_image(t_cub3d *cub3d);
-int     draw_texture(t_img *img, int x, int y);
+//int     draw_texture(int x, int y, int bpp, int leng);
 
 #endif
