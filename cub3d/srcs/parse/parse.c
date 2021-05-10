@@ -8,19 +8,19 @@ t_parse     *init_parse(void)
     data = malloc(sizeof(t_parse));
     if (!data)
         return (0);
-    data->texture = malloc(sizeof(char *) * 6);
-    data->worldMap = malloc(sizeof(char *) * 21);
-    if (!data->texture || !data->worldMap)
+    data->texture = malloc(sizeof(char *) * 5);
+    data->worldmap = malloc(sizeof(char *) * 21);
+    if (!data->texture || !data->worldmap)
         return (0);
-    *(data->texture + 5) = 0;
     i = 0;
     while (i < 21)
-        *(data->worldMap + i++) = 0;
+        *(data->worldmap + i++) = 0;
     data->direction = 0;
     data->location[0] = 0;
     data->location[1] = 0;
     data->resolution[0] = 0;
     data->resolution[1] = 0;
+    data->sprite_num = 0;
     data->cursize = 0;
     data->maxsize = 20;
     data->maxlength = 0;
@@ -29,6 +29,8 @@ t_parse     *init_parse(void)
 
 static int check_flag(char *line)
 {
+    while (*line == ' ')
+        line++;
     if (*line == 'N' && *(line + 1) == 'O' && *(line + 2) == ' ')
         return (0);
     else if (*line == 'S' && *(line + 1) == 'O' && *(line + 2) == ' ')

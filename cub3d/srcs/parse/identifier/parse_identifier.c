@@ -38,6 +38,8 @@ int set_identifier(t_parse *data, char *line, int flag)
 
     save = line;
     result = 0;
+    while (*line == ' ')
+        line++;
     while (*line != ' ')
         line++;
     while (*line == ' ')

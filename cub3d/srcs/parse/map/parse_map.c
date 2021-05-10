@@ -12,10 +12,10 @@ static int     map_line_check(t_parse *data, char *line)
         if (data->direction && chr)
             break ;
         else if (!data->direction && chr)
-        {
             data->direction = chr;
-            chr = 0;
-        }
+        chr = 0;
+        if (*line == '2')
+            data->sprite_num += 1;
         line++;
     }
     if (*line)
@@ -39,17 +39,22 @@ int set_map(t_parse *data, char *line)
         return (0);
     if (data->cursize == data->maxsize)
     {
-        if (!resize_col(&data->worldMap, data->maxsize))
+        if (!resize_col(&data->worldmap, data->maxsize))
             return (0);
         data->maxsize += 5;
     }
-    *(data->worldMap + data->cursize++) = line;
+    *(data->worldmap + data->cursize++) = line;
     return (1);
 }
 
 t_parse *resize_map(t_parse *data)
 {
-    if (!resize_col(&data->worldMap, data->cursize))
+    if (!data->direction)
+        return (0);
+    data->sprite = (t_sprite **)malloc(sizeof(t_sprite *) * data->sprite_num);
+    if (!data->sprite)
+        return (0);
+    if (!resize_col(&data->worldmap, data->cursize))
         return (0);
     if (!resize_row(data))
         return (0);

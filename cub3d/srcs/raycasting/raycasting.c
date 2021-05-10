@@ -1,103 +1,124 @@
 #include "raycasting.h"
 
-static void  set_dda_value(t_dda *dda_value, double *ray, t_player *player)
+static void  set_dda_value(t_dda *dda, t_player *player, int resolution, int x)
 {
     int i;
 
     i = 0;
     while (i < 2)
     {
-        dda_value->map[i] = (int)(player->pos[i]);
-        dda_value->deltaDist[i] = fabs(1 / ray[i]);
-        dda_value->step[i] = -1;
-        dda_value->sideDist[i] = player->pos[i] - dda_value->map[i];
-        if (ray[i] >= 0)
+        dda->map[i] = (int)(player->pos[i]);
+        dda->point[i] = 0;
+        dda->ray[i] = player->dir[i] + (player->plane[i] * ((2 * x / (double)resolution) - 1));
+        dda->deltaDist[i] = fabs(1 / dda->ray[i]);
+        dda->step[i] = -1;
+        dda->sideDist[i] = player->pos[i] - dda->map[i];
+        if (dda->ray[i] >= 0)
         {
-            dda_value->step[i] = 1;
-            dda_value->sideDist[i] = (-1 * dda_value->sideDist[i]) + 1.0;
+            dda->step[i] = 1;
+            dda->sideDist[i] = (-1 * dda->sideDist[i]) + 1.0;
         }
-        dda_value->sideDist[i] *= dda_value->deltaDist[i];
+        dda->sideDist[i] *= dda->deltaDist[i];
         i++;
     }
+    dda->side = 0;
 }
 
-static int  hit_wall(t_dda *dda_value, char **worldMap)
+static void hit_wall(t_dda *dda, char **worldmap, double *pos)
 {
     int side;
 
     side = 0;
-    while (worldMap[(int)dda_value->map[0]][(int)dda_value->map[1]] == '0')
+    while (worldmap[(int)dda->map[0]][(int)dda->map[1]] != '1')
     {
-      if (dda_value->sideDist[0] < dda_value->sideDist[1])
-        side = 0;
-      else
+      if (dda->sideDist[1] < dda->sideDist[0])
         side = 1;
-      dda_value->sideDist[side] += dda_value->deltaDist[side];
-      dda_value->map[side] += dda_value->step[side];
+      else
+        side = 0;
+      dda->sideDist[side] += dda->deltaDist[side];
+      dda->map[side] += dda->step[side];
     }
-    return (side);
+    dda->perpWallDist = (dda->map[side] - pos[side] + (1 - dda->step[side]) / 2) / dda->ray[side];
+    dda->wallX = pos[1 - side] + dda->perpWallDist * dda->ray[1 - side];
+    dda->wallX -= floor(dda->wallX);
+    dda->side = side;
 }
 
-static void my_mlx_pixel_put(t_cub3d *cub3d, t_dda *dda_value, t_texture *texture, int x, double wallX)
+static void draw_sprite(t_cub3d *cub3d, t_player *player, int i, int x, double dist)
 {
-  char    *dst;
-  int     count;
-  int     point[2];
-  int     *tmp;
-  double  ratio;
-  char    *ref;
+  int     lengX;
+  int     point[4];//0,1 = x_s,x_e 2,3 = y_s,y_e
+  double  cur[2];//0 = y, 1 = x
+  double  ratio[2];
+  char    *dst[2];
 
-  tmp = cub3d->data->resolution;
-  draw_point((int)(*tmp / dda_value->perpWallDist), *(tmp + 1), point);
-  ratio = (double)32 / (double)(*(point + 1) - *point + 1);
-  count = 0;
-  dst = cub3d->adr + x * (cub3d->bpp / 8);
-  ref = texture->adr + (int)((int)wallX * ratio) * (texture->bpp / 8);
-  while (count < *(tmp + 1))
+  while (--i >= 0)
   {
-    if (count < point[0])
-      *(unsigned int *)(dst + count * cub3d->leng) = 0x00F0F0F0;
-    else if (count >= point[1])
-      *(unsigned int *)(dst + count * cub3d->leng) = 0x00FF00FF;
-    else
-      *(unsigned int *)(dst + count * cub3d->leng) = *(unsigned int *)(ref + (int)(count * ratio) * texture->leng);
-    count++;
+    cur[0] =  cub3d->data->sprite[i]->y - player->pos[0];
+    cur[1] =  cub3d->data->sprite[i]->x - player->pos[1];
+    if (!check_fov(player->dir, cur, cub3d->data->sprite[i]->dist - dist, player->fov))
+      continue ;
+    trans_location(cur, player->dir, player->plane);
+    set_draw_point(cub3d->data->resolution, cur, point);
+    if (x < point[0] || x > point[1])
+      continue ;
+    set_ratio(cub3d->texture[4]->size, point, &lengX, ratio);
+    if (*point > cub3d->data->resolution[0] / 2)
+        lengX = 0;
+    *dst = cub3d->adr + x * cub3d->bpp / 8;
+    *(dst + 1) = cub3d->texture[4]->adr + (int)((x - *point + lengX) * *ratio) * cub3d->texture[4]->bpp / 8;
+    draw_target(dst, point, cub3d->leng, cub3d->texture[4]->leng, ratio);
   }
 }
 
-int ray_casting(char **worldMap, t_cub3d *cub3d)
+static void my_mlx_pixel_put(t_cub3d *cub3d, int x, char *ref, t_dda *dda)
 {
-  int     side;
-  int     i;
-  double  ray[2];
-  t_dda   *dda_value;
-  t_texture *texture;
-  double  wallX;
+  int     count;
+  int     *color;
+  char    *dst;
+  char    *dst2;
 
-  dda_value = malloc(sizeof(t_dda));
-  if (!dda_value)
-      return (0);
-  texture = malloc(sizeof(t_texture));
-  if (!texture)
-      return (0);
-  texture->adr = mlx_get_data_addr(cub3d->texture[1], &texture->bpp, &texture->leng, &texture->endian);
-  i = 0;
-  while (i < cub3d->data->resolution[0])
+  dst = cub3d->adr + x * (cub3d->bpp / 8);
+  count = -1;
+  while (++count < cub3d->data->resolution[1])
   {
-    ray[0] = cub3d->player->dir[0] + (cub3d->player->plane[0] * ((2 * i / (double)cub3d->data->resolution[0]) - 1));
-    ray[1] = cub3d->player->dir[1] + (cub3d->player->plane[1] * ((2 * i / (double)cub3d->data->resolution[0]) - 1));
-    set_dda_value(dda_value, ray, cub3d->player);
-    side = hit_wall(dda_value, worldMap);
-    dda_value->perpWallDist = (dda_value->map[side] - cub3d->player->pos[side] + (1 - dda_value->step[side]) / 2) / ray[side];
-    if (!side)
-      wallX = cub3d->player->pos[1] + dda_value->perpWallDist * ray[1];
+    dst2 = dst + count * cub3d->leng;
+    if (dda->point[0] <= count && count <= dda->point[1])
+      *(unsigned int *)dst2 = texture_color(ref, count - dda->point[0], dda->cur);
     else
-      wallX = cub3d->player->pos[0] + dda_value->perpWallDist * ray[0];
-    wallX -= floor(wallX);
-    my_mlx_pixel_put(cub3d, dda_value, texture, i, wallX);
-    i++;
+    {
+      color = cub3d->data->color[1];
+      if (count > dda->point[1])
+        color = cub3d->data->color[0];
+      *(unsigned int *)dst2 = (unsigned int)(color[0] + color[1] + color[2]);
+    }
+  }
+  draw_sprite(cub3d, cub3d->player, cub3d->data->sprite_num, x, dda->perpWallDist);
+}
+
+int ray_casting(t_cub3d *cub3d, t_player *player, t_parse *data)
+{
+  int   x;
+  t_dda *dda;
+
+  dda = malloc(sizeof(t_dda));
+  if (!dda)
+      return (0);
+  cub3d->image = mlx_new_image(cub3d->mlx, data->resolution[0], data->resolution[1]);
+  cub3d->adr = mlx_get_data_addr(cub3d->image, &(cub3d->bpp), &(cub3d->leng), &(cub3d->endian));
+  set_sprite_dist(cub3d->data->sprite_num, cub3d->data->sprite, cub3d->player->pos);
+  sort_sprite(&cub3d->data->sprite, cub3d->data->sprite_num);
+  x = 0;
+  while (x < data->resolution[0])
+  {
+    set_dda_value(dda, player, data->resolution[0], x);
+    hit_wall(dda, data->worldmap, player->pos);
+    draw_point(dda, data);
+    my_mlx_pixel_put(cub3d, x, select_texture(cub3d->texture, &dda), dda);
+    x++;
   }
   mlx_put_image_to_window(cub3d->mlx, cub3d->window, cub3d->image, 0, 0);
-  free(dda_value);
+  mlx_destroy_image(cub3d->mlx, cub3d->image);
+  free(dda);
   return (1);
 }

@@ -282,6 +282,14 @@ int	main(void)
 	printf("%d\n", num);
 	num = ft_printf("9.7x |%9.7x|\n", -1234);
 	printf("%d\n", num);
+	num = ft_printf("9.7x |%4.-3d|\n", 10);
+	printf("%d\n", num);
+	num = ft_printf("9.7x |%4.3d|\n", 10);
+	printf("%d\n", num);
+	num = printf("9.7x |%4.*d|\n", -3, 10);
+	printf("%d\n", num);
+	num = printf("9.7x |%4.3d|\n", 10);
+	printf("%d\n", num);
 
 	return (0);
 }

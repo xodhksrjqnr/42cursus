@@ -31,17 +31,17 @@ int  key_release(int keycode, t_cub3d *cub3d)
 int  active_apply(t_cub3d *cub3d)
 {
     if (cub3d->player->key[0] == 1)
-      move_AD(cub3d->player, cub3d->data->worldMap, 1);
+      move_ad(cub3d->player, cub3d->data->worldmap, 1);
     else if (cub3d->player->key[2] == 1)
-      move_AD(cub3d->player, cub3d->data->worldMap, -1);
+      move_ad(cub3d->player, cub3d->data->worldmap, -1);
     if (cub3d->player->key[1] == 1)
-      move_WS(cub3d->player, cub3d->data->worldMap, -1);
+      move_ws(cub3d->player, cub3d->data->worldmap, -1);
     else if (cub3d->player->key[3] == 1)
-      move_WS(cub3d->player, cub3d->data->worldMap, 1);
+      move_ws(cub3d->player, cub3d->data->worldmap, 1);
     if (cub3d->player->key[4] == 1)
-      eyesight_LR(cub3d->player, 1);
+      eyesight_lr(cub3d->player, 1);
     else if (cub3d->player->key[5] == 1)
-      eyesight_LR(cub3d->player, -1);
-    ray_casting(cub3d->data->worldMap, cub3d);
+      eyesight_lr(cub3d->player, -1);
+    ray_casting(cub3d, cub3d->player, cub3d->data);
     return (1);
 }

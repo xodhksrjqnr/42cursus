@@ -46,31 +46,28 @@ static int  around_check(char **map, int row, int col, int max)
     return (1);
 }
 
-static int  map_validation(t_parse *data)
+static int  map_validation(t_parse *data, int col, int row, int i)
 {
-    int     row;
-    int     col;
-
-    col = 0;
-    while (col < data->cursize)
+    while (++col < data->cursize)
     {
-        row = 0;
-        while (row < data->maxlength + 2)
+        row = -1;
+        while (++row < data->maxlength + 2)
         {
-            if (find_chr("02WENS", data->worldMap[col][row]))
+            if (find_chr("02WENS", data->worldmap[col][row]))
             {
-                if (!around_check(data->worldMap, row, col, data->cursize))
+                if (!around_check(data->worldmap, row, col, data->cursize))
                     return (error_check('p', 6));
-                if (data->worldMap[col][row] != '0' && data->worldMap[col][row] != '2')
+                if (!find_chr("02", data->worldmap[col][row]))
                 {
                     data->location[0] = row;
                     data->location[1] = col;
-                    data->worldMap[col][row] = '0';
+                    data->worldmap[col][row] = '0';
                 }
+                if (data->worldmap[col][row] == '2')
+                    if (!set_sprite(data->sprite, col, row, i++))
+                        return (0);
             }
-            row++;
         }
-        col++;
     }
     return (1);
 }
@@ -81,7 +78,7 @@ int resize_row(t_parse *data)
     int     i;
     char    **tmp;
 
-    tmp = data->worldMap;
+    tmp = data->worldmap;
     while (*tmp)
     {
         save = malloc(data->maxlength + 3);
@@ -101,5 +98,5 @@ int resize_row(t_parse *data)
         *tmp = save;
         tmp++;
     }
-    return (map_validation(data));
+    return (map_validation(data, -1, 0, 0));
 }

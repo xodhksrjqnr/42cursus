@@ -11,9 +11,11 @@ RM = rm -rf
 SRCS = srcs/cub3d.c \
 	srcs/raycasting/player.c \
 	srcs/raycasting/raycasting.c \
-	srcs/raycasting/map.c \
+	srcs/raycasting/wall.c \
 	srcs/raycasting/key.c \
-	srcs/raycasting/image.c \
+	srcs/raycasting/texture.c \
+	srcs/raycasting/sprite.c \
+	srcs/raycasting/sprite_utils.c \
 	srcs/parse/parse.c \
 	srcs/parse/parse_utils_basic.c \
 	srcs/parse/identifier/parse_identifier.c \
