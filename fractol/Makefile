@@ -10,8 +10,6 @@ FLAG = -Wall -Wextra -Werror $(HEAD) -g3 -fsanitize=address
 
 RM = rm -rf
 
-OBJ_DIR = objs/
-
 SRCS = srcs/main.c \
 	srcs/main_utils.c \
 	srcs/fractol.c \
