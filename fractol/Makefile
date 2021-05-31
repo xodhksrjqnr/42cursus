@@ -36,7 +36,7 @@ clean :
 	make clean -C $(LIB)
 	rm objs/*
 
-fclean : clean
+fclean :
 	$(RM) $(NAME)
 
 re : fclean all
