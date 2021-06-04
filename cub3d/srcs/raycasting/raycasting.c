@@ -1,124 +1,109 @@
 #include "raycasting.h"
 
-static void  set_dda_value(t_dda *dda, t_player *player, int resolution, int x)
+static void			draw_sprite(t_cub3d *cub, int x, t_sprite **sprite
+, char *dst)
 {
-    int i;
+	t_texture	*t;
+	int			y;
+	char		*ref;
+	char		*ref2;
+	char		*tmp;
 
-    i = 0;
-    while (i < 2)
-    {
-        dda->map[i] = (int)(player->pos[i]);
-        dda->point[i] = 0;
-        dda->ray[i] = player->dir[i] + (player->plane[i] * ((2 * x / (double)resolution) - 1));
-        dda->deltaDist[i] = fabs(1 / dda->ray[i]);
-        dda->step[i] = -1;
-        dda->sideDist[i] = player->pos[i] - dda->map[i];
-        if (dda->ray[i] >= 0)
-        {
-            dda->step[i] = 1;
-            dda->sideDist[i] = (-1 * dda->sideDist[i]) + 1.0;
-        }
-        dda->sideDist[i] *= dda->deltaDist[i];
-        i++;
-    }
-    dda->side = 0;
+	t = cub->texture[4];
+	while (*sprite)
+	{
+		if (check_active(*sprite, cub->dda->walldist, x))
+		{
+			ref = set_adr_x(*sprite, x, t->adr, t->bpp);
+			y = (*sprite)->point[2];
+			tmp = dst + y * cub->leng;
+			while (y < (*sprite)->point[3])
+			{
+				ref2 = set_adr_y(ref, *sprite, y, t->leng);
+				if (*(unsigned int *)ref2)
+					*(unsigned int *)tmp = *(unsigned int *)ref2;
+				tmp += cub->leng;
+				y++;
+			}
+		}
+		sprite++;
+	}
 }
 
-static void hit_wall(t_dda *dda, char **worldmap, double *pos)
+static void			set_sprite(t_sprite **sprite, t_player *player
+, t_cub3d *cub)
 {
-    int side;
+	int			i;
+	double		cur[2];
+	t_texture	*texture;
 
-    side = 0;
-    while (worldmap[(int)dda->map[0]][(int)dda->map[1]] != '1')
-    {
-      if (dda->sideDist[1] < dda->sideDist[0])
-        side = 1;
-      else
-        side = 0;
-      dda->sideDist[side] += dda->deltaDist[side];
-      dda->map[side] += dda->step[side];
-    }
-    dda->perpWallDist = (dda->map[side] - pos[side] + (1 - dda->step[side]) / 2) / dda->ray[side];
-    dda->wallX = pos[1 - side] + dda->perpWallDist * dda->ray[1 - side];
-    dda->wallX -= floor(dda->wallX);
-    dda->side = side;
+	texture = cub->texture[4];
+	i = -1;
+	while (sprite[++i])
+	{
+		set_sprite_dist(sprite[i], player->pos);
+		sprite[i]->active = 0;
+		cur[0] = sprite[i]->y + 0.5 - player->pos[0];
+		cur[1] = sprite[i]->x + 0.5 - player->pos[1];
+		if (!check_fov(sprite[i], player->dir, player->fov, cur))
+			continue ;
+		trans_location(cur, player->dir, player->plane);
+		set_draw_point(cub->data->resol, cur, sprite[i]->point);
+		set_ratio(texture->size, sprite[i]);
+		if (*sprite[i]->point > (int)(cub->data->resol[0] * 0.2))
+			sprite[i]->leng_x = 0;
+	}
+	sort_sprite(&sprite);
 }
 
-static void draw_sprite(t_cub3d *cub3d, t_player *player, int i, int x, double dist)
+static void			my_pixel_put(t_cub3d *cub, char *dst, char *ref)
 {
-  int     lengX;
-  int     point[4];//0,1 = x_s,x_e 2,3 = y_s,y_e
-  double  cur[2];//0 = y, 1 = x
-  double  ratio[2];
-  char    *dst[2];
+	int	y;
+	int	flag;
+	int	*color;
+	int	*point;
 
-  while (--i >= 0)
-  {
-    cur[0] =  cub3d->data->sprite[i]->y - player->pos[0];
-    cur[1] =  cub3d->data->sprite[i]->x - player->pos[1];
-    if (!check_fov(player->dir, cur, cub3d->data->sprite[i]->dist - dist, player->fov))
-      continue ;
-    trans_location(cur, player->dir, player->plane);
-    set_draw_point(cub3d->data->resolution, cur, point);
-    if (x < point[0] || x > point[1])
-      continue ;
-    set_ratio(cub3d->texture[4]->size, point, &lengX, ratio);
-    if (*point > cub3d->data->resolution[0] / 2)
-        lengX = 0;
-    *dst = cub3d->adr + x * cub3d->bpp / 8;
-    *(dst + 1) = cub3d->texture[4]->adr + (int)((x - *point + lengX) * *ratio) * cub3d->texture[4]->bpp / 8;
-    draw_target(dst, point, cub3d->leng, cub3d->texture[4]->leng, ratio);
-  }
+	y = 0;
+	point = cub->dda->point;
+	color = cub->data->color;
+	while (y < cub->data->resol[1])
+	{
+		if (point[0] <= y && y <= point[1])
+			*(unsigned int *)dst = t_color(ref, y - point[0], cub->dda->cur);
+		else
+		{
+			flag = 1;
+			if (y > point[1])
+				flag = 0;
+			*(unsigned int *)dst = (unsigned int)color[flag];
+		}
+		dst += cub->leng;
+		y++;
+	}
 }
 
-static void my_mlx_pixel_put(t_cub3d *cub3d, int x, char *ref, t_dda *dda)
+int					ray_casting(t_cub3d *cub, t_player *player, t_parse *data)
 {
-  int     count;
-  int     *color;
-  char    *dst;
-  char    *dst2;
+	int		x;
+	char	*dst;
 
-  dst = cub3d->adr + x * (cub3d->bpp / 8);
-  count = -1;
-  while (++count < cub3d->data->resolution[1])
-  {
-    dst2 = dst + count * cub3d->leng;
-    if (dda->point[0] <= count && count <= dda->point[1])
-      *(unsigned int *)dst2 = texture_color(ref, count - dda->point[0], dda->cur);
-    else
-    {
-      color = cub3d->data->color[1];
-      if (count > dda->point[1])
-        color = cub3d->data->color[0];
-      *(unsigned int *)dst2 = (unsigned int)(color[0] + color[1] + color[2]);
-    }
-  }
-  draw_sprite(cub3d, cub3d->player, cub3d->data->sprite_num, x, dda->perpWallDist);
-}
-
-int ray_casting(t_cub3d *cub3d, t_player *player, t_parse *data)
-{
-  int   x;
-  t_dda *dda;
-
-  dda = malloc(sizeof(t_dda));
-  if (!dda)
-      return (0);
-  cub3d->image = mlx_new_image(cub3d->mlx, data->resolution[0], data->resolution[1]);
-  cub3d->adr = mlx_get_data_addr(cub3d->image, &(cub3d->bpp), &(cub3d->leng), &(cub3d->endian));
-  set_sprite_dist(cub3d->data->sprite_num, cub3d->data->sprite, cub3d->player->pos);
-  sort_sprite(&cub3d->data->sprite, cub3d->data->sprite_num);
-  x = 0;
-  while (x < data->resolution[0])
-  {
-    set_dda_value(dda, player, data->resolution[0], x);
-    hit_wall(dda, data->worldmap, player->pos);
-    draw_point(dda, data);
-    my_mlx_pixel_put(cub3d, x, select_texture(cub3d->texture, &dda), dda);
-    x++;
-  }
-  mlx_put_image_to_window(cub3d->mlx, cub3d->window, cub3d->image, 0, 0);
-  mlx_destroy_image(cub3d->mlx, cub3d->image);
-  free(dda);
-  return (1);
+	cub->image = mlx_new_image(cub->mlx, data->resol[0], data->resol[1]);
+	cub->adr = mlx_get_data_addr(cub->image, &(cub->bpp), &(cub->leng)
+	, &(cub->endian));
+	cub->bpp /= 8;
+	set_sprite(data->sprite, player, cub);
+	x = -1;
+	dst = cub->adr;
+	while (++x < data->resol[0])
+	{
+		set_dda_value(cub->dda, player, data->resol[0], x);
+		hit_wall(cub->dda, data->worldmap, player->pos, data->sprite);
+		draw_point(cub->dda, data);
+		my_pixel_put(cub, dst, select_texture(cub->texture, cub->dda));
+		draw_sprite(cub, x, data->sprite, dst);
+		dst += cub->bpp;
+	}
+	mlx_put_image_to_window(cub->mlx, cub->window, cub->image, 0, 0);
+	mlx_destroy_image(cub->mlx, cub->image);
+	return (1);
 }

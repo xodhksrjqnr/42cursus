@@ -8,10 +8,12 @@ FLAG = -Wall -Wextra -Werror -I$(HEAD) -g3 -fsanitize=address
 
 RM = rm -rf
 
-SRCS = srcs/cub3d.c \
+SRCS = srcs/main.c \
+	srcs/cub3d_utils.c \
+	srcs/setting_program.c \
 	srcs/raycasting/player.c \
 	srcs/raycasting/raycasting.c \
-	srcs/raycasting/wall.c \
+	srcs/raycasting/raycasting_utils.c \
 	srcs/raycasting/key.c \
 	srcs/raycasting/texture.c \
 	srcs/raycasting/sprite.c \
@@ -20,10 +22,10 @@ SRCS = srcs/cub3d.c \
 	srcs/parse/parse_utils_basic.c \
 	srcs/parse/identifier/parse_identifier.c \
 	srcs/parse/map/parse_map.c \
-	srcs/parse/map/parse_map_utils.c \
+	srcs/parse/map/parse_map_validation.c \
 	srcs/parse/get_next_line/get_next_line.c \
 	srcs/parse/get_next_line/get_next_line_utils.c \
-	srcs/error_check/error_check.c
+	srcs/bitmap/bitmap.c
 
 OBJS = $(SRCS:.c=.o)
 

@@ -11,12 +11,13 @@ typedef struct	s_texture
 	char	*adr;
 	int		bpp;
 	int		leng;
-	int		endian;
+	int		endi;
 	int		size[2];
 	double	ratio[2];
 }				t_texture;
 
-t_texture	**set_texture(void *mlx, char **list);
-unsigned	int texture_color(char *ref, int y, t_texture *texture);
+t_texture		**set_texture(void *mlx, char **list);
+unsigned int	t_color(char *ref, int y, t_texture *texture);
+void			free_texture(t_texture **texture, void *mlx);
 
 #endif
