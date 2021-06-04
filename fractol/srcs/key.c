@@ -1,10 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   key.c                                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/04 19:56:55 by taewakim          #+#    #+#             */
+/*   Updated: 2021/06/04 20:00:14 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 int	x_icon(t_data *d)
 {
-	d = 0;
-	//free_data(d);
-	system("leaks fractol > leaks_result; cat leaks_result | grep leaked && rm -rf leaks_result");
+	free_data(d);
 	exit(0);
 	return (0);
 }
@@ -14,7 +24,6 @@ int	key_press(int key, t_data *d)
 	if (key == 53)
 	{
 		free_data(d);
-		system("leaks fractol > leaks_result; cat leaks_result | grep leaked && rm -rf leaks_result");
 		exit(0);
 	}
 	return (0);

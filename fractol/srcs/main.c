@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/04 19:57:03 by taewakim          #+#    #+#             */
+/*   Updated: 2021/06/04 19:59:33 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 static void	run_program(t_data *data)
@@ -24,6 +36,5 @@ int			main(int argc, char **argv)
 		run_program(data);
 	}
 	printf("fractol list\n1. Julia\n2. Mandelbrot\n");
-	system("leaks fractol > leaks_result; cat leaks_result | grep leaked && rm -rf leaks_result");
 	return (0);
 }

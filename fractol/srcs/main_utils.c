@@ -1,7 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main_utils.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/04 19:56:59 by taewakim          #+#    #+#             */
+/*   Updated: 2021/06/04 20:00:09 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "main.h"
 
 char		free_data(t_data *data)
 {
+	if (!data)
+		return (0);
+	if (data->image)
+		mlx_destroy_image(data->mlx, data->image);
 	if (data->window)
 		mlx_destroy_window(data->mlx, data->window);
 	if (data->mlx)
@@ -56,12 +72,14 @@ void		assign_data(t_data *d)
 char		init_data(t_data *d, char *fractol_name)
 {
 	d->mlx = mlx_init();
+	d->window = 0;
+	d->image = 0;
 	if (!d->mlx)
 		return (free_data(d));
 	d->w = 800;
 	d->h = 800;
 	d->window = mlx_new_window(d->mlx, d->w, d->h, fractol_name);
-	if (!d->image)
+	if (!d->window)
 		return (free_data(d));
 	d->fractol = *fractol_name;
 	assign_data(d);

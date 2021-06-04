@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/04 19:56:41 by taewakim          #+#    #+#             */
+/*   Updated: 2021/06/04 20:00:36 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "main.h"
 
@@ -60,4 +71,5 @@ void		fractol(t_data *d, int key, int x, int y)
 	}
 	mlx_put_image_to_window(d->mlx, d->window, d->image, 0, 0);
 	mlx_destroy_image(d->mlx, d->image);
+	d->image = 0;
 }
