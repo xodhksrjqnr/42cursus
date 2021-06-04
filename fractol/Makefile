@@ -28,6 +28,7 @@ $(NAME) : $(OBJS)
 
 $(OBJS) : $(SRCS)
 	$(CC) $(FLAG) -c $(SRCS)
+	mkdir -p objs
 	mv -f *.o objs
 
 clean :
@@ -35,6 +36,6 @@ clean :
 	rm objs/*
 
 fclean :
-	$(RM) $(NAME)
+	$(RM) $(NAME) libmlx.dylib
 
 re : fclean all
