@@ -50,7 +50,7 @@ int			find_pivot(t_elem *s, int leng)
 	long long	mid;
 	int			i;
 	int			pivot;
-	
+
 	mid = (long long)find_mid(s, leng);
 	pivot = s->value;
 	diff = mid - (long long)pivot;
