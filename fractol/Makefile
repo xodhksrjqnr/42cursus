@@ -6,7 +6,7 @@ HEAD = -I includes -I minilibx
 
 LIB = minilibx
 
-FLAG = -Wall -Wextra -Werror $(HEAD) -g3 -fsanitize=address
+FLAG = -Wall -Wextra -Werror $(HEAD)
 
 RM = rm -rf
 

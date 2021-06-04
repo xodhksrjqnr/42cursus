@@ -24,5 +24,6 @@ int			main(int argc, char **argv)
 		run_program(data);
 	}
 	printf("fractol list\n1. Julia\n2. Mandelbrot\n");
+	system("leaks fractol > leaks_result; cat leaks_result | grep leaked && rm -rf leaks_result");
 	return (0);
 }
