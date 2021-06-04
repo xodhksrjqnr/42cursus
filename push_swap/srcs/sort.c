@@ -9,7 +9,7 @@ static char	move_end(t_elem **s1, t_elem **s2, int leng)
 	i = 0;
 	while (i++ < leng)
 		move_elem(s1, s2, 1);
-	check_end(s2, s1, leng);
+	check_end(s2, leng);
 	return (0);
 }
 
@@ -26,7 +26,7 @@ static void	move_target(t_elem **s1, t_elem **s2, int leng)
 	count = 0;
 	while (i++ < leng)
 	{
-		if ((*s1)->value < pivot)
+		if ((*s1)->value >= pivot)
 		{
 			move_elem(s1, s2, 1);
 			count++;
@@ -45,14 +45,14 @@ void		sort_target(t_elem **s1, t_elem **s2, int leng, char flag)
 	int	count;
 	int	i;
 
-	if (!check_end(s1, s2, leng))
+	if (!check_end(s1, leng))
 		return ;
 	pivot = find_pivot(*s1, leng);
 	i = 0;
 	count = 0;
 	while (i++ < leng)
 	{
-		if ((*s1)->value >= pivot)
+		if ((*s1)->value < pivot)
 		{
 			move_elem(s1, s2, 2);
 			count++;

@@ -1,3 +1,4 @@
+
 #include "main.h"
 
 static void	draw(int max, int flag, char *dst)
