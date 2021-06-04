@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:52:41 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/04 20:52:42 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/04 21:26:43 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,22 +82,13 @@ void			set_dda_value(t_dda *dda, t_player *player, int resolution
 	dda->side = 0;
 }
 
-void			hit_wall(t_dda *dda, char **map, double *pos, t_sprite **sprite)
+void			hit_wall(t_dda *dda, char **map, double *pos)
 {
 	int	s;
-	int	i;
 
 	s = 0;
 	while (map[dda->map[0]][dda->map[1]] != '1')
 	{
-		if (map[dda->map[0]][dda->map[1]] == '2')
-		{
-			i = 0;
-			while (!(sprite[i]->x == dda->map[1] && sprite[i]->y == *dda->map))
-				i++;
-			sprite[i]->dist = dda->map[s] - pos[s] + (1 - dda->step[s]) / 2;
-			sprite[i]->dist /= dda->ray[s];
-		}
 		s = 0;
 		if (dda->sidedist[1] < dda->sidedist[0])
 			s = 1;

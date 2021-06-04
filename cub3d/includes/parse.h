@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:54:42 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/04 21:07:07 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/04 21:30:01 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <fcntl.h>
 # include "get_next_line.h"
-# include "sprite.h"
+# include <math.h>
 # include <stdio.h>
 
 typedef struct	s_parse
@@ -30,7 +30,6 @@ typedef struct	s_parse
 	char		direction;
 	char		**worldmap;
 	char		**texture; // texture[0] = NO, [1] = SO, [2] = WE, [3] = EA, [4] = S
-	t_sprite	**sprite;
 }				t_parse;
 
 char			*parse(t_parse **data, char *map_path, unsigned char check);

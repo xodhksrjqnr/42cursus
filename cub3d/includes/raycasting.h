@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:55:02 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/04 20:55:03 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/04 21:26:00 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,7 @@ int				active_apply(t_cub3d *cub3d);
 void			draw_point(t_dda *dda, t_parse *data);
 void			set_dda_value(t_dda *dda, t_player *player, int resolution
 , int x);
-void			hit_wall(t_dda *dda, char **map, double *pos
-, t_sprite **sprite);
+void			hit_wall(t_dda *dda, char **map, double *pos);
 char			*select_texture(t_texture **texture, t_dda *dda);
 
 #endif

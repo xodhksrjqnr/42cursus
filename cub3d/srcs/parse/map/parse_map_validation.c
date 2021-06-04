@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:53:19 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/04 20:53:19 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/04 21:24:50 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,13 @@ static int	around_check(char **map, int col, int row)
 	return (1);
 }
 
-static char	*set_elem(t_parse *data, int col, int row, int *i)
+static char	*set_elem(t_parse *data, int col, int row)
 {
 	char	cur;
 
 	cur = data->worldmap[col][row];
 	if (cur == ' ' || cur == '1')
 		return (0);
-	else if (cur == '2')
-	{
-		if (!init_sprite(data->sprite, col, row, *i))
-			return ("sprite malloc failed");
-		(*i)++;
-	}
 	else if (cur != '0')
 	{
 		if (data->direction)
@@ -59,19 +53,17 @@ char		*map_validation(t_parse *data, int max)
 {
 	int		col;
 	int		row;
-	int		i;
 	char	*error;
 
 	col = 0;
-	i = 0;
 	while (++col < data->col_size + 1)
 	{
 		row = 0;
 		while (++row < max - 1)
 		{
-			if (!find_chr(" 012WENS", data->worldmap[col][row]))
+			if (!find_chr(" 01WENS", data->worldmap[col][row]))
 				return ("invalid map");
-			error = set_elem(data, col, row, &i);
+			error = set_elem(data, col, row);
 			if (error)
 				return (error);
 		}

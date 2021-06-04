@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:53:08 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/04 20:53:09 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/04 21:27:44 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,6 @@ void		free_data(t_parse *data)
 		free(data->texture);
 		i = 0;
 	}
-	if (data->sprite)
-	{
-		while (data->sprite[i])
-			free(data->sprite[i++]);
-		free(data->sprite);
-	}
 }
 
 static char	init_parse(t_parse **data)
@@ -58,7 +52,6 @@ static char	init_parse(t_parse **data)
 	while (i < 6)
 		(*data)->texture[i++] = 0;
 	(*data)->direction = 0;
-	(*data)->sprite = 0;
 	i = 0;
 	start = (char *)(*data)->resol;
 	while (i < 36)

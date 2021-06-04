@@ -16,8 +16,6 @@ SRCS = srcs/main.c \
 	srcs/raycasting/raycasting_utils.c \
 	srcs/raycasting/key.c \
 	srcs/raycasting/texture.c \
-	srcs/raycasting/sprite.c \
-	srcs/raycasting/sprite_utils.c \
 	srcs/parse/parse.c \
 	srcs/parse/parse_utils_basic.c \
 	srcs/parse/identifier/parse_identifier.c \
@@ -25,7 +23,6 @@ SRCS = srcs/main.c \
 	srcs/parse/map/parse_map_validation.c \
 	srcs/parse/get_next_line/get_next_line.c \
 	srcs/parse/get_next_line/get_next_line_utils.c \
-	srcs/bitmap/bitmap.c
 
 OBJS = $(SRCS:.c=.o)
 

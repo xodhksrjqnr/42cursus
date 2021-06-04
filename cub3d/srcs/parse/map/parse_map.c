@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:53:23 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/04 20:53:24 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/04 21:28:36 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,21 +110,8 @@ char		*set_map(t_parse *data, char *line)
 
 char		*resize_map(t_parse *data, unsigned char check)
 {
-	int	i;
-	int	num;
-
 	if (check != 0xff)
 		return ("invalid identifier");
-	num = data->sprite_num;
-	if (num)
-	{
-		data->sprite = (t_sprite **)malloc(sizeof(t_sprite *) * (num + 1));
-		if (!data->sprite)
-			return ("sprite malloc failed");
-		i = 0;
-		while (i <= num)
-			data->sprite[i++] = 0;
-	}
 	if (!resize_row(data->worldmap, data->map_width + 2))
 		return ("resize_row failed");
 	if (!resize_col(&data->worldmap, data->col_size, 2, data->map_width))
