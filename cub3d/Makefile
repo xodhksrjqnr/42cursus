@@ -2,9 +2,9 @@ NAME = cub3d
 
 CC = gcc
 
-HEAD = includes
+HEAD = -I includes -I minilibx
 
-FLAG = -Wall -Wextra -Werror -I$(HEAD) -g3 -fsanitize=address
+FLAG = -Wall -Wextra -Werror $(HEAD) -g3 -fsanitize=address
 
 RM = rm -rf
 
@@ -32,14 +32,19 @@ OBJS = $(SRCS:.c=.o)
 all : $(NAME)
 
 $(NAME) : $(OBJS)
+	make -C minilibx
+	mv minilibx/libmlx.dylib libmlx.dylib
+	$(CC) $(FLAG) objs/*.o libmlx.dylib -o $(NAME)
 
 $(OBJS) : $(SRCS)
-	$(CC) $(FLAG) $(SRCS) libmlx.dylib
+	mkdir -p objs
+	$(CC) $(FLAG) -c $(SRCS)
+	mv *.o objs
 
 clean :
-	$(RM) $(NAME)
+	$(RM) objs/*.o
 
 fclean :
-	$(RM) $(OBJS)
+	$(RM) $(NAME) libmlx.dylib
 
 re : fclean all

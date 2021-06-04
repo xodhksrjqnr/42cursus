@@ -1,11 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3d.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/04 20:52:10 by taewakim          #+#    #+#             */
+/*   Updated: 2021/06/04 21:05:00 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "raycasting.h"
 
 static t_cub3d	*setting_program(void)
 {
 	t_cub3d	*cub3d;
-	int			*tmp;
-	int			size_x;
-	int			size_y;
+	int		*tmp;
+	int		size_x;
+	int		size_y;
 
 	cub3d = malloc(sizeof(t_cub3d));
 	cub3d->data = parse();
@@ -24,16 +36,16 @@ static t_cub3d	*setting_program(void)
 	return (cub3d);
 }
 
-static void	run_program(t_cub3d *cub3d)
+static void		run_program(t_cub3d *c)
 {
-	mlx_hook(cub3d->window, 2, 1L << 0, key_press, cub3d);
-	mlx_hook(cub3d->window, 3, 1L << 1, key_release, cub3d);
-	mlx_put_image_to_window(cub3d->mlx, cub3d->window, cub3d->texture[0]->image, 0, 0);
-	mlx_loop_hook(cub3d->mlx, active_apply, cub3d);
-	mlx_loop(cub3d->mlx);
+	mlx_hook(c->window, 2, 1L << 0, key_press, c);
+	mlx_hook(c->window, 3, 1L << 1, key_release, c);
+	mlx_put_image_to_window(c->mlx, c->window, c->texture[0]->image, 0, 0);
+	mlx_loop_hook(c->mlx, active_apply, cub);
+	mlx_loop(c->mlx);
 }
 
-int	main(void)
+int				main(void)
 {
 	t_cub3d *cub3d;
 
