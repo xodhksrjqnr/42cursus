@@ -1,53 +1,29 @@
 #include "push_swap.h"
 
-static void	set_value_s(t_elem *s, int *value)
+static void	set_last_location(t_elem **s, int *leng)
 {
-	value[0] = s->value;
-	value[1] = s->next->value;
-	value[2] = s->next->next->value;
-}
+	int	v[3];
 
-static void	elem_two_sort_s(t_elem **stack)
-{
-	if ((*stack)->value > (*stack)->next->value)
-		swap_stack(stack, 1);
-}
-
-static void	elem_three_sort_s(t_elem **s, int *v)
-{
-	if (v[0] > v[1] && v[0] < v[2])
-		swap_stack(s, 1);
-	else if (v[2] < v[1] && v[2] < v[0])
-	{
-		if (v[0] > v[1])
-			swap_stack(s, 1);
-		reverse_rotate_stack(s, 1);
-	}
-	else if (!(v[0] < v[1] && v[1] < v[2]))
-	{
+	v[0] = (*s)->value;
+	v[1] = (*s)->next->value;
+	v[2] = (*s)->prev->value;
+	if (v[0] > v[1] && v[0] > v[2])
 		rotate_stack(s, 1);
-		if (v[1] > v[2])
-		{
-			swap_stack(s, 1);
-			reverse_rotate_stack(s, 1);
-		}
-	}
+	else if (v[1] > v[0] && v[1] > v[2])
+		reverse_rotate_stack(s, 1);
+	(*leng)--;
 }
 
-char		check_start(t_elem **s1, int leng)
+char		check_start(t_elem **s1, int *leng, char *flag)
 {
-	int v[3];
-
-	if (leng > 3)
+	*flag = 0;
+	if (*leng > 3)
 		return (1);
-	else if (!leng || leng == 1)
+	if (*leng == 3)
+		set_last_location(s1, leng);
+	if (!*leng || *leng == 1)
 		return (0);
-	else if (leng == 2)
-		elem_two_sort_s(s1);
-	else if (leng == 3)
-	{
-		set_value_s(*s1, v);
-		elem_three_sort_s(s1, v);
-	}
+	else if (*leng == 2 && (*s1)->value > (*s1)->next->value)
+		swap_stack(s1, 1);
 	return (0);
 }

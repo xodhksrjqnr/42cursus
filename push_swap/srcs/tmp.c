@@ -1,16 +1,25 @@
 #include "push_swap.h"
 
-void print_tmp(t_elem *s1, t_elem *s2)
+void print_tmp(t_elem *s1, t_elem *s2, char flag)
 {
 	t_elem  *save;
+    t_elem  *t1;
+    t_elem  *t2;
 
-    printf("a : ");
-    if (s1)
+    t1 = s1;
+    t2 = s2;
+    if (flag)
     {
-        save = s1;
+        t1 = s2;
+        t2 = s1;
+    }
+    printf("a : ");
+    if (t1)
+    {
+        save = t1;
         printf("%d ", save->value);
         save = save->next;
-        while (save != s1 && save)
+        while (save != t1 && save)
         {
             printf("%d ", save->value);
             save = save->next;
@@ -18,12 +27,12 @@ void print_tmp(t_elem *s1, t_elem *s2)
     }
     printf("\n");
     printf("b : ");
-    if (s2)
+    if (t2)
     {
-        save = s2;
+        save = t2;
         printf("%d ", save->value);
         save = save->next;
-        while (save != s2 && save)
+        while (save != t2 && save)
         {
             printf("%d ", save->value);
             save = save->next;

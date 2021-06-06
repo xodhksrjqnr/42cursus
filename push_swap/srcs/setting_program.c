@@ -14,10 +14,9 @@ static char	check_argv(char **argv, t_elem **elem)
 	count = 0;
 	while ('0' <= **argv && **argv <= '9')
 		count = count * 10 + *(*argv)++ - 48;
-	if (!(**argv == ' ' || !**argv)
-	|| count < -2147483648 || count > 2147483647)
+	if (!(**argv == ' ' || !**argv) || count < -2147483648 || count > 2147483647)
 		return (0);
-	*elem = new_elem((int)count * flag);
+	*elem = new_elem((int)(count * flag));
 	if (!*elem)
 		return (0);
 	return (1);
