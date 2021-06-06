@@ -19,7 +19,7 @@ int		main(int argc, char **argv)
 	if (!size)
 		error_message();
 	flag = 0;
-	if (!check_start(&stack_a, &size, &flag))
+	if (!check_start(&stack_a, &size))
 		return (0);
 	sort_target(&stack_a, &stack_b, size, flag);
 	//print_tmp(stack_a, stack_b, 0);

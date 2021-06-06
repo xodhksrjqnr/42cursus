@@ -14,9 +14,8 @@ static void	set_last_location(t_elem **s, int *leng)
 	(*leng)--;
 }
 
-char		check_start(t_elem **s1, int *leng, char *flag)
+char		check_start(t_elem **s1, int *leng)
 {
-	*flag = 0;
 	if (*leng > 3)
 		return (1);
 	if (*leng == 3)

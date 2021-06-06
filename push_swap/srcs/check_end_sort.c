@@ -72,7 +72,7 @@ char		check_end(t_elem **s, int *leng, char *flag)
 
 char		move_end(t_elem **s1, t_elem **s2, int *leng, char *flag)
 {
-	int	i;
+	int		i;
 
 	if (*leng > 3)
 		return (1);

@@ -3,6 +3,7 @@
 void		init_data(t_data *data, int pivot)
 {
 	data->check = 0;
+	data->check2 = 0;
 	data->count2 = 0;
 	data->count = 0;
 	data->i = 0;
@@ -17,29 +18,31 @@ void		set_dir(t_elem **s, char dir)
 		*s = (*s)->prev;
 }
 
-char		find_low_start(t_elem **s1, t_elem **s2, int *leng, char flag)
+void		find_low_start(t_elem **s1, t_elem **s2, t_data *data, char flag)
 {
 	t_elem	*tmp;
-	int		i;
 
-	i = 1;
+	data->i = 0;
 	tmp = *s1;
-	while (tmp->next != *s1 && i++)
+	while (tmp->next != *s1 && data->i++ > -1)
 		tmp = tmp->next;
-	i--;
-	i -= *leng;
-	if (i < *leng)
-		while (i-- > 0)
+	data->i -= data->count2;
+	if (data->i < data->count2)
+		while (data->i-- > 0 - (int)data->check2)
 			rotate_stack(s1, flag);
 	else if (flag == 2)
 	{
-		i = 0;
-		while (i++ < *leng)
+		data->i = 0 + (int)data->check2;
+		while (data->i++ < data->count2)
 			reverse_rotate_stack(s1, flag);
 	}
 	else
-		return (reverse_sort(s1, s2, leng, flag));
-	return (0);
+	{
+		data->check = 1;
+		if (!data->check2)
+			reverse_rotate_stack(s1, 1);
+		reverse_sort(s1, s2, &data->count2);
+	}
 }
 
 static int	find_mid(t_elem *s, int leng, char dir)
