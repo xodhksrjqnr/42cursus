@@ -23,6 +23,7 @@ typedef struct		s_fdlist
 	int				fd;
 	struct s_fdlist *next;
 }					t_fdlist;
+
 int					get_next_line(int fd, char **line);
 char				*ft_strchr(const char *s);
 char				*ft_strdup(const char *s, size_t len);

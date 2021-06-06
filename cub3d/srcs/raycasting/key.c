@@ -10,7 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "main.h"
+
+int	x_icon(t_cub3d *cub3d)
+{
+	free_cub3d(cub3d);
+	exit(0);
+	return (0);
+}
 
 int	key_press(int keycode, t_cub3d *cub3d)
 {

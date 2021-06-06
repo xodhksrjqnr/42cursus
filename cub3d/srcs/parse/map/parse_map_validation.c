@@ -38,7 +38,7 @@ static char	*set_elem(t_parse *data, int col, int row)
 	else if (cur != '0')
 	{
 		if (data->direction)
-			return ("reduplication error");
+			return ("player reduplication error");
 		data->direction = cur;
 		data->location[0] = row;
 		data->location[1] = col;
@@ -68,5 +68,7 @@ char		*map_validation(t_parse *data, int max)
 				return (error);
 		}
 	}
+	if (!data->direction)
+		return ("player not exist");
 	return (0);
 }

@@ -15,28 +15,29 @@
 t_texture		**set_texture(void *mlx, char **list)
 {
 	int			i;
-	t_texture	*t;
-	t_texture	**texture;
+	t_texture	**t;
 
-	texture = (t_texture **)malloc(sizeof(t_texture *) * 6);
-	if (!texture)
+	t = (t_texture **)malloc(sizeof(t_texture *) * 4);
+	if (!t)
 		return (0);
-	i = 0;
-	while (i < 6)
-		texture[i++] = 0;
-	i = 0;
-	while (i < 5)
+	i = 4;
+	while (--i >= 0)
+		t[i] = 0;
+	while (++i < 4)
 	{
-		texture[i] = malloc(sizeof(t_texture));
-		if (!texture[i])
+		t[i] = malloc(sizeof(t_texture));
+		if (!t[i])
 			return (0);
-		t = texture[i];
-		t->image = mlx_png_file_to_image(mlx, list[i], t->size, t->size + 1);
-		t->adr = mlx_get_data_addr(t->image, &(t->bpp), &(t->leng), &(t->endi));
-		t->bpp /= 8;
-		i++;
+		t[i]->image = mlx_png_file_to_image(mlx, list[i], t[i]->size, t[i]->size + 1);
+		if (!t[i]->image)
+		{
+			free_texture(t, mlx);
+			return (0);
+		}
+		t[i]->adr = mlx_get_data_addr(t[i]->image, &(t[i]->bpp), &(t[i]->leng), &(t[i]->endi));
+		t[i]->bpp /= 8;
 	}
-	return (texture);
+	return (t);
 }
 
 unsigned int	t_color(char *ref, int y, t_texture *texture)

@@ -41,7 +41,7 @@ static char	init_parse(t_parse **data)
 	*data = malloc(sizeof(t_parse));
 	if (!*data)
 		return (0);
-	(*data)->texture = malloc(sizeof(char *) * 6);
+	(*data)->texture = malloc(sizeof(char *) * 5);
 	(*data)->worldmap = malloc(sizeof(char *) * 21);
 	if (!(*data)->texture || !(*data)->worldmap)
 		return (0);
@@ -49,7 +49,7 @@ static char	init_parse(t_parse **data)
 	while (i < 21)
 		*((*data)->worldmap + i++) = 0;
 	i = 0;
-	while (i < 6)
+	while (i < 5)
 		(*data)->texture[i++] = 0;
 	(*data)->direction = 0;
 	i = 0;
@@ -72,15 +72,11 @@ static int	check_flag(char *line)
 		return (2);
 	else if (*line == 'E' && *(line + 1) == 'A' && *(line + 2) == ' ')
 		return (3);
-	else if (*line == 'S' && *(line + 1) == ' ')
-		return (4);
-	else if (*line == 'R' && *(line + 1) == ' ')
-		return (5);
 	else if (*line == 'F' && *(line + 1) == ' ')
-		return (6);
+		return (4);
 	else if (*line == 'C' && *(line + 1) == ' ')
-		return (7);
-	return (8);
+		return (5);
+	return (7);
 }
 
 static char	*set_data(t_parse *data, char *line, unsigned char *check)
@@ -95,7 +91,7 @@ static char	*set_data(t_parse *data, char *line, unsigned char *check)
 			free(line);
 			return (0);
 		}
-		if (flag == 8)
+		if (flag == 7)
 			return ("invalid identifier");
 		if ((*check >> flag & 1) == 1)
 			return ("reduplication identifier");

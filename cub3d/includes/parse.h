@@ -25,7 +25,6 @@ typedef struct	s_parse
 	int			map_width;
 	int			location[2];
 	int			color[2];
-	int			sprite_num;
 	int			col_max;
 	char		direction;
 	char		**worldmap;
@@ -41,7 +40,7 @@ char			*set_map(t_parse *data, char *line);
 char			*resize_map(t_parse *data, unsigned char check);
 char			*map_validation(t_parse *data, int max);
 
-int				parse_atoi(char **line, int flag, int *target);
+int				parse_atoi(char **line, int *target);
 int				check_length(char *line);
 int				new_array(char **target, char **line);
 char			find_chr(const char *str, char target);

@@ -18,8 +18,6 @@ unsigned int	set_color(char **worldmap, int x, int y, int side)
 
 	if (worldmap[x][y] == '1')
 		color = 0x00FF0000;
-	else if (worldmap[x][y] == '2')
-		color = 0x0000FF00;
 	else
 		color = 0x00FFFF00;
 	if (side == 1)

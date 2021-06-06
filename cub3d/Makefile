@@ -9,7 +9,6 @@ FLAG = -Wall -Wextra -Werror $(HEAD) -g3 -fsanitize=address
 RM = rm -rf
 
 SRCS = srcs/main.c \
-	srcs/cub3d_utils.c \
 	srcs/setting_program.c \
 	srcs/raycasting/player.c \
 	srcs/raycasting/raycasting.c \
@@ -21,27 +20,27 @@ SRCS = srcs/main.c \
 	srcs/parse/identifier/parse_identifier.c \
 	srcs/parse/map/parse_map.c \
 	srcs/parse/map/parse_map_validation.c \
-	srcs/parse/get_next_line/get_next_line.c \
-	srcs/parse/get_next_line/get_next_line_utils.c \
+	srcs/parse/gnl/get_next_line.c \
+	srcs/parse/gnl/get_next_line_utils.c
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(addprefix objs/, $(subst srcs/, , $(SRCS:.c=.o)))
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
 	make -C minilibx
-	mv minilibx/libmlx.dylib libmlx.dylib
+	cp minilibx/libmlx.dylib libmlx.dylib
 	$(CC) $(FLAG) objs/*.o libmlx.dylib -o $(NAME)
 
 $(OBJS) : $(SRCS)
-	mkdir -p objs
 	$(CC) $(FLAG) -c $(SRCS)
-	mv *.o objs
+	mv -f *.o objs
 
 clean :
 	$(RM) objs/*.o
 
-fclean :
+fclean : clean
+	make clean -C minilibx
 	$(RM) $(NAME) libmlx.dylib
 
 re : fclean all

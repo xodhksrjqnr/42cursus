@@ -12,23 +12,23 @@
 
 #include "parse.h"
 
-int		parse_atoi(char **line, int flag, int *target)
+int		parse_atoi(char **line, int *target)
 {
 	int	i;
 	int	check;
 
-	i = 0;
+	i = 3;
 	check = 0;
 	while (**line == '0')
 		(*line)++;
-	while (**line >= '0' && **line <= '9' && i++ < flag)
+	while (**line >= '0' && **line <= '9' && i--)
 	{
 		*target = (*target * 10) + **line - 48;
 		(*line)++;
 	}
 	while (**line == ' ')
 		(*line)++;
-	if (**line == ',' && flag == 3)
+	if (**line == ',')
 	{
 		(*line)++;
 		check = 1;

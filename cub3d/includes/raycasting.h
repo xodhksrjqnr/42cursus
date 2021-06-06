@@ -48,6 +48,7 @@ typedef struct	s_cub3d
 
 int				ray_casting(t_cub3d *cub3d, t_player *player, t_parse *data);
 
+int				x_icon(t_cub3d *cub3d);
 int				key_press(int keycode, t_cub3d *cub3d);
 int				key_release(int keycode, t_cub3d *cub3d);
 int				active_apply(t_cub3d *cub3d);

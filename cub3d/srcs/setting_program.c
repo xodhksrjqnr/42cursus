@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "main.h"
 
 void			free_cub3d(t_cub3d *cub3d)
 {
@@ -29,18 +29,35 @@ void			free_cub3d(t_cub3d *cub3d)
 	free(cub3d);
 }
 
+char	*map_path_str(char *str)
+{
+	int		i;
+	char	*stand;
+	char	*new_str;
+
+	stand = "./mapfile/";
+	i = 0;
+	while (*(str + i))
+		i++;
+	new_str = malloc(11 + i);
+	if (!new_str)
+		return (0);
+	i = 0;
+	while (*stand)
+		*(new_str + i++) = *stand++;
+	while (*str)
+		*(new_str + i++) = *str++;
+	*(new_str + i) = 0;
+	return (new_str);
+}
+
+
 static char		*data_setting(t_cub3d *cub3d)
 {
 	int *display;
-	int size_x;
-	int size_y;
 
 	display = cub3d->data->resol;
-	mlx_get_screen_size(cub3d->mlx, &size_x, &size_y);
-	if (display[0] > size_x)
-		display[0] = size_x;
-	if (display[1] > size_y)
-		display[1] = size_y;
+	mlx_get_screen_size(cub3d->mlx, &display[0], &display[1]);
 	cub3d->window = mlx_new_window(cub3d->mlx, display[0], display[1], "cub3d");
 	if (!cub3d->window)
 		return ("mlx_new_window failed");
@@ -77,7 +94,7 @@ char			*setting_program(t_cub3d **cub3d, char *map_path)
 	(*cub3d)->dda = 0;
 	if (!(*cub3d)->mlx)
 		return ("mlx_init failed");
-	message = parse(&(*cub3d)->data, map_path_str(map_path), 0);
+	message = parse(&(*cub3d)->data, map_path_str(map_path), 0xc0);
 	if (message)
 		return (message);
 	return (data_setting(*cub3d));

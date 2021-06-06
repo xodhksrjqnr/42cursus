@@ -98,11 +98,7 @@ char		*set_map(t_parse *data, char *line)
 	*(data->worldmap + data->col_size++) = line;
 	i = 0;
 	while (*(line + i))
-	{
-		if (*(line + i) == '2')
-			data->sprite_num++;
 		i++;
-	}
 	if (data->map_width < i)
 		data->map_width = i;
 	return (0);
