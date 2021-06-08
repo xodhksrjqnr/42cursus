@@ -8,6 +8,10 @@ void		init_data(t_data *data, int pivot)
 	data->count = 0;
 	data->i = 0;
 	data->pivot = pivot;
+	if (data->pivot > 0)
+		data->pivot2 = pivot * 0.5;
+	else
+		data->pivot2 = pivot * 2;
 }
 
 void		set_dir(t_elem **s, char dir)
@@ -22,6 +26,8 @@ void		find_low_start(t_elem **s1, t_elem **s2, t_data *data, char flag)
 {
 	t_elem	*tmp;
 
+	if (!flag)
+		return ;
 	data->i = 0;
 	tmp = *s1;
 	while (tmp->next != *s1 && data->i++ > -1)
