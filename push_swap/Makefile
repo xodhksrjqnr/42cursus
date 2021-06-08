@@ -17,16 +17,15 @@ SRCS = srcs/elem.c \
 	srcs/check_end_sort.c \
 	srcs/check_start_sort.c
 
-OBJS = $(addprefix objs/, $(subst srcs/, , $(SRCS:.c=.o)))
+OBJS = $(SRCS:.c=.o)
+
+.c.o :
+	$(CC) $(FLAG) -c $< -o $(<:.c=.o)
 
 all : $(NAME)
 
 $(NAME) : $(OBJS)
 	$(CC) $(FLAG) $(OBJS) -o $(NAME)
-
-$(OBJS) : $(SRCS)
-	$(CC) $(FLAG) -c $(SRCS)
-	mv -f *.o objs
 
 clean :
 	$(RM) $(OBJS)
