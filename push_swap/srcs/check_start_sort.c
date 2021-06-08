@@ -12,9 +12,11 @@ static int	first_div_stack(t_elem **s1, t_elem **s2, int leng)
 			move_elem(s1, s2, 2);
 			if ((*s2)->value <= data.pivot2)
 			{
-				rotate_stack(s2, 2);
+				if (data.i - data.count != 1)
+					rotate_stack(s2, 2);
 				data.count++;
 			}
+			data.count2++;
 		}
 		else
 			rotate_stack(s1, 1);
@@ -36,8 +38,9 @@ static void	set_last_location(t_elem **s, int *leng)
 	(*leng)--;
 }
 
-char		check_start(t_elem **s1, t_elem **s2, int *leng)
+char		check_start(t_elem **s1, t_elem **s2, int *leng, char *flag)
 {
+	check_end_value(s1, leng, flag);
 	if (*leng > 3)
 		return (first_div_stack(s1, s2, *leng));
 	if (*leng == 3)

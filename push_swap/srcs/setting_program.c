@@ -14,9 +14,10 @@ static char	check_argv(char **argv, t_elem **elem)
 	count = 0;
 	while ('0' <= **argv && **argv <= '9')
 		count = count * 10 + *(*argv)++ - 48;
-	if (!(**argv == ' ' || !**argv) || count < -2147483648 || count > 2147483647)
+	count *= flag;
+	if (**argv || count < -2147483648 || count > 2147483647)
 		return (0);
-	*elem = new_elem((int)(count * flag));
+	*elem = new_elem((int)count);
 	if (!*elem)
 		return (0);
 	return (1);
@@ -33,19 +34,12 @@ int			setting_program(t_elem **stack_a, int argc, char **argv)
 	i = 0;
 	while (*argv)
 	{
-		while (**argv == ' ')
-			(*argv)++;
 		if (!**argv)
-		{
-			argv++;
-			continue ;
-		}
+			return (0);
 		if (!check_argv(argv, &tmp))
 			return (0);
 		add_elem(stack_a, &tmp);
 		i++;
-		if (**argv == ' ')
-			continue ;
 		argv++;
 	}
 	return (i);

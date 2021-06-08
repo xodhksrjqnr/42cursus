@@ -15,8 +15,7 @@ SRCS = srcs/elem.c \
 	srcs/sort.c \
 	srcs/sort_utils.c \
 	srcs/check_end_sort.c \
-	srcs/check_start_sort.c \
-	srcs/tmp.c
+	srcs/check_start_sort.c
 
 OBJS = $(addprefix objs/, $(subst srcs/, , $(SRCS:.c=.o)))
 

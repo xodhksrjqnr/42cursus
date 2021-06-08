@@ -1,15 +1,5 @@
 #include "push_swap.h"
 
-static void	double_check(t_elem **s1, t_elem **s2, t_data *data)
-{
-	if (data->count > 3 && data->count2 > 3)
-		return ;
-	else if (data->count < 2 && data->count2 < 2)
-		return ;
-	if ((*s1)->value > (*s1)->next->value && (*s2)->value < (*s2)->next->value)
-		double_swap_stack(s1, s2);
-}
-
 void	move_target(t_elem **s1, t_elem **s2, int leng, char flag)
 {
 	t_data	data;
@@ -32,7 +22,6 @@ void	move_target(t_elem **s1, t_elem **s2, int leng, char flag)
 	}
 	data.count2 = leng - data.count;
 	find_low_start(s1, s2, &data, 2);
-	double_check(s2, s1, &data);
 	sort_target(s2, s1, data.count, 1);
 	move_target(s1, s2, data.count2, flag);
 }
@@ -59,7 +48,6 @@ void	sort_target(t_elem **s1, t_elem **s2, int leng, char flag)
 	}
 	data.count2 = leng - data.count;
 	find_low_start(s1, s2, &data, 1);
-	double_check(s1, s2, &data);
 	sort_target(s1, s2, data.count2, flag);
 	if (data.check)
 		move_target(s2, s1, leng - data.count - data.count2, flag);

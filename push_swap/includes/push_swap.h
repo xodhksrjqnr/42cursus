@@ -2,10 +2,7 @@
 # define PUSH_SWAP_H
 
 # include "command.h"
-# include <stdlib.h>
 # include <fcntl.h>
-
-# include <stdio.h>
 
 typedef struct	s_data
 {
@@ -22,7 +19,7 @@ int				setting_program(t_elem **stack_a, int argc, char **argv);
 void			sort_target(t_elem **s1, t_elem **s2, int leng, char flag);
 void			move_target(t_elem **s1, t_elem **s2, int leng, char flag);
 void			reverse_sort(t_elem **s1, t_elem **s2, int *leng);
-char			check_start(t_elem **s1, t_elem **s2, int *leng);
+char			check_start(t_elem **s1, t_elem **s2, int *leng, char *flag);
 char			check_end(t_elem **s1, int *leng, char *flag);
 char			move_end(t_elem **s1, t_elem **s2, int *leng, char *flag);
 void			check_end_value(t_elem **s, int *leng, char *flag);
