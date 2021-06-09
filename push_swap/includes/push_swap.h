@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/09 13:38:57 by taewakim          #+#    #+#             */
+/*   Updated: 2021/06/09 13:39:49 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -24,7 +36,8 @@ char			check_end(t_elem **s1, int *leng, char *flag);
 char			move_end(t_elem **s1, t_elem **s2, int *leng, char *flag);
 void			check_end_value(t_elem **s, int *leng, char *flag);
 
-void			find_low_start(t_elem **s1, t_elem **s2, t_data *data, char flag);
+void			find_low_start(t_elem **s1, t_elem **s2, t_data *data
+, char flag);
 int				find_pivot(t_elem *s, int leng, char dir);
 void			set_dir(t_elem **s, char dir);
 void			init_data(t_data *data, int pivot);

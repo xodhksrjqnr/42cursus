@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/09 13:38:21 by taewakim          #+#    #+#             */
+/*   Updated: 2021/06/09 13:39:16 by taewakim         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static int	check_size(t_elem *stack)
@@ -15,13 +27,13 @@ static int	check_size(t_elem *stack)
 	return (count);
 }
 
-void	error_message(void)
+void		error_message(void)
 {
 	write(0, "Error\n", 6);
 	exit(1);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	t_elem	*stack_a;
 	t_elem	*stack_b;
