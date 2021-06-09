@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key.c                                              :+:      :+:    :+:   */
+/*   key_bonus.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:52:52 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/04 20:52:52 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:29:42 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,17 @@ int	active_apply(t_cub3d *cub3d)
 
 	flag = 0;
 	if (cub3d->player->key[0] == 1)
-		flag = move_ad(cub3d->player, cub3d->data->worldmap, 0.13);
+		flag = move_ad(cub3d->player, cub3d->data->worldmap, 0.3);
 	else if (cub3d->player->key[2] == 1)
-		flag = move_ad(cub3d->player, cub3d->data->worldmap, -0.13);
+		flag = move_ad(cub3d->player, cub3d->data->worldmap, -0.3);
 	if (cub3d->player->key[1] == 1)
-		flag = move_ws(cub3d->player, cub3d->data->worldmap, -0.13);
+		flag = move_ws(cub3d->player, cub3d->data->worldmap, -0.3);
 	else if (cub3d->player->key[3] == 1)
-		flag = move_ws(cub3d->player, cub3d->data->worldmap, 0.13);
+		flag = move_ws(cub3d->player, cub3d->data->worldmap, 0.3);
 	if (cub3d->player->key[4] == 1)
-		flag = eyesight_lr(cub3d->player, PIT * 1);
+		flag = eyesight_lr(cub3d->player, PIT * 1.5);
 	else if (cub3d->player->key[5] == 1)
-		flag = eyesight_lr(cub3d->player, PIT * -1);
+		flag = eyesight_lr(cub3d->player, PIT * -1.5);
 	if (flag)
 		ray_casting(cub3d, cub3d->player, cub3d->data);
 	return (1);

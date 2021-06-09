@@ -6,13 +6,13 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:52:00 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/04 20:52:01 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:28:22 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "main.h"
 
-void			free_cub3d(t_cub3d *cub3d)
+void		free_cub3d(t_cub3d *cub3d)
 {
 	if (cub3d->texture)
 		free_texture(cub3d->texture, cub3d->mlx);
@@ -29,7 +29,7 @@ void			free_cub3d(t_cub3d *cub3d)
 	free(cub3d);
 }
 
-char	*map_path_str(char *str)
+static char	*map_path_str(char *str)
 {
 	int		i;
 	char	*stand;
@@ -52,12 +52,14 @@ char	*map_path_str(char *str)
 }
 
 
-static char		*data_setting(t_cub3d *cub3d)
+static char	*data_setting(t_cub3d *cub3d)
 {
 	int *display;
 
 	display = cub3d->data->resol;
 	mlx_get_screen_size(cub3d->mlx, &display[0], &display[1]);
+	*display = 1980;
+	*(display + 1) = 960;
 	cub3d->window = mlx_new_window(cub3d->mlx, display[0], display[1], "cub3d");
 	if (!cub3d->window)
 		return ("mlx_new_window failed");
@@ -73,7 +75,7 @@ static char		*data_setting(t_cub3d *cub3d)
 	return (0);
 }
 
-char			*setting_program(t_cub3d **cub3d, char *map_path)
+char		*setting_program(t_cub3d **cub3d, char *map_path)
 {
 	char	*message;
 

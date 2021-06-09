@@ -6,7 +6,7 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 20:54:56 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/04 21:06:42 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:00:22 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 
 typedef struct	s_player
 {
-	double	fov;
 	double	pos[2];
 	double	dir[2];
 	double	plane[2];

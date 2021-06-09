@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   player.c                                           :+:      :+:    :+:   */
+/*   player_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 21:00:57 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/04 21:00:58 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/09 17:01:07 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ t_player	*set_player(int *location, char dir)
 	player->dir[1] = 0;
 	player->plane[0] = 0;
 	player->plane[1] = 0.66;
-	player->fov = fabs(atan(player->plane[1]) * 180 / 3.14);
 	seta = 0;
 	if (dir == 'W')
 		seta = 90;
