@@ -6,11 +6,17 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:38:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/09 13:38:11 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:18:42 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static char	elem_five(t_elem **s, int leng)
+{
+	
+	return (0);
+}
 
 static int	first_div_stack(t_elem **s1, t_elem **s2, int leng)
 {
@@ -50,9 +56,10 @@ static void	set_last_location(t_elem **s, int *leng)
 	(*leng)--;
 }
 
-char		check_start(t_elem **s1, t_elem **s2, int *leng, char *flag)
+char		check_start(t_elem **s1, t_elem **s2, int *leng)
 {
-	check_end_value(s1, leng, flag);
+	if (*leng == 5)
+		return (elem_five(s1, *leng));
 	if (*leng > 3)
 		return (first_div_stack(s1, s2, *leng));
 	if (*leng == 3)

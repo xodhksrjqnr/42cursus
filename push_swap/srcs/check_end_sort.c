@@ -6,13 +6,13 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:38:05 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/09 13:38:07 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:14:58 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void		check_end_value(t_elem **s, int *leng, char *flag)
+static void	check_end_value(t_elem **s, int *leng, char *flag)
 {
 	t_elem	*tmp;
 	t_data	data;

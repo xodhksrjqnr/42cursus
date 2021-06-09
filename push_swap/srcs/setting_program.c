@@ -6,11 +6,32 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/09 13:38:24 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/09 13:38:25 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/09 16:09:05 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static char	check_duplication(int num, t_elem *s)
+{
+	t_elem	*start;
+	char	flag;
+
+	if (!s)
+		return (1);
+	start = s;
+	flag = 0;
+	while (s->value != num)
+	{
+		if (s->next == start)
+		{
+			flag = 1;
+			break ;
+		}
+		s = s->next;
+	}
+	return (flag);
+}
 
 static char	check_argv(char **argv, t_elem **elem)
 {
@@ -40,8 +61,8 @@ int			setting_program(t_elem **stack_a, int argc, char **argv)
 	t_elem	*tmp;
 	int		i;
 
-	if (argc < 2)
-		return (0);
+	if (argc == 1)
+		return (-1);
 	argv++;
 	i = 0;
 	while (*argv)
@@ -49,6 +70,8 @@ int			setting_program(t_elem **stack_a, int argc, char **argv)
 		if (!**argv)
 			return (0);
 		if (!check_argv(argv, &tmp))
+			return (0);
+		if (!check_duplication(tmp->value, *stack_a))
 			return (0);
 		add_elem(stack_a, &tmp);
 		i++;
