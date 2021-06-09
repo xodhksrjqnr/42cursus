@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
+#include "parse_bonus.h"
 
 static int	set_padding(char **target, int max, int width)
 {
@@ -45,7 +45,7 @@ static int	resize_col(char ***target, int max, int flag, int width)
 			return (0);
 	while (*(*target + i))
 	{
-		*(new_col + i + (flag / 2)) = *(*target + i);
+		*(new_col + i + flag - 1) = *(*target + i);
 		i++;
 	}
 	while (i < max + 1 && !flag)

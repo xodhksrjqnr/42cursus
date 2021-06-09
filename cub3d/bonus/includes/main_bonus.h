@@ -1,11 +1,11 @@
-#ifndef MAIN_H
-# define MAIN_H
+#ifndef MAIN_BONUS_H
+# define MAIN_BONUS_H
 
 # define KEY_PRESS 2
 # define KEY_RELEASE 3
 # define XICON_PRESS 17
 
-# include "raycasting.h"
+# include "raycasting_bonus.h"
 
 char	*setting_program(t_cub3d **cub3d, char *map_path);
 char	*map_path_str(char *str);
