@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static void	check_end_value(t_elem **s, int *leng, char *flag)
+void		check_end_value(t_elem **s, int *leng, char *flag)
 {
 	t_elem	*tmp;
 	t_data	data;

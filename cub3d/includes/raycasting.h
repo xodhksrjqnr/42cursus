@@ -46,14 +46,14 @@ typedef struct	s_cub3d
 	t_dda		*dda;
 }				t_cub3d;
 
-int				ray_casting(t_cub3d *cub3d, t_player *player, t_parse *data);
+char			ray_casting(t_cub3d *cub3d, t_player *player, t_parse *data);
 
 int				x_icon(t_cub3d *cub3d);
 int				key_press(int keycode, t_cub3d *cub3d);
 int				key_release(int keycode, t_cub3d *cub3d);
 int				active_apply(t_cub3d *cub3d);
 
-void			draw_point(t_dda *dda, t_parse *data);
+void			set_wall_draw_point(t_dda *dda, t_parse *data);
 void			set_dda_value(t_dda *dda, t_player *player, int resolution
 , int x);
 void			hit_wall(t_dda *dda, char **map, double *pos);

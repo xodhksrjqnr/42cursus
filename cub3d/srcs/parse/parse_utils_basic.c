@@ -19,6 +19,8 @@ int		parse_atoi(char **line, int *target)
 
 	i = 3;
 	check = 0;
+	//아래 반복문은 0~255를 읽는 과정을 3번으로 제한하였기 때문에 00000255 이런식으로 들어오는 경우 정상적인 처리를
+	//하기 위해 추가한 코드이다.
 	while (**line == '0')
 		(*line)++;
 	while (**line >= '0' && **line <= '9' && i--)
@@ -26,42 +28,57 @@ int		parse_atoi(char **line, int *target)
 		*target = (*target * 10) + **line - 48;
 		(*line)++;
 	}
-	while (**line == ' ')
-		(*line)++;
-	if (**line == ',')
+	while (**line == ' ' || **line == ',')
 	{
+		if (**line == ',')
+			check++;
 		(*line)++;
-		check = 1;
 	}
-	while (**line == ' ')
-		(*line)++;
 	return (check);
 }
 
-int		check_length(char *line)
+static int	check_length(char *line)
 {
-	int	length;
+	int	leng;
+	int	space_leng;
 
-	length = 0;
-	while (*line++)
-		length++;
-	return (length);
+	leng = 0;
+	space_leng = 0;
+	while (*line)
+	{
+		line++;
+		leng++;
+	}
+	line--;
+	//아래 반복문의 경우 정상적인 파일 경로 뒤에 추가적으로 space가 들어오는 경우를 처리해주기 위해 추가하였다.
+	while (*line == ' ')
+	{
+		space_leng++;
+		line--;
+	}
+	return (leng - space_leng);
 }
 
-int		new_array(char **target, char **line)
+int		make_path_str(char **target, char **line)
 {
 	int	tmp;
+	int	path_leng;
 
-	*target = malloc(check_length(*line) + 1);
+	path_leng = check_length(*line);
+	if (path_leng < 4)
+		return (0);
+	*target = malloc(path_leng + 1);
 	if (!*target)
 		return (0);
 	tmp = 0;
-	while (**line && **line != ' ')
+	while (tmp < path_leng)
 	{
 		*(*target + tmp++) = **line;
 		(*line)++;
 	}
 	*(*target + tmp) = 0;
+	while (**line)
+		(*line)++;
 	return (1);
 }
 

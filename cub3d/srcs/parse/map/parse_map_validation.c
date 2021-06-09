@@ -12,7 +12,7 @@
 
 #include "parse.h"
 
-static int	around_check(char **map, int col, int row)
+static int	check_around(char **map, int col, int row)
 {
 	int	i;
 	int	j;
@@ -40,16 +40,16 @@ static char	*set_elem(t_parse *data, int col, int row)
 		if (data->direction)
 			return ("player reduplication error");
 		data->direction = cur;
-		data->location[0] = row;
-		data->location[1] = col;
+		data->location[0] = col;
+		data->location[1] = row;
 		data->worldmap[col][row] = '0';
 	}
-	if (!around_check(data->worldmap, col, row))
+	if (!check_around(data->worldmap, col, row))
 		return ("invalid map");
 	return (0);
 }
 
-char		*map_validation(t_parse *data, int max)
+char		*check_map_validation(t_parse *data, int max)
 {
 	int		col;
 	int		row;

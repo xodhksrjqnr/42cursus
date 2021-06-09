@@ -22,6 +22,8 @@ void		free_cub3d(t_cub3d *cub3d)
 		free(cub3d->dda);
 	if (cub3d->player)
 		free(cub3d->player);
+	if (cub3d->image)
+		mlx_destroy_image(cub3d->mlx, cub3d->image);
 	if (cub3d->window)
 		mlx_destroy_window(cub3d->mlx, cub3d->window);
 	if (cub3d->mlx)
@@ -29,41 +31,20 @@ void		free_cub3d(t_cub3d *cub3d)
 	free(cub3d);
 }
 
-static char	*map_path_str(char *str)
+static char	*setting_data(t_cub3d *cub3d)
 {
-	int		i;
-	char	*stand;
-	char	*new_str;
+	int *display_x;
+	int	*display_y;
 
-	stand = "./mapfile/";
-	i = 0;
-	while (*(str + i))
-		i++;
-	new_str = malloc(11 + i);
-	if (!new_str)
-		return (0);
-	i = 0;
-	while (*stand)
-		*(new_str + i++) = *stand++;
-	while (*str)
-		*(new_str + i++) = *str++;
-	*(new_str + i) = 0;
-	return (new_str);
-}
-
-
-static char	*data_setting(t_cub3d *cub3d)
-{
-	int *display;
-
-	display = cub3d->data->resol;
-	mlx_get_screen_size(cub3d->mlx, &display[0], &display[1]);
-	*display = 1980;
-	*(display + 1) = 960;
-	cub3d->window = mlx_new_window(cub3d->mlx, display[0], display[1], "cub3d");
+	display_x = &cub3d->data->resol_x;
+	display_y = &cub3d->data->resol_y;
+	mlx_get_screen_size(cub3d->mlx, display_x, display_y);
+	//*display_x = 1960;
+	//*display_y = 800;
+	cub3d->window = mlx_new_window(cub3d->mlx, *display_x, *display_y, "cub3d");
 	if (!cub3d->window)
 		return ("mlx_new_window failed");
-	cub3d->texture = set_texture(cub3d->mlx, cub3d->data->texture);
+	cub3d->texture = set_texture(cub3d->mlx, cub3d->data->texture_path);
 	if (!cub3d->texture)
 		return ("set_texture failed");
 	cub3d->player = set_player(cub3d->data->location, cub3d->data->direction);
@@ -72,6 +53,10 @@ static char	*data_setting(t_cub3d *cub3d)
 	cub3d->dda = malloc(sizeof(t_dda));
 	if (!cub3d->dda)
 		return ("dda malloc failed");
+	cub3d->image = mlx_new_image(cub3d->mlx, cub3d->data->resol_x, cub3d->data->resol_y);
+	cub3d->adr = mlx_get_data_addr(cub3d->image, &(cub3d->bpp), &(cub3d->leng)
+	, &(cub3d->endian));
+	cub3d->bpp /= 8;
 	return (0);
 }
 
@@ -96,8 +81,10 @@ char		*setting_program(t_cub3d **cub3d, char *map_path)
 	(*cub3d)->dda = 0;
 	if (!(*cub3d)->mlx)
 		return ("mlx_init failed");
-	message = parse(&(*cub3d)->data, map_path_str(map_path), 0xc0);
+	//cub3d 구조체의 변수들을 0으로 초기화한 이유는 setting_data 진행시 error가 발생한 경우 malloc이 진행되지 않은 변수들의 경우
+	//쓰레기값이 남아있을 수 있어 문제가 발생할 수 있다.
+	message = parse(&(*cub3d)->data, map_path);
 	if (message)
 		return (message);
-	return (data_setting(*cub3d));
+	return (setting_data(*cub3d));
 }

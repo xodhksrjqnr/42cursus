@@ -20,8 +20,8 @@ t_player	*set_player(int *location, char dir)
 	player = malloc(sizeof(t_player));
 	if (!player)
 		return (0);
-	player->pos[0] = (double)*(location + 1) + 0.5;
-	player->pos[1] = (double)*location + 0.5;
+	player->pos[0] = (double)*location + 0.5;
+	player->pos[1] = (double)*(location + 1) + 0.5;
 	player->dir[0] = -1;
 	player->dir[1] = 0;
 	player->plane[0] = 0;

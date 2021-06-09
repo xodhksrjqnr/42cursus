@@ -28,7 +28,7 @@ t_texture		**set_texture(void *mlx, char **list)
 		t[i] = malloc(sizeof(t_texture));
 		if (!t[i])
 			return (0);
-		t[i]->image = mlx_png_file_to_image(mlx, list[i], t[i]->size, t[i]->size + 1);
+		t[i]->image = mlx_png_file_to_image(mlx, list[i], &t[i]->size[0], &t[i]->size[1]);
 		if (!t[i]->image)
 		{
 			free_texture(t, mlx);
@@ -44,7 +44,7 @@ unsigned int	t_color(char *ref, int y, t_texture *texture)
 {
 	char	*result;
 
-	result = ref + (int)(y * texture->ratio[1]) * texture->leng;
+	result = ref + (int)(y * texture->ratio) * texture->leng;
 	return (*(unsigned int *)result);
 }
 

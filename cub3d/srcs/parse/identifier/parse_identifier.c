@@ -14,14 +14,15 @@
 
 static char	*set_wall_texture_path(t_parse *data, char *line, int flag)
 {
-	if (!new_array(data->texture + flag, &line))
+	if (!make_path_str(data->texture_path + flag, &line))
 		return ("set_wall_texture_path malloc failed");
 	if (*line)
 		return ("invalid wall_path");
+	//xpm 확장자또한 처리하는지 확인, 마지막이 png로 끝나는지 확인
 	return (0);
 }
 
-static char	*set_color(t_parse *data, char *line, int flag)
+static char	*read_color(t_parse *data, char *line, int flag)
 {
 	int	i;
 	int	tmp;
@@ -33,6 +34,7 @@ static char	*set_color(t_parse *data, char *line, int flag)
 	{
 		tmp_color = 0;
 		tmp += parse_atoi(&line, &tmp_color);
+		//parse_atoi 함수는 반환값으로 ','의 개수를 반환하다. ','의 개수로 만들어진 color가 정상적인지 판단한다.
 		if (tmp_color > 255)
 			return ("invalid color");
 		data->color[flag - 4] += tmp_color;
@@ -58,10 +60,13 @@ char		*set_identifier(t_parse *data, char *line, int flag)
 		line++;
 	while (*line == ' ')
 		line++;
+	//위쪽의 반복문들은 앞서 check_flag에서 읽었던 부분들을 넘겨주기 위함이다. ex) 'EA '
+	//아래 조건문은 벽에 사용될 texture의 경로를 처리하는 함수이다.
 	if (flag >= 0 && flag <= 3)
 		error = set_wall_texture_path(data, line, flag);
 	else if (flag == 4 || flag == 5)
-		error = set_color(data, line, flag);
+		error = read_color(data, line, flag);
+	//위 조건문은 천장과 바닥에 사용될 색상을 읽어 저장하는 함수이다.
 	free(save);
 	return (error);
 }

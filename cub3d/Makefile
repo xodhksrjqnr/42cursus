@@ -40,16 +40,14 @@ $(NAME) : $(OBJS)
 	make -C minilibx
 	cp minilibx/libmlx.dylib libmlx.dylib
 	$(CC) $(FLAG) $(OBJS) libmlx.dylib -o $(NAME)
-	mv $(OBJS) objs
 
 bonus : $(BONUS_OBJS)
 	make -C minilibx
 	cp minilibx/libmlx.dylib libmlx.dylib
 	$(CC) $(FLAG) $(BONUS_OBJS) libmlx.dylib -o $(NAME)
-	mv $(OBJS) objs
 
 clean :
-	$(RM) objs/*.o
+	$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean : clean
 	make clean -C minilibx

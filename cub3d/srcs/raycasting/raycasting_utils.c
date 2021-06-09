@@ -12,26 +12,13 @@
 
 #include "raycasting.h"
 
-unsigned int	set_color(char **worldmap, int x, int y, int side)
-{
-	unsigned int	color;
-
-	if (worldmap[x][y] == '1')
-		color = 0x00FF0000;
-	else
-		color = 0x00FFFF00;
-	if (side == 1)
-		color *= 0.5;
-	return (color);
-}
-
-void			draw_point(t_dda *dda, t_parse *data)
+void			set_wall_draw_point(t_dda *dda, t_parse *data)
 {
 	int	height;
 	int	screen_height;
 
-	height = (int)(data->resol[1] / dda->walldist);
-	screen_height = data->resol[1];
+	height = (int)(data->resol_y / dda->walldist);
+	screen_height = data->resol_y;
 	*dda->point = (-height + screen_height) / 2;
 	*(dda->point + 1) = (height + screen_height) / 2;
 }
@@ -47,20 +34,20 @@ char			*select_texture(t_texture **texture, t_dda *dda)
 		dda->cur = texture[1];
 	else if (dda->side == 1 && dda->ray[1] < 0)
 		dda->cur = texture[2];
-	dda->cur->ratio[1] = (double)(dda->cur->size[1] - 1);
-	dda->cur->ratio[1] /= (double)(dda->point[1] - dda->point[0] + 1);
-	tmp = (int)(dda->wall_x * (dda->cur->size[0] - 1)) * dda->cur->bpp;
+	dda->cur->ratio = (double)(dda->cur->size[1]);
+	dda->cur->ratio /= (double)(dda->point[1] - dda->point[0] + 1);
+	tmp = (int)(dda->wall_x * (dda->cur->size[0])) * dda->cur->bpp;
 	return (dda->cur->adr + tmp);
 }
 
-void			set_dda_value(t_dda *dda, t_player *player, int resolution
+void			set_dda_value(t_dda *dda, t_player *player, int resol_x
 , int x)
 {
 	int		i;
 	double	tmp;
 
 	i = 0;
-	tmp = 2 * x / (double)resolution - 1;
+	tmp = 2 * x / (double)resol_x - 1;
 	while (i < 2)
 	{
 		dda->map[i] = (int)(player->pos[i]);

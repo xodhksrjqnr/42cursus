@@ -25,7 +25,7 @@ typedef struct	s_texture
 	int		leng;
 	int		endi;
 	int		size[2];
-	double	ratio[2];
+	double	ratio;
 }				t_texture;
 
 t_texture		**set_texture(void *mlx, char **list);
