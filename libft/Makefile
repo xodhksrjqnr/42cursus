@@ -21,22 +21,21 @@ OBJ=$(SRC:.c=.o)
 
 BOBJ=$(BONUS:.c=.o)
 
+.c.o :
+	$(CC) $(CFLAGS) -c $< -o $(<:.c=.o)
+
 all:$(NAME)
 
 $(NAME):$(OBJ)
-
-$(OBJ):$(SRC)
-	$(CC) $(CFLAGS) -c $(SRC)
 	ar rc $(NAME) $(OBJ)
+	ranlib $(NAME)
+
+bonus:$(BOBJ) $(OBJ)
+	ar rc $(NAME) $(OBJ) $(BOBJ)
 	ranlib $(NAME)
 
 clean:
 	$(RM) $(OBJ) $(BOBJ)
-
-bonus:$(BONUS)
-	$(CC) $(CFLAGS) -c $(SRC) $(BONUS)
-	ar rc $(NAME) $(OBJ) $(BOBJ)
-	ranlib $(NAME)
 
 fclean: clean
 	$(RM) $(NAME)
