@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parse.h"
+#include "parse_bonus.h"
 
 static char	check_png(char *line)
 {
