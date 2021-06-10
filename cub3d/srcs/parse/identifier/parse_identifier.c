@@ -14,10 +14,20 @@
 
 static char	*set_wall_texture_path(t_parse *data, char *line, int flag)
 {
+	int	fd;
+
 	if (!make_path_str(data->texture_path + flag, &line))
 		return ("set_wall_texture_path malloc failed");
 	if (*line)
 		return ("invalid wall_path");
+	if (!(*(line - 1) == 'g' && *(line - 2) == 'n' && *(line - 3)== 'p' 
+	&& *(line - 4) == '.'))
+		return ("invalid wall_path");
+	fd = open(*(data->texture_path + flag), O_RDONLY);
+	if (fd == -1)
+		return ("invalid wall_path");
+	else
+		close(fd);
 	//xpm 확장자또한 처리하는지 확인, 마지막이 png로 끝나는지 확인
 	return (0);
 }

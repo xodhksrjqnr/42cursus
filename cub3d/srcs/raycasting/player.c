@@ -33,7 +33,7 @@ t_player	*set_player(int *location, char dir)
 		seta = 180;
 	else if (dir == 'E')
 		seta = -90;
-	eyesight_lr(player, seta * PIT);
+	eyesight_lr(player, seta * 3.14 / 180);
 	return (player);
 }
 
@@ -68,7 +68,7 @@ char		move_ws(t_player *player, char **worldmap, double flag)
 	return (1);
 }
 
-char		move_ad(t_player *player, char **worldmap, double flag)
+char		move_ad(t_player *player, char **worldmap, double flag, double pi)
 {
 	double	tmp_x;
 	double	tmp_y;
@@ -78,7 +78,7 @@ char		move_ad(t_player *player, char **worldmap, double flag)
 
 	pos = player->pos;
 	dir = player->dir;
-	seta = PIT * 90;
+	seta = pi * 90;
 	tmp_y = dir[0] * cos(seta) - dir[1] * sin(seta);
 	tmp_x = dir[0] * sin(seta) + dir[1] * cos(seta);
 	if (worldmap[(int)(pos[0] + tmp_y * flag)][(int)pos[1]] != ' ')

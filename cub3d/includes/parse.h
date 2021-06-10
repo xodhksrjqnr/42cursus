@@ -30,6 +30,7 @@ typedef struct	s_parse
 	char		direction;
 	char		**worldmap;
 	char		**texture_path; // texture[0] = NO, [1] = SO, [2] = WE, [3] = EA, [4] = S
+	double		pi;
 }				t_parse;
 
 char			*parse(t_parse **data, char *map_path);

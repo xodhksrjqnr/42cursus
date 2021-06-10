@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <math.h>
-# define PIT 3.14 / 180
 
 typedef struct	s_player
 {
@@ -28,6 +27,6 @@ typedef struct	s_player
 t_player		*set_player(int *location, char dir);
 char			eyesight_lr(t_player *player, double seta);
 char			move_ws(t_player *player, char **worldmap, double flag);
-char			move_ad(t_player *player, char **worldmap, double flag);
+char			move_ad(t_player *player, char **worldmap, double flag, double pi);
 
 #endif

@@ -47,22 +47,24 @@ int	key_release(int keycode, t_cub3d *cub3d)
 
 int	active_apply(t_cub3d *cub3d)
 {
+	t_parse	*data;
 	char	flag;
 
+	data = cub3d->data;
 	flag = 0;
 	if (cub3d->player->key[0] == 1)
-		flag = move_ad(cub3d->player, cub3d->data->worldmap, 0.3);
+		flag = move_ad(cub3d->player, data->worldmap, 0.3, data->pi);
 	else if (cub3d->player->key[2] == 1)
-		flag = move_ad(cub3d->player, cub3d->data->worldmap, -0.3);
+		flag = move_ad(cub3d->player, data->worldmap, -0.3, data->pi);
 	if (cub3d->player->key[1] == 1)
-		flag = move_ws(cub3d->player, cub3d->data->worldmap, -0.3);
+		flag = move_ws(cub3d->player, data->worldmap, -0.3);
 	else if (cub3d->player->key[3] == 1)
-		flag = move_ws(cub3d->player, cub3d->data->worldmap, 0.3);
+		flag = move_ws(cub3d->player, data->worldmap, 0.3);
 	if (cub3d->player->key[4] == 1)
-		flag = eyesight_lr(cub3d->player, PIT * 1.5);
+		flag = eyesight_lr(cub3d->player, data->pi * 1.5);
 	else if (cub3d->player->key[5] == 1)
-		flag = eyesight_lr(cub3d->player, PIT * -1.5);
+		flag = eyesight_lr(cub3d->player, data->pi * -1.5);
 	if (flag)
-		ray_casting(cub3d, cub3d->player, cub3d->data);
+		ray_casting(cub3d, cub3d->player, data);
 	return (1);
 }

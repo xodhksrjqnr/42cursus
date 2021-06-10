@@ -56,6 +56,7 @@ static char	init_parse(t_parse **data)
 	while (i < 36)
 		start[i++] = 0;
 	(*data)->col_max = 20;
+	(*data)->pi = 3.14 / 180;
 	return (1);
 }
 
