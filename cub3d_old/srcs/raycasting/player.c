@@ -6,11 +6,12 @@
 /*   By: taewakim <taewakim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/04 21:00:57 by taewakim          #+#    #+#             */
-/*   Updated: 2021/06/04 21:00:58 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/06/12 01:14:36 by taewakim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "player.h"
+#include <stdio.h>
 
 t_player	*set_player(int *location, char dir)
 {
