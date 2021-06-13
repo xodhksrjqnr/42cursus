@@ -11,12 +11,6 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
-/*
-static char	elem_five(t_elem **s, int leng)
-{
-	
-	return (0);
-}*/
 
 static int	first_div_stack(t_elem **s1, t_elem **s2, int leng)
 {
@@ -58,9 +52,12 @@ static void	set_last_location(t_elem **s, int *leng)
 
 char		check_start(t_elem **s1, t_elem **s2, int *leng, char *flag)
 {
-	//if (*leng == 5)
-	//	return (elem_five(s1, *leng));
 	check_end_value(s1, leng, flag);
+	if (*leng == 5)
+	{
+		sort_target(s1, s2, *leng, 0);
+		return (0);
+	}
 	if (*leng > 3)
 		return (first_div_stack(s1, s2, *leng));
 	if (*leng == 3)
