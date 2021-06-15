@@ -12,6 +12,29 @@
 
 #include "push_swap.h"
 
+static char	elem_five(t_elem **s1, t_elem **s2, int *leng, char *flag)
+{
+	t_data	data;
+	int		tmp_leng;
+
+	init_data(&data, find_pivot(*s1, *leng, 0));
+	while (data.i++ < *leng)
+	{
+		if ((*s1)->value < data.pivot)
+		{
+			move_elem(s1, s2, 2);
+			data.count++;
+			continue ;
+		}
+		else
+			rotate_stack(s1, 1);
+	}
+	tmp_leng = *leng - data.count;
+	check_start(s1, s2, &tmp_leng, flag);
+	move_target(s2, s1, data.count, 1);
+	return (0);
+}
+
 static int	first_div_stack(t_elem **s1, t_elem **s2, int leng)
 {
 	t_data	data;
@@ -54,10 +77,7 @@ char		check_start(t_elem **s1, t_elem **s2, int *leng, char *flag)
 {
 	check_end_value(s1, leng, flag);
 	if (*leng == 5)
-	{
-		sort_target(s1, s2, *leng, 0);
-		return (0);
-	}
+		return (elem_five(s1, s2, leng, flag));
 	if (*leng > 3)
 		return (first_div_stack(s1, s2, *leng));
 	if (*leng == 3)
