@@ -45,7 +45,7 @@ void		find_low_start(t_elem **s1, t_elem **s2, t_data *data, char flag)
 	while (tmp->next != *s1 && data->i++ > -1)
 		tmp = tmp->next;
 	data->i -= data->count2;
-	if (data->i < data->count2 / 2)
+	if (data->i < data->count2)
 		while (data->i-- > 0 - (int)data->check2)
 			rotate_stack(s1, flag);
 	else if (flag == 2)
