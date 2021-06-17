@@ -1,4 +1,4 @@
-#include "pipex.h"
+#include "pipex_bonus.h"
 
 static char	child_pipe(int pipe_num, char **cmd, int *prev_fd, char **path)
 {
