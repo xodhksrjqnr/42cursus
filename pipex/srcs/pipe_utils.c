@@ -23,3 +23,10 @@ char    redirection_in(char *file)
     close(fd);
     return (1);
 }
+
+void	connect_pipe(int *fd, int io)
+{
+	dup2(fd[io], io);
+	close(fd[0]);
+	close(fd[1]);
+}

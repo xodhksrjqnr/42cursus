@@ -9,7 +9,8 @@ HEAD = -I includes
 FLAG = -Wall -Wextra -Werror $(HEAD) -g3 -fsanitize=address
 
 SRCS = srcs/main.c \
-	srcs/redirection.c
+	srcs/pipe_utils.c \
+	srcs/check_cmd.c
 
 OBJS = $(SRCS:.c=.o)
 
