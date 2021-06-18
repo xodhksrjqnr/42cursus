@@ -64,7 +64,7 @@ int     	main(int argc, char **argv, char **env)
 	{
 		tmp = ft_strjoin(*(path + i), "/");
 		if (!tmp)
-			return (EXIT_FAILURE);
+			return (free_split(path) + 1);
 		free(*(path + i));
 		*(path + i++) = tmp;
 	}

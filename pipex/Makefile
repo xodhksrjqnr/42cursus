@@ -12,7 +12,10 @@ SRCS = srcs/main.c \
 	srcs/pipe_utils.c
 
 BONUS_SRCS = bonus/srcs/main_bonus.c \
-	bonus/srcs/pipe_utils_bonus.c
+	bonus/srcs/pipe_utils_bonus.c \
+	bonus/srcs/heredoc_bonus.c \
+	bonus/gnl/get_next_line_bonus.c \
+	bonus/gnl/get_next_line_utils_bonus.c
 
 OBJS = $(SRCS:.c=.o)
 

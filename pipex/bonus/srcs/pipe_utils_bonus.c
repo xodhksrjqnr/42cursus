@@ -8,11 +8,14 @@ char    free_split(char **target)
     return (0);
 }
 
-char    redirection_out(char *file)
+char    redirection_out(char *file, int flag)
 {
     int fd;
 
-    fd = open(file, O_RDWR | O_CREAT, 0644);
+    if (flag == 1)
+        fd = open(file, O_RDWR | O_CREAT, 0644);
+    else
+        fd = open(file, O_RDWR | O_CREAT | O_APPEND, 0644);
     if (fd < 0)
         return (0);
     if (dup2(fd, STDOUT_FILENO) == -1)
