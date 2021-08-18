@@ -8,12 +8,22 @@ HEAD = -I includes -I bonus/includes
 
 FLAG = -Wall -Wextra -Werror $(HEAD) -g3 -fsanitize=address
 
-SRCS = srcs/main.c \
-	srcs/pipe_utils.c
+SRCS = srcs/pipex.c \
+	srcs/error/error.c \
+	srcs/init/init.c \
+	srcs/init/init_info.c \
+	srcs/free/free.c \
+	srcs/run/run_program.c \
+	srcs/run/pipe_utils.c
 
-BONUS_SRCS = bonus/srcs/main_bonus.c \
-	bonus/srcs/pipe_utils_bonus.c \
-	bonus/srcs/heredoc_bonus.c \
+BONUS_SRCS = bonus/srcs/pipex_bonus.c \
+	bonus/srcs/error/error_bonus.c \
+	bonus/srcs/init/init_bonus.c \
+	bonus/srcs/init/init_info_bonus.c \
+	bonus/srcs/free/free_bonus.c \
+	bonus/srcs/run/run_program_bonus.c \
+	bonus/srcs/run/pipe_utils_bonus.c \
+	bonus/srcs/run/heredoc_bonus.c \
 	bonus/gnl/get_next_line_bonus.c \
 	bonus/gnl/get_next_line_utils_bonus.c
 
@@ -29,7 +39,7 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	$(RM) $(BONUS_OBJS)
 	make -C $(LIB)
-	cp $(LIB)/libft.a libft.a
+	mv $(LIB)/libft.a libft.a
 	$(CC) $(FLAG) $(OBJS) libft.a -o $(NAME)
 
 bonus : $(BONUS_OBJS)
@@ -43,6 +53,6 @@ clean :
 
 fclean : clean
 	make clean -C $(LIB)
-	$(RM) $(NAME) $(OBJS) $(BONUS_OBJS) libft.a
+	$(RM) $(NAME) libft.a
 
 re : fclean all
