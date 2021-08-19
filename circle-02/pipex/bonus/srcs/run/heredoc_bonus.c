@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   heredoc_bonus.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/19 04:42:08 by taewan            #+#    #+#             */
+/*   Updated: 2021/08/19 04:59:44 by taewan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex_bonus.h"
 
 void	check_heredoc(t_pipex_info *cmd_info, char *limiter)
@@ -25,7 +37,8 @@ void	heredoc(t_pipex_info *cmd_info)
 			break ;
 		if (result < 0)
 			exit_program(NULL, "gnl is failed");
-		if (!ft_strncmp(line, cmd_info->limiter, ft_strlen(cmd_info->limiter) + 1))
+		if (!ft_strncmp(line, cmd_info->limiter,
+				ft_strlen(cmd_info->limiter) + 1))
 			break ;
 		write(fd[1], line, ft_strlen(line));
 		write(fd[1], "\n", 1);

@@ -39,7 +39,7 @@ clean:
 	$(RM) $(OBJ) $(BOBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) libft.a
 
 re: fclean all
 

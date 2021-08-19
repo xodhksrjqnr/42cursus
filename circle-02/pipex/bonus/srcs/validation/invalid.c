@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstsize.c                                       :+:      :+:    :+:   */
+/*   invalid.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/12/27 16:17:51 by taewakim          #+#    #+#             */
-/*   Updated: 2021/08/19 04:49:14 by taewan           ###   ########.fr       */
+/*   Created: 2021/08/19 17:37:55 by taewan            #+#    #+#             */
+/*   Updated: 2021/08/19 17:37:56 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "pipex_bonus.h"
 
-int	ft_lstsize(t_list *lst)
+void	invalid(int *argc, char **infile)
 {
-	int		len;
+	int	h_flag;
 
-	len = 0;
-	while (lst)
+	if (*argc < 3)
+		exit_program(NULL, strerror(ARGUMENT_ERROR));
+	h_flag = ft_strncmp(*infile, "here_doc", 9);
+	if (*argc < 4 && !h_flag)
+		exit_program(NULL, strerror(ARGUMENT_ERROR));
+	if (access(*infile, R_OK) && h_flag)
 	{
-		len++;
-		lst = lst->next;
+		*infile = ft_strdup("/dev/null");
+		if (!*infile)
+			exit_program(NULL, strerror(MALLOC_ERROR));
 	}
-	return (len);
+	*argc -= 3;
 }

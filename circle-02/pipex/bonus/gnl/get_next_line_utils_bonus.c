@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 12:15:10 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/07 13:24:00 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/08/19 05:02:39 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-size_t		ft_strlen_g(const char *s)
+size_t	ft_strlen_g(const char *s)
 {
 	size_t	count;
 
@@ -22,7 +22,7 @@ size_t		ft_strlen_g(const char *s)
 	return (count);
 }
 
-char		*ft_strchr_g(const char *s)
+char	*ft_strchr_g(const char *s)
 {
 	if (!s)
 		return (0);
@@ -31,14 +31,15 @@ char		*ft_strchr_g(const char *s)
 	return ((char *)s);
 }
 
-char		*ft_strdup_g(const char *s, size_t len)
+char	*ft_strdup_g(const char *s, size_t len)
 {
 	char	*result;
 	size_t	count;
 
 	if (!s)
 		return (0);
-	if (!(result = (char *)malloc(len + 1)))
+	result = (char *)malloc(len + 1);
+	if (!result)
 		return (0);
 	result[len] = 0;
 	count = 0;
@@ -47,7 +48,7 @@ char		*ft_strdup_g(const char *s, size_t len)
 	return (result);
 }
 
-char		*ft_strjoin_g(char *s1, char *s2)
+char	*ft_strjoin_g(char *s1, char *s2)
 {
 	size_t	size;
 	size_t	count;
@@ -57,7 +58,8 @@ char		*ft_strjoin_g(char *s1, char *s2)
 	if (!s1 || !s2)
 		return (0);
 	size = ft_strlen_g(s1) + ft_strlen_g(s2) + 1;
-	if (!(result = (char *)malloc(size)))
+	result = (char *)malloc(size);
+	if (!result)
 		return (0);
 	result[size - 1] = 0;
 	tmp = result;
@@ -74,9 +76,10 @@ char		*ft_strjoin_g(char *s1, char *s2)
 
 t_fdlist	*ft_newfd(int fd)
 {
-	t_fdlist *new;
+	t_fdlist	*new;
 
-	if (!(new = malloc(sizeof(t_fdlist))))
+	new = malloc(sizeof(t_fdlist));
+	if (!new)
 		return (0);
 	new->save = 0;
 	new->fd = fd;

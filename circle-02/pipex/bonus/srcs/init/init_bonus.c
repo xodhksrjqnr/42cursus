@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_bonus.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/19 04:42:17 by taewan            #+#    #+#             */
+/*   Updated: 2021/08/19 17:37:30 by taewan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex_bonus.h"
 
 static char	**div_awk(char *cmd)
@@ -13,7 +25,8 @@ static char	**div_awk(char *cmd)
 	{
 		if (*(cmd + i) == '\'' || *(cmd + i) == '\"')
 		{
-			if ((flag[0] == -1 && flag[1] == -1) || (flag[(*(cmd + i) - 34) / 5] == 1))
+			if ((flag[0] == -1 && flag[1] == -1)
+				|| (flag[(*(cmd + i) - 34) / 5] == 1))
 			{
 				flag[(*(cmd + i) - 34) / 5] *= -1;
 				*(cmd + i) = 127;
@@ -28,7 +41,7 @@ static char	**div_awk(char *cmd)
 	return (result);
 }
 
-static char **div_cmd(const char *cmd)
+static char	**div_cmd(const char *cmd)
 {
 	char	*tmp;
 
@@ -50,7 +63,7 @@ static char **div_cmd(const char *cmd)
 static void	init_envp(char **envp, t_pipex_info *cmd_info)
 {
 	cmd_info->envp = envp;
-    while (ft_strncmp(*envp, "PATH=", 5))
+	while (ft_strncmp(*envp, "PATH=", 5))
 		envp++;
 	cmd_info->env = ft_split(*envp + 5, ':');
 	if (!cmd_info->env)
@@ -78,33 +91,37 @@ static void	invalid_cmd(t_pipex_info *cmd_info, int curIndex)
 		if (!cmd_info->cmd_path[curIndex])
 			exit_program(cmd_info, strerror(MALLOC_ERROR));
 		if (!access(cmd_info->cmd_path[curIndex], R_OK))
-            return ;
+			return ;
 		i++;
 	}
 	write(2, "command not found\n", 18);
 }
 
-void		init(char **cmd_arr, t_pipex_info *cmd_info, int numOfCmd, char **envp)
+void	init(char **cmd_arr, t_pipex_info *cmd_info, int numOfCmd, char **envp)
 {
-	int		i;
+	int	i;
+	int	cmdIsZero;
 
-	init_info(cmd_info);
-	cmd_info->infile = cmd_arr[1];
+	cmdIsZero = 0;
+	init_info(cmd_info, cmd_arr, numOfCmd);
 	check_heredoc(cmd_info, cmd_arr[2]);
-	cmd_info->outfile = cmd_arr[numOfCmd + 2];
 	numOfCmd -= cmd_info->h_flag;
 	init_envp(envp, cmd_info);
-	cmd_info->cmd_path = ft_calloc(numOfCmd + 1, sizeof(char *));
-	cmd_info->cmd_data = ft_calloc(numOfCmd + 1, sizeof(char **));
+	if (!numOfCmd)
+		cmdIsZero = 1;
+	cmd_info->cmd_path = ft_calloc(numOfCmd + 1 + cmdIsZero, sizeof(char *));
+	cmd_info->cmd_data = ft_calloc(numOfCmd + 1 + cmdIsZero, sizeof(char **));
 	if (!cmd_info->cmd_data || !cmd_info->cmd_path)
 		exit_program(cmd_info, strerror(MALLOC_ERROR));
-	i = 0;
-	while (i < numOfCmd)
+	i = -1;
+	while (++i < numOfCmd + cmdIsZero)
 	{
-		cmd_info->cmd_data[i] = div_cmd(cmd_arr[i + 2 + cmd_info->h_flag]);
+		if (cmdIsZero)
+			cmd_info->cmd_data[i] = div_cmd("cat");
+		else
+			cmd_info->cmd_data[i] = div_cmd(cmd_arr[i + 2 + cmd_info->h_flag]);
 		if (!cmd_info->cmd_data[i])
 			exit_program(cmd_info, strerror(MALLOC_ERROR));
 		invalid_cmd(cmd_info, i);
-		i++;
 	}
 }

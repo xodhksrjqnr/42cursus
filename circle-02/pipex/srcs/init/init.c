@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/08/19 04:30:09 by taewan            #+#    #+#             */
+/*   Updated: 2021/08/19 17:29:59 by taewan           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pipex.h"
 
 static char	**div_awk(char *cmd)
@@ -13,7 +25,8 @@ static char	**div_awk(char *cmd)
 	{
 		if (*(cmd + i) == '\'' || *(cmd + i) == '\"')
 		{
-			if ((flag[0] == -1 && flag[1] == -1) || (flag[(*(cmd + i) - 34) / 5] == 1))
+			if ((flag[0] == -1 && flag[1] == -1)
+				|| (flag[(*(cmd + i) - 34) / 5] == 1))
 			{
 				flag[(*(cmd + i) - 34) / 5] *= -1;
 				*(cmd + i) = 127;
@@ -28,7 +41,7 @@ static char	**div_awk(char *cmd)
 	return (result);
 }
 
-static char **div_cmd(const char *cmd)
+static char	**div_cmd(const char *cmd)
 {
 	char	*tmp;
 
@@ -50,7 +63,7 @@ static char **div_cmd(const char *cmd)
 static void	init_envp(char **envp, t_pipex_info *cmd_info)
 {
 	cmd_info->envp = envp;
-    while (ft_strncmp(*envp, "PATH=", 5))
+	while (ft_strncmp(*envp, "PATH=", 5))
 		envp++;
 	cmd_info->env = ft_split(*envp + 5, ':');
 	if (!cmd_info->env)
@@ -78,19 +91,17 @@ static void	invalid_cmd(t_pipex_info *cmd_info, int curIndex)
 		if (!cmd_info->cmd_path[curIndex])
 			exit_program(cmd_info, strerror(MALLOC_ERROR));
 		if (!access(cmd_info->cmd_path[curIndex], R_OK))
-            return ;
+			return ;
 		i++;
 	}
 	write(2, "command not found\n", 18);
 }
 
-void		init(char **cmd_arr, t_pipex_info *cmd_info, int numOfCmd, char **envp)
+void	init(char **cmd_arr, t_pipex_info *cmd_info, int numOfCmd, char **envp)
 {
 	int		i;
 
-	init_info(cmd_info);
-	cmd_info->infile = cmd_arr[1];
-	cmd_info->outfile = cmd_arr[numOfCmd + 2];
+	init_info(cmd_info, cmd_arr, numOfCmd);
 	init_envp(envp, cmd_info);
 	cmd_info->cmd_path = ft_calloc(numOfCmd + 1, sizeof(char *));
 	cmd_info->cmd_data = ft_calloc(numOfCmd + 1, sizeof(char **));

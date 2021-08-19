@@ -14,7 +14,8 @@ SRCS = srcs/pipex.c \
 	srcs/init/init_info.c \
 	srcs/free/free.c \
 	srcs/run/run_program.c \
-	srcs/run/pipe_utils.c
+	srcs/run/pipe_utils.c \
+	srcs/run/option.c
 
 BONUS_SRCS = bonus/srcs/pipex_bonus.c \
 	bonus/srcs/error/error_bonus.c \
@@ -24,6 +25,7 @@ BONUS_SRCS = bonus/srcs/pipex_bonus.c \
 	bonus/srcs/run/run_program_bonus.c \
 	bonus/srcs/run/pipe_utils_bonus.c \
 	bonus/srcs/run/heredoc_bonus.c \
+	bonus/srcs/validation/invalid.c \
 	bonus/gnl/get_next_line_bonus.c \
 	bonus/gnl/get_next_line_utils_bonus.c
 
@@ -52,7 +54,7 @@ clean :
 	$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean : clean
-	make clean -C $(LIB)
+	make fclean -C $(LIB)
 	$(RM) $(NAME) libft.a
 
 re : fclean all

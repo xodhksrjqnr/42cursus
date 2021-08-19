@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 01:08:35 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/15 14:44:31 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/08/19 04:44:35 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_atoi(const char *s)
+int	ft_atoi(const char *s)
 {
 	unsigned long long	total;
 	unsigned long long	max;

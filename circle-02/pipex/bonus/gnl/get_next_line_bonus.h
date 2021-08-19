@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 13:35:07 by taewakim          #+#    #+#             */
-/*   Updated: 2021/01/07 13:35:14 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/08/19 05:00:42 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@
 # include <unistd.h>
 # include <stdlib.h>
 
-typedef struct		s_fdlist
+typedef struct s_fdlist
 {
 	char			*save;
 	int				fd;
-	struct s_fdlist *next;
-}					t_fdlist;
+	struct s_fdlist	*next;
+}	t_fdlist;
 int					get_next_line(int fd, char **line);
 char				*ft_strchr_g(const char *s);
 char				*ft_strdup_g(const char *s, size_t len);

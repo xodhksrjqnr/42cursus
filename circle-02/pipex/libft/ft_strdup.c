@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: taewakim <taewakim@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 02:04:53 by taewakim          #+#    #+#             */
-/*   Updated: 2020/12/30 18:55:49 by taewakim         ###   ########.fr       */
+/*   Updated: 2021/08/19 04:50:23 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ char	*ft_strdup(const char *s)
 	char	*result;
 	char	*tmp;
 
-	if (!(result = (char *)malloc((ft_strlen(s) + 1))))
+	result = (char *)malloc((ft_strlen(s) + 1));
+	if (!result)
 		return (0);
 	tmp = result;
 	while (*s)
