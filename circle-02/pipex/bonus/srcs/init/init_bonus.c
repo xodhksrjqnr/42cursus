@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/19 04:42:17 by taewan            #+#    #+#             */
-/*   Updated: 2021/08/19 17:37:30 by taewan           ###   ########.fr       */
+/*   Updated: 2021/08/22 18:31:41 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,21 +80,23 @@ static void	invalid_cmd(t_pipex_info *cmd_info, int curIndex)
 		cmd_info->cmd_path[curIndex] = cmd_info->cmd_data[curIndex][0];
 		return ;
 	}
-	i = 0;
-	while (cmd_info->env[i])
+	i = -1;
+	while (cmd_info->env[++i])
 	{
 		tmp_str = ft_strjoin("/", cmd_info->cmd_data[curIndex][0]);
-		if (!tmp_str)
-			exit_program(cmd_info, strerror(MALLOC_ERROR));
 		cmd_info->cmd_path[curIndex] = ft_strjoin(cmd_info->env[i], tmp_str);
-		free(tmp_str);
+		if (tmp_str)
+			free(tmp_str);
 		if (!cmd_info->cmd_path[curIndex])
 			exit_program(cmd_info, strerror(MALLOC_ERROR));
 		if (!access(cmd_info->cmd_path[curIndex], R_OK))
 			return ;
-		i++;
+		free(cmd_info->cmd_path[curIndex]);
 	}
 	write(2, "command not found\n", 18);
+	cmd_info->cmd_path[curIndex] = ft_strdup("");
+	if (!cmd_info->cmd_path[curIndex])
+		exit_program(cmd_info, strerror(MALLOC_ERROR));
 }
 
 void	init(char **cmd_arr, t_pipex_info *cmd_info, int numOfCmd, char **envp)

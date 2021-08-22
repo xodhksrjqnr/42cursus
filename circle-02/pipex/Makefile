@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: taewan <taewan@student.42.fr>              +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2021/08/22 19:36:52 by taewan            #+#    #+#              #
+#    Updated: 2021/08/22 19:37:00 by taewan           ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = pipex
 
 CC = gcc
@@ -15,7 +27,7 @@ SRCS = srcs/pipex.c \
 	srcs/free/free.c \
 	srcs/run/run_program.c \
 	srcs/run/pipe_utils.c \
-	srcs/run/option.c
+	srcs/validation/invalid.c
 
 BONUS_SRCS = bonus/srcs/pipex_bonus.c \
 	bonus/srcs/error/error_bonus.c \

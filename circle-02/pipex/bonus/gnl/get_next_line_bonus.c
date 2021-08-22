@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/07 13:33:52 by taewakim          #+#    #+#             */
-/*   Updated: 2021/08/19 05:55:51 by taewan           ###   ########.fr       */
+/*   Updated: 2021/08/22 19:34:30 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,19 +97,16 @@ static int	set_result(char **line, t_fdlist *cur, int size,
 	return (1);
 }
 
-static char	*check_validation(int fd, char **line, t_fdlist **cur,
-	t_fdlist *fdlist)
+static int	init_gnl(int fd, char **buff, t_fdlist **fdlist, t_fdlist **cur)
 {
-	char	*buff;
-
-	if (fd < 0 || BUFFER_SIZE <= 0 || !line || !(find_fd(fd, &fdlist, cur)))
+	if (fd < 0 || BUFFER_SIZE <= 0 || !find_fd(fd, fdlist, cur))
 		return (0);
-	buff = (char *)malloc(BUFFER_SIZE + 1);
-	if (!buff)
+	*buff = (char *)malloc(BUFFER_SIZE + 1);
+	if (!*buff)
 		return (0);
 	if (!(*cur)->save)
 		(*cur)->save = ft_strdup_g("", 0);
-	return (buff);
+	return (1);
 }
 
 int	get_next_line(int fd, char **line)
@@ -120,8 +117,7 @@ int	get_next_line(int fd, char **line)
 	char				*tmp;
 	int					size;
 
-	buff = check_validation(fd, line, &cur, fdlist);
-	if (!buff)
+	if (!init_gnl(fd, &buff, &fdlist, &cur) || !line)
 		return (-1);
 	size = read(fd, buff, BUFFER_SIZE);
 	while (size > 0)

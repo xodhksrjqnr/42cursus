@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_bonus.c                                      :+:      :+:    :+:   */
+/*   invalid.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/19 04:41:45 by taewan            #+#    #+#             */
-/*   Updated: 2021/08/22 18:34:43 by taewan           ###   ########.fr       */
+/*   Created: 2021/08/22 17:10:33 by taewan            #+#    #+#             */
+/*   Updated: 2021/08/22 17:10:34 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipex_bonus.h"
+#include "pipex.h"
 
-int	main(int argc, char **argv, char **envp)
+void	invalid(int argc, char **infile)
 {
-	t_pipex_info	cmd_info;
-
-	invalid(&argc, argv + 1);
-	init(argv, &cmd_info, argc, envp);
-	run_program(&cmd_info, argc - 1 - cmd_info.h_flag);
-	return (0);
+	if (argc != 5)
+		exit_program(NULL, strerror(ARGUMENT_ERROR));
+	if (access(*infile, R_OK))
+	{
+		*infile = ft_strdup("/dev/null");
+		if (!*infile)
+			exit_program(NULL, strerror(MALLOC_ERROR));
+	}
 }

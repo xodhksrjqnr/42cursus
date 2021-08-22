@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/19 04:43:46 by taewan            #+#    #+#             */
-/*   Updated: 2021/08/19 18:58:09 by taewan           ###   ########.fr       */
+/*   Updated: 2021/08/22 16:59:41 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct s_pipex_info
 void	init(char **cmd_arr, t_pipex_info *cmd_info, int numOfCmd, char **envp);
 void	init_info(t_pipex_info *cmd_info, char **cmd_arr, int num);
 void	run_program(t_pipex_info *cmd_info, int numOfPipe);
-int		option(int num, char *infile);
+void	invalid(int argc, char **infile);
 void	exit_program(t_pipex_info *cmd_info, const char *message);
 void	free_pipex(t_pipex_info *target);
 
