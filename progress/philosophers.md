@@ -36,6 +36,7 @@ Thread와 mutex를 이용해 철학자 문제를 해결해보자.
 
 - **데이터 저장을 위한 배열 생성**
 - **입력 데이터를 숫자로 변환(setting)하여 생성한 배열에 저장**
+- **사용할 변수에 대해 메모리 할당**
 - **철학자 문제 절차 시작(running)**
 
 #### 1-1. 배열 생성
@@ -46,22 +47,54 @@ Thread와 mutex를 이용해 철학자 문제를 해결해보자.
 
 Setting 함수를 호출하여 input 배열에 입력된 데이터를 변환하여 저장합니다.
 
-#### 1-1. 메인 절차 호출
+#### 1-3. 변수에 대한 메모리 할당
+
+사용할 thread와 철학자의 정보를 저장할 객체의 배열에 메모리 할당을 진행합니다.
+
+#### 1-4. 메인 절차 호출
 
  만들어진 데이터를 이용해 running 함수를 호출하여 thread 생성 및 요구사항 처리를 진행합니다.
 
 ```c
 #include "philo.h"
 
+static int	init(pthread_t **t, t_philo **p, int **flag, long n)
+{
+	char	*msg;
+
+	msg = 0;
+	*t = malloc(n * sizeof(pthread_t));
+	*p = malloc(n * sizeof(t_philo));
+	*flag = malloc(n * sizeof(int));
+	if (!*t || !*p || !*flag)
+	{
+		if (!*t)
+			free(*t);
+		if (!*p)
+			free(*p);
+		if (!*flag)
+			free(*flag);
+		msg = "malloc error";
+	}
+	return (error(msg));
+}
+
 int	main(int ac, char **av)
 {
-	long	*input;
+	//스레드 객체 배열
+	pthread_t	*threads;
+	//철학자 정보 객체 배열
+	t_philo		*philos;
+	//철학자 식사 여부 판단
+	int			*flag;
+	long		*input;
 
 	input = malloc(5 * sizeof(long));
 	if (!input)
 		return (error("malloc error"));
-	if (setting(ac, av, input))
-		running(input);
+	//setting으로 데이터 변환, init으로 메모리 할당
+	if (setting(ac, av, input) && init(&threads, &philos, &flag, input[0]))
+		running(input, threads, philos, flag);
 	return (0);
 }
 ```
@@ -156,11 +189,7 @@ int	error(char *msg)
 - 철학자 행동
 - 모든 스레드가 종료될 때까지 대기
 
-#### 4-1. 메모리 할당 및 mutex 생성
-
-스레드와 철학자 객체를 효율적으로 관리하기위해 배열 형태로 메모리 할당을 진행하였습니다. 메모리 할당 과정에서 문제 발생시 작업을 진행할 수 없기 떄문에 에러 체크를 필수적으로 진행하여야 합니다.
-
-#### 4-2. 스레드 생성
+#### 4-1. 스레드 생성
 
 **`pthread_create`**에 인자로 담아주기위해 철학자에 대한 정보를 초기화해주어야 합니다. 철학자의 정보는 다음과 같습니다.
 
@@ -175,11 +204,11 @@ int	error(char *msg)
 
 **`pthread_create(스레드 객체, 스레드 옵션, 스레드가 수행할 함수, 수행할 함수의 인자)`**
 
-#### 4-3. 행동
+#### 4-2. 행동
 
 철학자가 규칙에 따라 행동을 수행하는 파트입니다. 행동은 eat, sleep, think가 존재하며, 일정시간동안 철학자가 굶게되는 경우 die가 출력됩니다. (구현중)
 
-#### 4-4. 대기
+#### 4-3. 대기
 
 모든 스레드의 작업이 종료될 때까지 기다리는 단계입니다. 특정 스레드가 먼저 끝나 메인문이 종료되어 프로그램 전체가 종료되는 것을 방지하기 위함압니다. while문을 이용해 **`threads`** 에 대해 **`pthread_join`**이 모두 수행될 때까지 반복합니다.
 
@@ -187,14 +216,14 @@ int	error(char *msg)
 #include "philo.h"
 
 //철학자에 대한 정보 초기화
-static void	set_philo_info(t_philo *philo, int name, long *data
+static void	set_philo_info(t_philo *philo, int *flag, long *data
 , pthread_mutex_t *mutex)
 {
-	philo->name = name;
 	philo->t_die = data[1];
 	philo->t_eat = data[2];
 	philo->t_sleep = data[3];
 	philo->must_eat = data[4];
+	philo->flag = flag;
 	philo->mutex = mutex;
 }
 
@@ -218,45 +247,23 @@ static void	*behavior(void *data)
 	return (0);
 }
 
-//사용할 변수들에 대한 메모리 할당
-static int	init(pthread_mutex_t *m, pthread_t **t, t_philo **p, long n)
-{
-	int	err;
-
-	*t = malloc(n * sizeof(pthread_t));
-	*p = malloc(n * sizeof(t_philo));
-	err = pthread_mutex_init(m, NULL);
-	//malloc 에러 or mutex init 에러
-	if (!*t || !*p || err)
-	{
-		if (!*t)
-			free(*t);
-		if (!*p)
-			free(*p);
-		return (0);
-	}
-	return (1);
-}
-
-int	running(long *input)
+int	running(long *input, pthread_t *threads, t_philo *philos, int *flag)
 {
 	pthread_mutex_t	mutex;
-	//스레드 배열
-	pthread_t		*threads;
-	//철학자 객체 배열
-	t_philo			*philos;
 	int				i;
 	char			*msg;
 
 	msg = 0;
-	//사용 변수에 대한 메모리 할당
-	if (!init(&mutex, &threads, &philos, input[0]))
+	//mutex 초기화
+	if (pthread_mutex_init(&mutex, NULL))
 		msg = "init error";
 	i = -1;
 	while (++i < input[0] && !msg)
 	{
+		philos[i].name = i + 1;
+		flag[i] = 0;
 		//철학자 객체 정보 저장
-		set_philo_info(&philos[i], i + 1, input, &mutex);
+		set_philo_info(&philos[i], flag, input, &mutex);
 		//철학자 스레드 생성
 		if (pthread_create(&threads[i], NULL, behavior, &philos[i]))
 			msg = "thread create error";
