@@ -4,8 +4,8 @@
 
 스레드와 프로세스에 대해 이해하고, 자원을 차지하는 과정에서 발생할 수 있는 교착상태를 해결해보자.
 
--  **Mandatory** : thread를 이용해 철학자 문제를 해결
--  **Bonus** : process를 이용해 철학자 문제를 해결
+- **Mandatory** : thread를 이용해 철학자 문제를 해결
+- **Bonus** : process를 이용해 철학자 문제를 해결
 
 ## 규칙
 
@@ -123,6 +123,9 @@ int	setting(int ac, char **av, long *input)
 		msg = "invlid arguments";
 	//생성 배열 초기화
 	memset(input, 0, 5 * sizeof(long));
+	//선택 옵션이 안 들어온 경우 -1로 초기화하여 이후 
+	if (ac == 5)
+		input[4] = -1;
 	//입력 인자에 대한 변환 진행, 이미 이전 과정에서 msg가 갱신된 경우는 진행할 필요 없음
 	while (*(++av) && !msg)
 		if (!convert(*av, input, i++))
