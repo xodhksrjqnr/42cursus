@@ -59,15 +59,11 @@ int	main(int ac, char **av)
 
 	input = malloc(5 * sizeof(long));
 	if (!input)
-	{
-		printf("malloc error\n");
-		return (0);
-	}
+		return (error("malloc error"));
 	if (setting(ac, av, input))
 		running(input);
 	return (0);
 }
-
 ```
 
 >### 2. Setting 함수
@@ -123,7 +119,7 @@ int	setting(int ac, char **av, long *input)
 		msg = "invlid arguments";
 	//생성 배열 초기화
 	memset(input, 0, 5 * sizeof(long));
-	//선택 옵션이 안 들어온 경우 -1로 초기화하여 이후 
+	//선택 옵션이 안 들어온 경우 -1로 초기화하여 이후 반복 횟수 판단
 	if (ac == 5)
 		input[4] = -1;
 	//입력 인자에 대한 변환 진행, 이미 이전 과정에서 msg가 갱신된 경우는 진행할 필요 없음
@@ -132,15 +128,146 @@ int	setting(int ac, char **av, long *input)
 			msg = "invalid arguments";
 	//입력 인자 중 유효하지 않는 경우
 	if (msg)
-	{
 		free(input);
-		printf("%s\n", msg);
+	return (error(msg));
+}
+```
+
+>### 3. Error 함수
+
+입력받은 문자열이 `NULL`인 경우 1을, 아닌 경우 문자열을 출력 후 0을 반환하는 간단한 기능입니다. 여기서 입력받은 문자열은 에러 메시지를 나타냅니다.
+
+```java
+#include "philo.h"
+
+int	error(char *msg)
+{
+	if (!msg)
+		return (1);
+	printf("%s\n", msg);
+	return (0);
+}
+```
+
+>### 4. Running 함수
+
+- 사용할 변수들에 대한 메모리 할당 및 mutex 생성
+- 각 철학자에 대한 정보 생성 및 스레드 생성
+- 철학자 행동
+- 모든 스레드가 종료될 때까지 대기
+
+#### 4-1. 메모리 할당 및 mutex 생성
+
+스레드와 철학자 객체를 효율적으로 관리하기위해 배열 형태로 메모리 할당을 진행하였습니다. 메모리 할당 과정에서 문제 발생시 작업을 진행할 수 없기 떄문에 에러 체크를 필수적으로 진행하여야 합니다.
+
+#### 4-2. 스레드 생성
+
+**`pthread_create`**에 인자로 담아주기위해 철학자에 대한 정보를 초기화해주어야 합니다. 철학자의 정보는 다음과 같습니다.
+
+- **name** : 철학자 번호
+- **t_die** : 먹지 않고 버틸 수 있는 시간
+- **t_eat** : 먹는 시간
+- **t_sleep** : 잠자는 시간
+- **must_eat** : 먹어야하는 횟수
+- **mutex** : mutex 관련 함수의 인자로 활용할 객체
+
+철학자 정보에 대한 초기화가 끝났으면 이제 스레드 생성을 진행해야 하며, 다음과 같은 인자가 필요합니다.
+
+**`pthread_create(스레드 객체, 스레드 옵션, 스레드가 수행할 함수, 수행할 함수의 인자)`**
+
+#### 4-3. 행동
+
+철학자가 규칙에 따라 행동을 수행하는 파트입니다. 행동은 eat, sleep, think가 존재하며, 일정시간동안 철학자가 굶게되는 경우 die가 출력됩니다. (구현중)
+
+#### 4-4. 대기
+
+모든 스레드의 작업이 종료될 때까지 기다리는 단계입니다. 특정 스레드가 먼저 끝나 메인문이 종료되어 프로그램 전체가 종료되는 것을 방지하기 위함압니다. while문을 이용해 **`threads`** 에 대해 **`pthread_join`**이 모두 수행될 때까지 반복합니다.
+
+```java
+#include "philo.h"
+
+//철학자에 대한 정보 초기화
+static void	set_philo_info(t_philo *philo, int name, long *data
+, pthread_mutex_t *mutex)
+{
+	philo->name = name;
+	philo->t_die = data[1];
+	philo->t_eat = data[2];
+	philo->t_sleep = data[3];
+	philo->must_eat = data[4];
+	philo->mutex = mutex;
+}
+
+//철학자의 행동 과정
+static void	*behavior(void *data)
+{
+	t_philo	*philo;
+	long	i;
+	int		flag;
+
+	philo = (t_philo *)data;
+	i = 0;
+	flag = philo->must_eat;
+	//철학자가 의무적으로 먹어야하는 횟수만큼 진행, 선택을 안한 경우 무한히 반복
+	while (i < philo->must_eat || flag == -1)
+	{
+		eating(philo, i);
+		if (flag != -1)
+			i++;
+	}
+	return (0);
+}
+
+//사용할 변수들에 대한 메모리 할당
+static int	init(pthread_mutex_t *m, pthread_t **t, t_philo **p, long n)
+{
+	int	err;
+
+	*t = malloc(n * sizeof(pthread_t));
+	*p = malloc(n * sizeof(t_philo));
+	err = pthread_mutex_init(m, NULL);
+	//malloc 에러 or mutex init 에러
+	if (!*t || !*p || err)
+	{
+		if (!*t)
+			free(*t);
+		if (!*p)
+			free(*p);
 		return (0);
 	}
 	return (1);
 }
 
+int	running(long *input)
+{
+	pthread_mutex_t	mutex;
+	//스레드 배열
+	pthread_t		*threads;
+	//철학자 객체 배열
+	t_philo			*philos;
+	int				i;
+	char			*msg;
+
+	msg = 0;
+	//사용 변수에 대한 메모리 할당
+	if (!init(&mutex, &threads, &philos, input[0]))
+		msg = "init error";
+	i = -1;
+	while (++i < input[0] && !msg)
+	{
+		//철학자 객체 정보 저장
+		set_philo_info(&philos[i], i + 1, input, &mutex);
+		//철학자 스레드 생성
+		if (pthread_create(&threads[i], NULL, behavior, &philos[i]))
+			msg = "thread create error";
+	}
+	i = -1;
+	//모든 스레드가 작업을 완료할 때까지 대기
+	while (++i < input[0] && !msg)
+		pthread_join(threads[i], NULL);
+	//mutex 제거
+	if (msg && pthread_mutex_destroy(&mutex))
+		msg = "mutex_destroy error";
+	return (error(msg));
+}
 ```
-
->### 3. Running 함수
-
