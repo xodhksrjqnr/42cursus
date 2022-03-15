@@ -6,7 +6,7 @@
 #    By: taewan <taewan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/08 23:02:49 by taewan            #+#    #+#              #
-#    Updated: 2022/03/15 14:39:55 by taewan           ###   ########.fr        #
+#    Updated: 2022/03/15 17:37:02 by taewan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 
 HEAD = -I includes
 
-FLAG = -Wall -Wextra -Werror $(HEAD) -g3
+FLAG = -Wall -Wextra -Werror $(HEAD)
 
 SRCS = srcs/main.c \
 	srcs/setting.c \
@@ -34,7 +34,7 @@ $(NAME) : $(OBJS)
 	$(CC) $(FLAG) $(OBJS) -o $(NAME)
 
 clean :
-	$(RM) $(OBJS) $(BONUS_OBJS)
+	$(RM) $(OBJS)
 
 fclean : clean
 	$(RM) $(NAME)
