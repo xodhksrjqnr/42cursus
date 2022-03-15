@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:53:44 by taewan            #+#    #+#             */
-/*   Updated: 2022/03/15 14:36:48 by taewan           ###   ########.fr       */
+/*   Updated: 2022/03/15 15:17:05 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ static void	*behavior(void *data)
 	{
 		pthread_mutex_lock(philo->left);
 		print("has taken a fork", philo);
-		usleep(50);
 		pthread_mutex_lock(philo->right);
 		print("has taken a fork", philo);
 		check_time(philo);
@@ -76,7 +75,6 @@ static void	*behavior(void *data)
 		my_usleep(philo->info->to_eat);
 		philo->eat--;
 		drop_fork(philo);
-		usleep(50);
 	}
 	return (0);
 }
@@ -88,11 +86,8 @@ int	run_threads(t_philo *philos, t_info *info)
 	i = -1;
 	info->start_time = time_set();
 	while (++i < info->num)
-	{
 		if (pthread_create(&(philos + i)->thread, NULL, behavior, philos + i))
 			return (error_print("pthread create error"));
-		usleep(50);
-	}
 	while (--i >= 0)
 		if (pthread_join((philos + i)->thread, NULL))
 			error_print("pthread join error");
