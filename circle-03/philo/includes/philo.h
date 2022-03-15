@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:54:04 by taewan            #+#    #+#             */
-/*   Updated: 2022/03/12 00:01:25 by taewan           ###   ########.fr       */
+/*   Updated: 2022/03/15 14:39:26 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,18 @@ typedef struct s_info
 	pthread_mutex_t	print;
 	pthread_mutex_t	death;
 	pthread_mutex_t	*forks;
-	long			s_time;
+	long			start_time;
 	int				die;
 	int				num;
-	int				t_die;
-	int				t_eat;
-	int				t_sleep;
+	int				to_die;
+	int				to_eat;
+	int				to_sleep;
 	int				must_eat;
 }	t_info;
 
 typedef struct s_philo
 {
-	int				p_time;
+	int				pre_time;
 	int				name;
 	int				eat;
 	pthread_mutex_t	*left;

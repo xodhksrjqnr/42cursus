@@ -6,7 +6,7 @@
 #    By: taewan <taewan@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/03/08 23:02:49 by taewan            #+#    #+#              #
-#    Updated: 2022/03/12 00:44:12 by taewan           ###   ########.fr        #
+#    Updated: 2022/03/15 14:39:55 by taewan           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CC = gcc
 
 HEAD = -I includes
 
-FLAG = -Wall -Wextra -Werror $(HEAD) -g3 -fsanitize=address
+FLAG = -Wall -Wextra -Werror $(HEAD) -g3
 
 SRCS = srcs/main.c \
 	srcs/setting.c \

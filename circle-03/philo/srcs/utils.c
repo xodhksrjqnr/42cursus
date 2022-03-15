@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:53:52 by taewan            #+#    #+#             */
-/*   Updated: 2022/03/12 00:01:20 by taewan           ###   ########.fr       */
+/*   Updated: 2022/03/15 14:34:58 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	print(const char *str, t_philo *philo)
 {
 	int	time;
 
-	time = time_set() - philo->info->s_time;
+	time = time_set() - philo->info->start_time;
 	pthread_mutex_lock(&philo->info->print);
 	if (!is_die(philo))
 		printf("%d %d %s\n", time, philo->name, str);

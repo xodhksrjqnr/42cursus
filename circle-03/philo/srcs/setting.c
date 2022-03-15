@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:53:55 by taewan            #+#    #+#             */
-/*   Updated: 2022/03/12 13:41:06 by taewan           ###   ########.fr       */
+/*   Updated: 2022/03/15 15:01:50 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ static int	info_mutex_init(t_info *info)
 	int	i;
 
 	if (pthread_mutex_init(&info->print, NULL))
-		return (error_print("mutex init error"));
+		return (0);
 	if (pthread_mutex_init(&info->death, NULL))
 	{
 		pthread_mutex_destroy(&info->print);
-		return (error_print("mutex init error"));
+		return (0);
 	}
 	i = -1;
 	while (++i < info->num)
@@ -59,30 +59,35 @@ static int	info_mutex_init(t_info *info)
 			pthread_mutex_destroy(info->forks + i);
 		pthread_mutex_destroy(&info->print);
 		pthread_mutex_destroy(&info->death);
-		return (error_print("mutex init error"));
+		return (0);
 	}
 	return (1);
 }
 
-int	init_info(t_info *info, int ac, char **av)
+int	init_info(t_info *info, int ac, char **av, t_philo **philos)
 {
 	if (ac < 5 || ac > 6)
 		return (error_print("argument invalid"));
 	info->num = my_atoi(av[1]);
-	info->t_die = my_atoi(av[2]);
-	info->t_eat = my_atoi(av[3]);
-	info->t_sleep = my_atoi(av[4]);
+	info->to_die = my_atoi(av[2]);
+	info->to_eat = my_atoi(av[3]);
+	info->to_sleep = my_atoi(av[4]);
 	info->must_eat = -1;
 	info->die = 0;
 	if (ac == 6)
 		info->must_eat = my_atoi(av[5]);
-	if (info->num < 0 || info->t_die < 0 || info->t_eat < 0
-		|| info->t_sleep < 0 || info->must_eat < -1)
+	if (info->num < 0 || info->to_die < 0 || info->to_eat < 0
+		|| info->to_sleep < 0 || (ac == 6 && info->must_eat < 0))
 		return (error_print("argument invalid"));
 	info->forks = malloc(info->num * sizeof(pthread_mutex_t));
 	if (!info->forks)
 		return (error_print("malloc error"));
-	return (info_mutex_init(info));
+	if (!info_mutex_init(info))
+	{
+		free(info->forks);
+		return (error_print("mutex init error"));
+	}
+	return (1);
 }
 
 int	init_philo(t_philo **philos, t_info *info)
@@ -96,7 +101,7 @@ int	init_philo(t_philo **philos, t_info *info)
 	while (++i < info->num)
 	{
 		(*philos + i)->name = i + 1;
-		(*philos + i)->p_time = 0;
+		(*philos + i)->pre_time = 0;
 		(*philos + i)->eat = info->must_eat;
 		(*philos + i)->left = info->forks + i;
 		(*philos + i)->right = info->forks + (i + 1) % info->num;
