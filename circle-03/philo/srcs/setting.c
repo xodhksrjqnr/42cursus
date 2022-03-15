@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:53:55 by taewan            #+#    #+#             */
-/*   Updated: 2022/03/15 15:01:50 by taewan           ###   ########.fr       */
+/*   Updated: 2022/03/15 15:08:03 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static int	info_mutex_init(t_info *info)
 	return (1);
 }
 
-int	init_info(t_info *info, int ac, char **av, t_philo **philos)
+int	init_info(t_info *info, int ac, char **av)
 {
 	if (ac < 5 || ac > 6)
 		return (error_print("argument invalid"));
