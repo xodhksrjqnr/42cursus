@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:53:44 by taewan            #+#    #+#             */
-/*   Updated: 2022/03/15 15:17:05 by taewan           ###   ########.fr       */
+/*   Updated: 2022/03/15 15:41:18 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static void	*behavior(void *data)
 	if (philo->info->num == 1)
 		return (philo_one(philo));
 	if (philo->name % 2 == 0)
-		usleep(100);
+		usleep(200);
 	while (!is_die(philo) && philo->eat != 0)
 	{
 		pthread_mutex_lock(philo->left);
