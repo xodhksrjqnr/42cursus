@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:53:44 by taewan            #+#    #+#             */
-/*   Updated: 2022/03/15 15:41:18 by taewan           ###   ########.fr       */
+/*   Updated: 2022/03/16 13:57:17 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ static void	*behavior(void *data)
 		check_time(philo);
 		print("is eating", philo);
 		my_usleep(philo->info->to_eat);
-		philo->eat--;
+		philo->eat -= philo->eat_minus;
 		drop_fork(philo);
 	}
 	return (0);

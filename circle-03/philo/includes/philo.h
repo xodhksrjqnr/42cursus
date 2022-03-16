@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:54:04 by taewan            #+#    #+#             */
-/*   Updated: 2022/03/15 14:39:26 by taewan           ###   ########.fr       */
+/*   Updated: 2022/03/16 13:55:31 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_philo
 	int				pre_time;
 	int				name;
 	int				eat;
+	int				eat_minus;
 	pthread_mutex_t	*left;
 	pthread_mutex_t	*right;
 	pthread_t		thread;

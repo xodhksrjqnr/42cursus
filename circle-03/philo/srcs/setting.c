@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:53:55 by taewan            #+#    #+#             */
-/*   Updated: 2022/03/15 15:08:03 by taewan           ###   ########.fr       */
+/*   Updated: 2022/03/16 13:56:42 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,9 @@ int	init_philo(t_philo **philos, t_info *info)
 		(*philos + i)->name = i + 1;
 		(*philos + i)->pre_time = 0;
 		(*philos + i)->eat = info->must_eat;
+		(*philos + i)->eat_minus = 1;
+		if (info->must_eat == -1)
+			(*philos + i)->eat_minus = 0;
 		(*philos + i)->left = info->forks + i;
 		(*philos + i)->right = info->forks + (i + 1) % info->num;
 		(*philos + i)->info = info;
