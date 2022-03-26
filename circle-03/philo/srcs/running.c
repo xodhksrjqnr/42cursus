@@ -6,7 +6,7 @@
 /*   By: taewan <taewan@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/06 23:53:44 by taewan            #+#    #+#             */
-/*   Updated: 2022/03/16 13:57:17 by taewan           ###   ########.fr       */
+/*   Updated: 2022/03/26 13:03:10 by taewan           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,18 @@ static void	*behavior(void *data)
 int	run_threads(t_philo *philos, t_info *info)
 {
 	int		i;
+	int		err;
 
+	err = 1;
 	i = -1;
 	info->start_time = time_set();
 	while (++i < info->num)
 		if (pthread_create(&(philos + i)->thread, NULL, behavior, philos + i))
-			return (error_print("pthread create error"));
+			break ;
+	if (i != info->num)
+		err = error_print("pthread create error");
 	while (--i >= 0)
 		if (pthread_join((philos + i)->thread, NULL))
-			error_print("pthread join error");
-	return (1);
+			err = error_print("pthread join error");
+	return (err);
 }
